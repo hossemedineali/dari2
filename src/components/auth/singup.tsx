@@ -114,12 +114,24 @@ const SignUp= () => {
                     <div className="border-b-2 border-devider  my-2"></div>
         </div>
         <div className="border-b-2 border-devider  my-2"></div>
+
+                          {/* Phone num Input */}
+
+                <div className="flex  flex-col leading-3">
+
+                <label htmlFor="phone" className="text-left">Phone number  </label><br/>
+                <input {...register("email")} type='tel' id="phone" name="phone" pattern="[0-9]{2}-[0-9]{3}-[0-9]{3}"  placeholder="Enter you phone number  "  
+                className="w-full px-4 border rounded-md h-8 "/>
+                {errors.email?.message&&<p className="text-red text-start mt-1">{errors.email.message}</p>}
+                </div>
+                <div className="border-b-2 border-devider  my-2"></div>
+
                          {/* Email Name Input */}
 
          <div className="flex  flex-col leading-3">
 
          <label htmlFor="email" className="text-left">Email  </label><br/>
-         <input {...register("email")} type='text' id="email" name="email"  placeholder="Enter you Email  "  
+         <input {...register("email")} type='email' id="email" name="email"  placeholder="Enter you Email  "  
          className="w-full px-4 border rounded-md h-8 "/>
          {errors.email?.message&&<p className="text-red text-start mt-1">{errors.email.message}</p>}
          </div>
