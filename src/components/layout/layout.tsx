@@ -22,7 +22,7 @@ const Layout :React.FC<porps>= (props)=> {
         <Navbar/>
             <main className="mt-16 bg-devider">
                 
-            {SignInModal.show&&<div className="md:rounded-2xl p-2   bg-white mx-auto md:w-[350px] fixed left-0 right-0 md:top-20 top-0 z-30 bottom-0">
+            {SignInModal.show&&<div className="md:rounded-2xl p-2   bg-white mx-auto md:w-[350px] fixed left-0 right-0 md:top-16  top-0 z-30 bottom-0 overflow-auto backdrop-blur-lg">
             <svg onClick={()=>SignInModal.toggleShow()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>

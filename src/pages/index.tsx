@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="container ">
 
-        <div className="h-[1550px]">
+        <div className="">
 
         </div>
       

@@ -3,22 +3,18 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+
 }
 
 datasource db {
-  provider = "sqlite"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_URL")
+  referentialIntegrity = "prisma"
 }
 
-model Example {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+
 
 // Necessary for Next auth
 model Account {
@@ -52,9 +48,55 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  emailisverfied Boolean @default(false)
   image         String?
   accounts      Account[]
   sessions      Session[]
+  
+  posts         Post[] @relation("owner")
+  liked       Post[] @relation(name: "likedby") 
+}
+
+
+
+model Post {
+  id       String   @id @default(cuid())
+
+  date     DateTime @default(now())
+
+  auther   String     
+
+  
+  type     String
+ 
+  price    Float
+  pricePer String ?
+  size     Float
+  rooms    Int
+ 
+ governorate String
+ municipality String
+
+  isposition Boolean
+  lng      Float?
+  lat      Float?
+  
+   Garage Boolean @default(false)
+   Balcony Boolean @default(false)
+   OutdoorArea Boolean @default(false)
+   SwimmingPool Boolean @default(false)
+   UndercoverParking Boolean @default(false)
+   airConditioning Boolean @default(false)
+   solarPanels Boolean @default(false)
+   SolarHotwater Boolean @default(false)
+  images String ?
+  description String @default("")
+   
+
+  user         User     @relation(name:"owner",fields: [auther], references: [id], onDelete: Cascade)
+
+  liked       User?     @relation(name:"likedby",fields: [id], references: [id], onDelete: Cascade)
+
 }
 
 model VerificationToken {

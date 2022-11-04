@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const Footer = () => {
-    return ( <div className="h-20  gap-2 item-center py-auto  justify-center bg-primary1 fixed w-full mt-20  bottom-0">
+    return ( <div className="h-20  gap-2 item-center py-auto  justify-center bg-primary1 absolute w-full   bottom-0">
                 <div className="flex flex-col text-center w-full md:3/5 mx-auto ">
                 <p className="py-2 text-white  text-lg md:text-xl">Developed  by | hossem edine ali</p>
                 <Link href="https://www.linkedin.com/in/ali-hossem-edine-1691a124a/" passHref>

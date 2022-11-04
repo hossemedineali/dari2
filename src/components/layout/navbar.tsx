@@ -60,7 +60,7 @@ const Navbar = () => {
 </svg>}
 
     <Link href='/'>
-    <h1 className="text-primary1  font-bold text-2xl pl-6  flex justify-center cursor-pointer  m-auto grow bg-red mr-auto">Dari</h1>
+    <h1 className="text-primary1  font-bold text-3xl pl-6  flex justify-center cursor-pointer  m-auto grow  mr-auto">Dari</h1>
     </Link>
     
     <ul className="sm:flex flex-wrap justify-evenly w-4/5 hidden  ">
