@@ -77,16 +77,7 @@ const SignUp= () => {
 
 
   const onSubmit =async(data: Schema) => {
-
-    
-
- 
-   
-  
-
-  
-  
-      
+        console.log(data)
   };
 
 
