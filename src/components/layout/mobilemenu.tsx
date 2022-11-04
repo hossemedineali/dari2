@@ -1,5 +1,7 @@
 import { motion } from "framer-motion"
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 //import { useFormInput } from "../../store/store";
 
 const links=[
@@ -14,8 +16,18 @@ const links=[
 
 const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
 
-   // const formInput=useFormInput()
+    const { data:sesssion } = useSession()
+    const router=useRouter()
 
+
+   // const formInput=useFormInput()
+   const handeladdpostclick=()=>{
+    if(!sesssion){
+ //     auth.setToogleShow(true)
+    }else{
+      router.push('/add')
+    }
+  }
 
     return (
         <div className=" absolute top-0 left-0 bottom-0  min-h-screen  bg-primary1 backdrop-sepia  md:hidden " >
@@ -30,14 +42,21 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
              transition={{easeInOut: [0.17]}}
             >
 
-            <ul className="p-16 flex flex-col gap-5">
+            <ul className="p-12 flex flex-col gap-5">
                 {links.map((link,index)=>(
                 <Link href='/search' key={index}>
-{/*                     <li onClick={()=>{formInput.setannouncementtype(link.label);settogglemenu(false)}}  className='cursor-pointer hover:text-secondary2'> {link.value}</li>
- */}                    </Link>
+                     <li   className='cursor-pointer hover:text-secondary2'> {link.value}</li>
+                     </Link>
                     
                 
                     ))}
+
+                <div onClick={handeladdpostclick} className="hover:scale-105 active:scale-95 flex  mr-6  md:px-4 md:py-1 rounded-2xl cursor-pointer  ">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <h1 >Add announcment</h1>
+                  </div>
             </ul>
                     </motion.aside>
     </div> 

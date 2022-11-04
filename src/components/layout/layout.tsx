@@ -2,6 +2,9 @@
 import React from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { useSignInModal } from "../../store/store";
+import SignIn from "../auth/signIn";
+import SignUp from "../auth/singup";
 
 
 
@@ -11,10 +14,23 @@ type porps={
 }
 
 const Layout :React.FC<porps>= (props)=> {
+    
+    const SignInModal=useSignInModal()
     return ( 
-        <div className="rlative">
+        <div >
+
         <Navbar/>
+            <main className="mt-16 bg-devider">
+                
+            {SignInModal.show&&<div className="rounded-2xl p-2  w-10/12 bg-white mx-auto md:w-[350px] fixed left-[10%] right-[10%] top-20">
+            <svg onClick={()=>SignInModal.toggleShow()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+
+                {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
+                </div>}
             {props.children}
+                        </main>
         <Footer/>
             
         </div>
