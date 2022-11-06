@@ -5,6 +5,7 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
 
+ 
   return (
     <>
       <Head>
@@ -14,8 +15,8 @@ const Home: NextPage = () => {
       </Head>
       <main className="container ">
 
-        <div className="">
-
+        <div className=" ">
+        
         </div>
       
       </main>
