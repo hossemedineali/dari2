@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm,UseFormSetValue, UseFormGetValues} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {  useState } from "react";
@@ -6,6 +6,7 @@ import { useLanguage, useSignInModal } from "../../store/store";
 import { trpc } from "../../utils/trpc";
 
 import loader from '../../../public/rings.svg'
+
 
 
 
@@ -54,7 +55,6 @@ const SignUp= () => {
   const [step,setstep]=useState<number>(1)
   const [email,setemail]=useState('')
   
-  const adduser=trpc.adduser.adduser.useMutation()
 
 
   
@@ -69,18 +69,23 @@ const SignUp= () => {
 
     
 
-  const {setValue, register,getValues, handleSubmit ,setError,formState:{errors,isValid,isDirty,isSubmitted}} = useForm<Schema>({
+  const {setValue,getValues, handleSubmit ,setError,formState:{errors,isValid,isDirty,isSubmitted}} = useForm<Schema>({
    
     resolver: zodResolver(schema)
   });
 
 
+  console.log('email: ',getValues().email, 'password :',getValues().password,'conf password :',getValues().confpassword)
+
   const onSubmit =async(data: Schema) => {
-       const user= adduser.mutate({ 
+
+
+    //console.log('data:',getValues().email,getValues().password,getValues().confpassword,getValues().firstName,getValues().lastName,getValues().phone)
+      /*  const user= adduser.mutate({ 
         name:data.firstName + ''+ data.lastName,
         email:data.email,
         phone:data.phone,
-        password:data.password})
+        password:data.password}) */
   };
 
 
@@ -90,9 +95,9 @@ const SignUp= () => {
     <div className="w-full flex flex-col gap-3 relative ">
     <h1 className="text-center text-2xl font-medium">{Language.lng=='ENG'?'Create an account':'Crée un compte'} </h1>
     
-    {step==1&&<FirstStep setstep={setstep} setemail={setemail}/>}
-    {step==2&&<MiddleStep email={email}  setstep={setstep} />}
-    {step==3&&<SecondStep/>}
+    {step==1&&<FirstStep setstep={setstep}  setValue={setValue}/>}
+    {step==2&&<MiddleStep email={getValues().email}  setstep={setstep} />}
+    {step==3&&<SecondStep getValues={getValues} onSubmit={onSubmit}  setValue={setValue}/>}
   
 
   
@@ -139,11 +144,11 @@ type Step1=z.infer<typeof step1>
 
 type Props={
   setstep: (value:number)=>void
-  setemail:(value:string)=>void
+  setValue: UseFormSetValue<Schema>
 
 }
 
-    const FirstStep:React.FC<Props>=({setstep,setemail}:Props)=>{
+    const FirstStep:React.FC<Props>=({setstep,setValue}:Props)=>{
 
       
       //const checkemail=trpc.adduser.checkemail.useQuery({email})
@@ -156,7 +161,10 @@ type Props={
   });
 
   const onSubmit= async(data:Step1)=>{
-    setemail(data.email)
+    setValue('email',data.email)
+    setValue('password',data.password)
+    setValue('confpassword',data.confpassword)
+
       setstep(2)
 
    
@@ -230,22 +238,52 @@ const step2=z.object({
 
 type Step2=z.infer<typeof step2>
 
-const SecondStep=()=>{
+
+type Props2={
+  setValue: UseFormSetValue<Schema>
+  onSubmit: (data: Schema) => Promise<void>
+  getValues:UseFormGetValues<Schema>
+}
+
+
+
+const SecondStep:React.FC<Props2>=({setValue,getValues})=>{
   const Language=useLanguage()
+  const adduser=trpc.adduser.adduser.useMutation()
+  const SignInModal=useSignInModal()
+
 
   
-  const { register,getValues, handleSubmit ,setError,formState:{errors,isValid,isDirty,isSubmitted}} = useForm<Step2>({
+  const { register, handleSubmit ,formState:{errors,isValid,isDirty}} = useForm<Step2>({
    
-    resolver: zodResolver(step1)
+    resolver: zodResolver(step2)
   });
 
-  const onSubmit=(data:Step2)=>{
+  const Submit=async(data:Step2)=>{
 
-    console.log(data)
+    setValue('firstName',data.firstName)
+    setValue('lastName',data.lastName)
+    setValue('phone',data.phone)
+
+    adduser.mutate({email:getValues().email,password:getValues().password,name:data.firstName+''+data.lastName,phone:data.phone})
+    console.log(adduser)
+    if(adduser.data){
+      console.log('success')
+    }else{
+      console.log('error')
+    }
+
+    if(adduser.isError){
+      console.log("------------is error -----------------")
+    }
+//    console.log('email :',getValues().email,'password :',getValues().password,' confpassword:',getValues().confpassword,'FirstName :',getValues().firstName,'lastname :',getValues().lastName,'phone :',getValues().phone,)
+
+   // onSubmit(data)
+
   }
 
-  return <form     onSubmit={handleSubmit(onSubmit)} 
-  >
+  return <>
+ {!adduser.isSuccess&&!adduser.isLoading&&!adduser.isError&& <form onSubmit={handleSubmit(Submit)} >
 
     {/* First NAme and last name */}
    
@@ -280,18 +318,32 @@ const SecondStep=()=>{
               
               <div className="flex  flex-col leading-3">
 
-                <label htmlFor="phone" className="text-left">{Language.lng=='ENG'?'Phone number':'Numéro du télephone'}  </label><br/>
+                <label htmlFor="phone" className="text-left">{Language.lng=='ENG'?'Phone number':'Numéro du télephone'} <span className="text-sm text-smallText">({Language.lng=='ENG'?'Will be shown in your announcments':'Sera afficher dans votre annonces'})</span> </label><br/>
                 <input {...register("phone")} type='tel' id="phone" name="phone" pattern="[0-9]{8}"   placeholder=" phone number  ex:22000000 "  
                 className="w-full px-4 border rounded-md h-8 "/>
 
                 </div>
                 <div className="border-b-2 border-devider  my-2"></div>
+                <button>submit</button>
 
-                <button className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60"  disabled={!isDirty && !isValid}>{Language.lng=='ENG'?'Sign up':'Inscrir'}</button>
+                <button  type="submit" className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60"  disabled={!isDirty && !isValid}>{Language.lng=='ENG'?'Sign up':'Inscrir'}</button>   
+  </form>}
 
-              
-  </form>
+  {adduser.isLoading&&<img src={loader.src} className='m-auto h-20 w-20'/>}
+  {adduser.isError&&<p className=" text-center mx-5">sorry!somthing went wrong</p>}
 
+  {adduser.data&&<div className="flex flex-col p-10 justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 mx-auto mb-5 text-green">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+    </svg>
+
+
+     <p className="text-center mb-2"> {Language.lng=='ENG'?'Your account has been created successfully':' Votre compte a été créé avec succès'}</p> 
+
+     <button onClick={()=>SignInModal.togglemode()}  className="bg-primary1 rounded-xl mx-5">{Language.lng=='ENG'?'Login':"S'Identifier"}</button>
+     </div>}
+
+                </>
 
 }
 
@@ -308,25 +360,25 @@ const MiddleStep:React.FC<middleStepProps>=({email,setstep})=>{
   const SignInModal=useSignInModal()
 
   const Language=useLanguage()
-  const checkemail= trpc.adduser.checkemail.useQuery({email})
 
-  console.log(checkemail.data?.email)
+  const checkemail=trpc.adduser.checkemail.useQuery({email})
+  console.log(checkemail.data)
 
-  if(!!!checkemail.data?.email){
-    setstep(3)
+  if(checkemail.data==false){
+    setInterval(()=>{
+      setstep(3)
+    },1)
   }
-  else{
 
-  }
-
+  
   return <div>
     {checkemail.isLoading &&<img src={loader.src} className='bg-devider w-20   h-20 m-auto mt-20 '/>}
-    {checkemail.data&&<div className="flex flex-col justify-center gap-10 p-auto">
+    {checkemail.data==true&&<div className="flex flex-col justify-center gap-10 p-auto">
       <p className="text-2xl text-red text-center"> {Language.lng=='ENG'?'Email already exist!':'Cette adresse e-mail est déjà utilisée'}</p>
      
         <button onClick={()=>SignInModal.togglemode()} className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60">{Language.lng=='ENG'?'Login':'Identifier vous'}</button>
        <p className="text-xl  mx-auto ">OR</p>
-        <p className="text-xl text-smallText mx-auto cursor-pointer">{Language.lng=='ENG'?'Sign up with different email':'Enregistrer avec un autre adresse email'}</p>
+        <p onClick={()=>{setstep(1)}} className="text-xl text-smallText mx-auto cursor-pointer">{Language.lng=='ENG'?'Sign up with different email':'Enregistrer avec un autre adresse email'}</p>
       
       </div>}
   </div>

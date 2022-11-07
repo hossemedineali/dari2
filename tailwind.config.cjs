@@ -15,6 +15,7 @@ module.exports = {
       'red'       :'#ef2d2d',
       'devider':'#F1F2EC',
       'smallText':'#B5985A',
+      'green':'#37eb34',
   
 
     },

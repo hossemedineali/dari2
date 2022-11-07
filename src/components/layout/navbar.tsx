@@ -28,7 +28,6 @@ const Navbar = () => {
   const router=useRouter()
   const SignInModal=useSignInModal()
   const Language=useLanguage()
-  console.log(Language.lng)
 
   
 

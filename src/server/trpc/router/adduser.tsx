@@ -11,7 +11,8 @@ export const  adduser=router({
             name:z.string(),
             email:z.string(),
             phone:z.string().optional(),
-            password:z.string()
+            password:z.string(),
+        
         })
     )
     .mutation ( async({ input,ctx }) => {
@@ -33,13 +34,18 @@ export const  adduser=router({
       )
       .query ( async({ input,ctx }) => {
              
-           return await ctx.prisma.user.findUnique({
+         const check= await ctx.prisma.user.findUnique({
             where:{
                 email:input.email
             }
            })
-
-        
+           
+           if (check){
+            return true
+           }       
+           else{
+            return false
+           }
       }),
 
       
