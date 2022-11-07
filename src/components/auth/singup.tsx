@@ -329,7 +329,7 @@ const SecondStep:React.FC<Props2>=({setValue,getValues})=>{
                 <button  type="submit" className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60"  disabled={!isDirty && !isValid}>{Language.lng=='ENG'?'Sign up':'Inscrir'}</button>   
   </form>}
 
-  {adduser.isLoading&&<img src={loader.src} className='m-auto h-20 w-20'/>}
+  {adduser.isLoading&&<img src={loader.src} className='m-auto h-20 w-20 bg-devider' />}
   {adduser.isError&&<p className=" text-center mx-5">sorry!somthing went wrong</p>}
 
   {adduser.data&&<div className="flex flex-col p-10 justify-center">

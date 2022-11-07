@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
+import bcrypt from "bcrypt";
+
 
 
 export const  adduser=router({
@@ -16,14 +18,19 @@ export const  adduser=router({
         })
     )
     .mutation ( async({ input,ctx }) => {
-             
-           
-
-        return ctx.prisma.user.create({
-            data:{
-                ...input
-            }
+             let user
+        
+       await bcrypt.hash(input.password, 10).then(function(hash) {
+           user=  ctx.prisma.user.create({
+                data:{
+                    ...input,
+                    password:hash
+                }
+            })
         });
+        
+        return user
+
       }),
 
       checkemail:publicProcedure

@@ -18,6 +18,8 @@
     "@trpc/next": "10.0.0-rc.0",
     "@trpc/react-query": "10.0.0-rc.0",
     "@trpc/server": "10.0.0-rc.0",
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
     "framer-motion": "^7.6.4",
     "next": "13.0.0",
     "next-auth": "^4.15.0",
