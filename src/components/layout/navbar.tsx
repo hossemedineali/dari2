@@ -33,13 +33,15 @@ const Navbar = () => {
 
   
 
-  const { data:sesssion } = useSession()
+  const {data:sesssion}  = useSession()
+ 
+  console.log(sesssion)
 
   const handeladdpostclick=()=>{
     if(!sesssion){
-     // auth.setToogleShow(true)
+      SignInModal.toggleShow()
     }else{
-      //router.push('/add')
+      router.push('/add')
     }
   }
 

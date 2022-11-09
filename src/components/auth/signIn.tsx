@@ -2,7 +2,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useLanguage, useSignInModal } from "../../store/store";
-
+import { useSession, signIn, signOut } from "next-auth/react"
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const schema = z.object({
   
@@ -35,15 +37,21 @@ const dic={
 
 type Schema = z.infer<typeof schema>;
 
+
+
 const SignIn= () => {
 
     const Language=useLanguage()
 
+
   
 
     const SignInModal=useSignInModal()
+    const router=useRouter()
+    const [customError,setCustomError]=useState('')
 
-    console.log(SignInModal.mode)
+
+    
 
 
   const { register, handleSubmit ,formState:{errors}} = useForm<Schema>({
@@ -54,6 +62,29 @@ const SignIn= () => {
 
   const onSubmit = (data: Schema) => {
     console.log(data);
+    
+     (signIn('credentials',{
+      redirect:false,
+      callbackUrl:'/',
+      email:data.email,
+      password:data.password
+      
+    }).then(res=>{
+      console.log('response from calling the sign in :')
+      console.log('response',res)
+      if(res?.error){
+        setCustomError(res.error)
+      }
+      else{
+        SignInModal.toggleShow()
+        router.push('/')
+
+      }
+    })).catch(err=>{
+      //setCustomError(err.error)
+
+      console.log('error :',err)
+    })
   };
 
   return (
@@ -91,7 +122,8 @@ const SignIn= () => {
           {errors.password?.message&&<p className="text-red text-start mt-1">{errors.password?.message}</p>}
           </div>
 
-        <button className=" mx-10 p-1 rounded-md bg-primary1  ">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA}</button>
+      {customError&&<p className="text-red text-center">{customError}</p>}
+        <button  className=" mx-10 p-1 rounded-md bg-primary1  ">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA}</button>
 
         <button> {Language.lng=='ENG'?'Forget password?':'Mot de passe oubliée ?'}</button>
     </form>
