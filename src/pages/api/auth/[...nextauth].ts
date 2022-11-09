@@ -116,6 +116,7 @@ export const authOptions: NextAuthOptions = {
         session.user={
           ...user,
           ...token,
+          emailisverfied:user.emailisverfied
         }  
       }
       
