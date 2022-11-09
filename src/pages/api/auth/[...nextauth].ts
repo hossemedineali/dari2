@@ -6,13 +6,11 @@ import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt'
-
 import { randomBytes, randomUUID } from "crypto";
 
 
-
-
 export const authOptions: NextAuthOptions = {
+  
   // Include user.id on session
 
 
@@ -45,30 +43,23 @@ export const authOptions: NextAuthOptions = {
             email
           },
           select:{
-
             id:true,
             email:true,
             phone:true,
             password:true,
-            
             name:true,
-           emailisverfied:true
+            emailisverfied:true
             }
-        
         })
        if(!user){
         throw new Error('email or password incorrect')
-        
        }
-
        const isMatch=await  signInUser(password as string,user.password)
-       
        if(!isMatch){
         throw new Error('email or password incorrect')
        }else{
         return user
        }
-        
       }
     })
     // ...add more providers here
@@ -123,13 +114,14 @@ export const authOptions: NextAuthOptions = {
    
       return session
   },
-  async jwt({ user,token, account, profile }) {
+  async jwt({ user,token}) {
 
     console.log('---------------JWt----------')
     console.log("JWT callback. Got User: ", user);
     console.log("JWT callback. Got Token: ", token);
-    if(user?.emailisverfied){
-      token.emailisverfied = user.emailisverfied ;
+    if(user){
+      console.log('email is verified :',user.emailisverfied)
+     // token.emailisverfied = user.emailisverfied ;
     }
    
         
