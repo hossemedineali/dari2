@@ -339,6 +339,7 @@ const SecondStep:React.FC<Props2>=({setValue,getValues})=>{
 
 
      <p className="text-center mb-2"> {Language.lng=='ENG'?'Your account has been created successfully':' Votre compte a été créé avec succès'}</p> 
+     <p className="text-center mb-2"> {Language.lng=='ENG'?'Please check your email for verification link':' S.V.P vonsulter votre courrier pour lien de verification'}</p> 
 
      <button onClick={()=>SignInModal.togglemode()}  className="bg-primary1 rounded-xl mx-5">{Language.lng=='ENG'?'Login':"S'Identifier"}</button>
      </div>}

@@ -1,7 +1,6 @@
-import { now } from "next-auth/client/_utils";
 import { z } from "zod";
 import { router, publicProcedure } from "../../trpc";
-import nodemailer from 'nodemailer'
+import { mailer } from "./mailer";
 
 export const verifyEmail=router({
     verify:publicProcedure
@@ -14,17 +13,28 @@ export const verifyEmail=router({
         
         const registred =await ctx.prisma.user.findFirst({
             where:{
-                email:input.email
+                email:input.email,
+                
             }
         })
 
       if(!registred){
-        throw new Error('email not found  ')
+        throw new Error('email not found   ')
       }
 
-        //let testAccount = await nodemailer.createTestAccount();
+      if(registred.emailisverfied==true){
+        throw new Error('Email already verified')
+      }
+         const info=mailer(input.email,'hash')
+          return info
+    })
+})
 
-        // create reusable transporter object using the default SMTP transport
+
+
+
+/*
+ // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
          // host: "smtp.ethereal.email",
          service:'Gmail',
@@ -45,12 +55,4 @@ export const verifyEmail=router({
             text: "Hello world?", // plain text body
             html: "<b>Hello world?</b>", // html body
           }); 
-         
-        
-console.log(info)
-
-          return info
-        
-        
-    })
-})
+*/
