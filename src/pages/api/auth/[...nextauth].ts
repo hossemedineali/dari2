@@ -6,26 +6,11 @@ import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt'
-import { JWT } from "next-auth/jwt/types.js";
-import { AdapterUser } from "next-auth/adapters.js";
+
 import { randomBytes, randomUUID } from "crypto";
-import { use } from "react";
 
 
-//import { Session } from "../../../types/next-auth";
 
-
-type Userprofile={
-  id:string,
-  email:string,
-  password:string,
-  phone:string,
-  name:string,
-  liked:any,
-  posts:any,
-  emailisverfied:boolean,
-
- }
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
@@ -65,8 +50,7 @@ export const authOptions: NextAuthOptions = {
             email:true,
             phone:true,
             password:true,
-            liked:true,
-            posts:true,
+            
             name:true,
            emailisverfied:true
             }
@@ -90,25 +74,18 @@ export const authOptions: NextAuthOptions = {
     // ...add more providers here
   ],
   callbacks:{
-    async signIn(user:any){
-
-
-      
-      console.log('--------------Signin-----------------')
+    async signIn(user:any){      
       try
       {
           //the user object is wrapped in another user object so extract it
           user=user.user
-          console.log("Sign in callback", user);
-          console.log("User id: ", user.id)
           if (typeof user.id !== typeof undefined)
+          
           {
-
               if (user )
               {
-               
-                  console.log("User is active");
-                  return user;
+                
+               return user;
               }
               else
               {
@@ -134,12 +111,13 @@ export const authOptions: NextAuthOptions = {
       console.log('session------:',session )
       console.log('user------:',user )
       console.log('token------:',token )
-     session.user={
-        ...user,
-         
-        ...token,
-      
-      }  
+      if(session.user){
+
+        session.user={
+          ...user,
+          ...token,
+        }  
+      }
       
 
    
@@ -150,8 +128,10 @@ export const authOptions: NextAuthOptions = {
     console.log('---------------JWt----------')
     console.log("JWT callback. Got User: ", user);
     console.log("JWT callback. Got Token: ", token);
+    if(user){
+      token.emailisverfied = user.emailisverfied ;
+    }
    
-        token.user = user;
         
      
     return token;

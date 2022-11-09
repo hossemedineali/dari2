@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const {data:sesssion}  = useSession()
  
-  console.log(sesssion)
+  console.log('----------Session from navbar :',sesssion?.user?.emailisverfied)
 
   const handeladdpostclick=()=>{
     if(!sesssion){

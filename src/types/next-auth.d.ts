@@ -8,6 +8,7 @@ declare module "next-auth" {
  export interface Session {
     user?: {
       id: string;
+      emailisverfied:boolean
     } & DefaultSession["user"];
   }
 }

@@ -18,7 +18,7 @@ type porps={
 const Layout :React.FC<porps>= (props)=> {
     
     const SignInModal=useSignInModal()
-    const session=useSession()
+    const {data:session}=useSession()
 
     return ( 
         <div >
@@ -41,7 +41,7 @@ const Layout :React.FC<porps>= (props)=> {
 
                 {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
                 </div>}
-            {<Alert />}
+            {!session?.user?.emailisverfied&&<Alert />}
 
             
             {props.children}
