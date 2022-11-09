@@ -128,7 +128,7 @@ export const authOptions: NextAuthOptions = {
     console.log('---------------JWt----------')
     console.log("JWT callback. Got User: ", user);
     console.log("JWT callback. Got Token: ", token);
-    if(user){
+    if(user?.emailisverfied){
       token.emailisverfied = user.emailisverfied ;
     }
    
