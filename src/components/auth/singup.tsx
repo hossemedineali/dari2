@@ -9,7 +9,7 @@ import loader from '../../../public/rings.svg'
 
 
 export const Loader=()=>{
-  return <img src={loader.src} className='m-auto h-20 w-20 bg-devider' />
+  return <img src={loader.src} className='m-auto h-20 w-20 bg-smallText' />
 }
 
 

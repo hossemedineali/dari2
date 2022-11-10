@@ -35,7 +35,6 @@ const Navbar = () => {
 
   const {data:sesssion}  = useSession()
  
-  console.log('----------Session from navbar :',sesssion)
 
   const handeladdpostclick=()=>{
     if(!sesssion){

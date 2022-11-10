@@ -3,7 +3,7 @@ import { router, publicProcedure } from "../../trpc";
 import { mailer } from "./mailer";
 
 export const verifyEmail=router({
-    verify:publicProcedure
+    SendEmail:publicProcedure
     .input(
         z.object({
             email:z.string()
@@ -29,7 +29,42 @@ export const verifyEmail=router({
       }
          const info=mailer(input.email,'hash')
           return info
-    })
+    }),
+
+    verify:publicProcedure
+    .input(
+        z.object({
+            hashedId:z.string()
+        })
+    )
+    .mutation(async({input,ctx})=>{
+
+        const token=await ctx.prisma.user.findFirst({
+          where:{
+            hashedId:input.hashedId
+          }
+        })
+
+        if(!token){
+          throw new Error('Invalid token')
+        }
+       
+        const verify=await ctx.prisma.user.update({
+          where:{
+            id:token.id
+          },
+          data:{
+            emailisverfied:true
+          }
+        })
+
+        return verify
+        
+        
+    }),
+
+    
+
 })
 
 
