@@ -31,7 +31,7 @@ export const mailer=async(email:string,hash:string)=>{
         html: `<div>
         <b>Hello  </b>, 
         <p>this is your verification hash </p>
-        <a target='blanck' href='http://localhost:3000/verify/${hash}'>verify my account</a>
+        <a target='blanck' href='https://dari2.vercel.app/verify/${hash}'>verify my account</a>
         </div>`
         
     }); 
