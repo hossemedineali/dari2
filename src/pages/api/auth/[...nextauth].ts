@@ -115,11 +115,7 @@ export const authOptions: NextAuthOptions = {
           session.user.emailisverfied=token.emailisverfied as boolean
   
         }
-        session.user={
-          
-          ...user,
-          ...token,
-        }  
+      
       }
       
 
