@@ -5,7 +5,6 @@ import Footer from "./footer";
 import { useSignInModal } from "../../store/store";
 import SignIn from "../auth/signIn";
 import SignUp from "../auth/singup";
-import Alert from "../ui/alert";
 import { useSession } from "next-auth/react";
 
 
@@ -41,7 +40,7 @@ const Layout :React.FC<porps>= (props)=> {
 
                 {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
                 </div>}
-            {session&&<Alert />}
+           
 
             
             {props.children}
