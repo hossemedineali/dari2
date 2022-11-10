@@ -2,9 +2,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useLanguage, useSignInModal } from "../../store/store";
-import { useSession, signIn, signOut } from "next-auth/react"
+import {  signIn } from "next-auth/react"
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { Loader } from "./singup";
+
+
 
 const schema = z.object({
   
@@ -65,7 +68,7 @@ const SignIn= () => {
 
 
   const onSubmit = (data: Schema) => {
-    console.log(data);
+    setSignUpIsLoading(true);
     
      (signIn('credentials',{
       redirect:false,
@@ -78,10 +81,11 @@ const SignIn= () => {
       console.log('response',res)
       if(res?.error){
         setCustomError(res.error)
+        setSignUpIsLoading(false)
       }
       else{
-        //SignInModal.toggleShow()
-       // router.push('/')
+        SignInModal.toggleShow()
+        router.push('/')
 
       }
     })).catch(err=>{
@@ -96,7 +100,7 @@ const SignIn= () => {
       
     <h1 className="text-center">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA} </h1>
  
-    {customError!='Email not verified'&&<><form
+    {customError!='Email not verified'&&!signUpIsLoading&&<><form
     className="flex flex-col justify-center gap-3"
     onSubmit={handleSubmit(onSubmit)} 
     >
@@ -143,8 +147,9 @@ const SignIn= () => {
     {customError=='Email not verified'&&<div className="flex flex-col justify-center items-center gap-3">
         <h3 className="text-red text-lg ">{Language.lng=='ENG'?'Email not verified':'Email non vérifié'} ...</h3>
         <p>{Language.lng=='ENG'?'Please check your email for verification link':'consulter votre courrier pour le lien de verification'}</p>
-        <p className="font-medium cursor-pointer "> {Language.lng=='ENG'?'Resend verification email?':`renvoyer l'email d'activation`}</p>
+        <p className="font-medium cursor-pointer underline	"> {Language.lng=='ENG'?'Resend verification email?':`renvoyer l'email d'activation?`}</p>
       </div>}
+      {signUpIsLoading&&<Loader/>}
 </div>
   );
 };

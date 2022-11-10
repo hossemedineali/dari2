@@ -8,6 +8,9 @@ import { trpc } from "../../utils/trpc";
 import loader from '../../../public/rings.svg'
 
 
+export const Loader=()=>{
+  return <img src={loader.src} className='m-auto h-20 w-20 bg-devider' />
+}
 
 
 
@@ -93,6 +96,7 @@ const SignUp= () => {
 
   return (
     <div className="w-full flex flex-col gap-3 relative ">
+    
     <h1 className="text-center text-2xl font-medium">{Language.lng=='ENG'?'Create an account':'Crée un compte'} </h1>
     
     {step==1&&<FirstStep setstep={setstep}  setValue={setValue}/>}
@@ -283,6 +287,7 @@ const SecondStep:React.FC<Props2>=({setValue,getValues})=>{
   }
 
   return <>
+  
  {!adduser.isSuccess&&!adduser.isLoading&&!adduser.isError&& <form onSubmit={handleSubmit(Submit)} >
 
     {/* First NAme and last name */}
@@ -324,12 +329,14 @@ const SecondStep:React.FC<Props2>=({setValue,getValues})=>{
 
                 </div>
                 <div className="border-b-2 border-devider  my-2"></div>
-                <button>submit</button>
+               
+                <div className="flex">
 
-                <button  type="submit" className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60"  disabled={!isDirty && !isValid}>{Language.lng=='ENG'?'Sign up':'Inscrir'}</button>   
+                <button  type="submit" className=" mx-5 p-1  rounded-md bg-primary1 disabled:opacity-60 flex-grow"  disabled={!isDirty && !isValid}>{Language.lng=='ENG'?'Sign up':'Inscrir'}</button>   
+                </div>
   </form>}
 
-  {adduser.isLoading&&<img src={loader.src} className='m-auto h-20 w-20 bg-devider' />}
+  {adduser.isLoading&&<Loader />}
   {adduser.isError&&<p className=" text-center mx-5">sorry!somthing went wrong</p>}
 
   {adduser.data&&<div className="flex flex-col p-10 justify-center">
