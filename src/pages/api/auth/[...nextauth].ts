@@ -108,11 +108,13 @@ export const authOptions: NextAuthOptions = {
      console.log('user------:',user )
       console.log('token------:',token )
       console.log(session.user?.emailisverfied)
+
+      
       if(session.user){
-
-        
-        session.user.emailisverfied=token.emailisverfied
-
+        if(token.emailisverfied){
+          session.user.emailisverfied=token.emailisverfied as boolean
+  
+        }
         session.user={
           
           ...user,

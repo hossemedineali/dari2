@@ -8,10 +8,10 @@ export const add=router({
     .query ( async({ ctx }) => {
            console.log(ctx.session?.user?.emailisverfied)
        
-         if(ctx.session){
-            if(typeof ctx.session.user?.emailisverfied== typeof Boolean)
+         if(ctx.session?.user?.emailisverfied){
+           
                 
-                console.log('add post api ',ctx.session.user?.emailisverfied)
+              
             
             
             return 'ok'
