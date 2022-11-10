@@ -50,6 +50,10 @@ const SignIn= () => {
     const router=useRouter()
     const [customError,setCustomError]=useState('')
 
+    const [signUpIsLoading,setSignUpIsLoading]=useState(false)
+
+    const [notVerified,SetNotVerified]=useState('')
+
 
     
 
@@ -76,8 +80,8 @@ const SignIn= () => {
         setCustomError(res.error)
       }
       else{
-        SignInModal.toggleShow()
-        router.push('/')
+        //SignInModal.toggleShow()
+       // router.push('/')
 
       }
     })).catch(err=>{
@@ -92,7 +96,7 @@ const SignIn= () => {
       
     <h1 className="text-center">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA} </h1>
  
-    <form
+    {customError!='Email not verified'&&<><form
     className="flex flex-col justify-center gap-3"
     onSubmit={handleSubmit(onSubmit)} 
     >
@@ -127,14 +131,20 @@ const SignIn= () => {
 
         <button> {Language.lng=='ENG'?'Forget password?':'Mot de passe oubliée ?'}</button>
     </form>
-    <div className="border-b-2 border-devider  my-2"></div>
+    
 
     
     <div className="flex gap-4">
     
-    <button  onClick={()=>SignInModal.togglemode()}  className="text-smallText underline underline-offset-2">{Language.lng=='ENG'?'Create new account':'Créer nouveau compte'}</button>
+    <button  onClick={()=>SignInModal.togglemode()}  className="text-smallText mx-auto underline underline-offset-2">{Language.lng=='ENG'?'Create new account':'Créer nouveau compte'}</button>
 
-    </div>
+    </div></>}
+
+    {customError=='Email not verified'&&<div className="flex flex-col justify-center items-center gap-3">
+        <h3 className="text-red text-lg ">{Language.lng=='ENG'?'Email not verified':'Email non vérifié'} ...</h3>
+        <p>{Language.lng=='ENG'?'Please check your email for verification link':'consulter votre courrier pour le lien de verification'}</p>
+        <p className="font-medium cursor-pointer "> {Language.lng=='ENG'?'Resend verification email?':`renvoyer l'email d'activation`}</p>
+      </div>}
 </div>
   );
 };

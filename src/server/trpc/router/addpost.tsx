@@ -6,7 +6,8 @@ export const add=router({
     add:publicProcedure
     
     .query ( async({ ctx }) => {
-       
+       console.log('--------API ----------')
+        console.log(ctx.session)
          if(ctx.session?.user){
            
                 

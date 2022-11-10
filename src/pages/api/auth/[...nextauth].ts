@@ -7,6 +7,7 @@ import { prisma } from "../../../server/db/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from 'bcrypt'
 import { randomBytes, randomUUID } from "crypto";
+import { resolve } from "path";
 
 
 export const authOptions: NextAuthOptions = {
@@ -54,10 +55,15 @@ export const authOptions: NextAuthOptions = {
        if(!user){
         throw new Error('email or password incorrect')
        }
-       const isMatch=await  signInUser(password as string,user.password)
+
+
+       const isMatch=await signInUser(password as string,user.password)
        if(!isMatch){
         throw new Error('email or password incorrect')
        }else{
+        if(user.emailisverfied==false){
+          throw new Error('Email not verified')
+        }
         return user
        }
       }
@@ -65,35 +71,14 @@ export const authOptions: NextAuthOptions = {
     // ...add more providers here
   ],
   callbacks:{
-    async signIn(user:any){      
-      try
-      {
-          //the user object is wrapped in another user object so extract it
-          user=user.user
-          if (typeof user.id !== typeof undefined)
-          
-          {
-              if (user )
-              {
-                
-               return user;
-              }
-              else
-              {
-                 console.log("User is not active")
-                  return false;
-              }
-          }
-          else
-          {
-             // console.log("User id was undefined")
-              return false;
-          }
+    async signIn({user}){      
+      
+      if(user){
+        console.log(user)
       }
-      catch (err)
-      {
-          console.error("Signin callback error:", err);
-      }
+         return true
+    
+      
     },
  
   async session({session,user,token}){
@@ -103,8 +88,8 @@ export const authOptions: NextAuthOptions = {
       console.log('user------:',user )
       console.log('token------:',token )
       if(session.user){
-
-        session.user={
+       
+      session.user={
           ...user,
           ...token,
         }  
@@ -116,6 +101,8 @@ export const authOptions: NextAuthOptions = {
   },
   async jwt({ user,token}) {
 
+    
+    
     console.log('---------------JWt----------')
     console.log("JWT callback. Got User: ", user);
     console.log("JWT callback. Got Token: ", token);
