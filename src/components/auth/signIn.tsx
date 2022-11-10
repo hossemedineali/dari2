@@ -6,6 +6,7 @@ import {  signIn } from "next-auth/react"
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Loader } from "./singup";
+import { trpc } from "../../utils/trpc";
 
 
 
@@ -46,6 +47,7 @@ const SignIn= () => {
 
     const Language=useLanguage()
 
+    const verify=trpc.verfy.SendEmail.useMutation()
 
   
 
@@ -55,13 +57,13 @@ const SignIn= () => {
 
     const [signUpIsLoading,setSignUpIsLoading]=useState(false)
 
-    const [notVerified,SetNotVerified]=useState('')
+    
 
 
     
 
 
-  const { register, handleSubmit ,formState:{errors}} = useForm<Schema>({
+  const { register, handleSubmit ,getValues,formState:{errors}} = useForm<Schema>({
     resolver: zodResolver(schema)
   });
 
@@ -95,6 +97,11 @@ const SignIn= () => {
     })
   };
 
+
+  const resendVerificationEmail=()=>{
+    verify.mutate({email:getValues().email})
+    
+  }
   return (
     <div className="w-full flex flex-col gap-3 relative justify-center">
       
@@ -147,8 +154,10 @@ const SignIn= () => {
     {customError=='Email not verified'&&<div className="flex flex-col justify-center items-center gap-3">
         <h3 className="text-red text-lg ">{Language.lng=='ENG'?'Email not verified':'Email non vérifié'} ...</h3>
         <p>{Language.lng=='ENG'?'Please check your email for verification link':'consulter votre courrier pour le lien de verification'}</p>
-        <p className="font-medium cursor-pointer underline	"> {Language.lng=='ENG'?'Resend verification email?':`renvoyer l'email d'activation?`}</p>
-      </div>}
+        <p onClick={resendVerificationEmail} className="font-medium cursor-pointer underline	"> {Language.lng=='ENG'?'Resend verification email?':`renvoyer l'email d'activation?`}</p>
+        {verify.isLoading&&<p>Sending email...</p>}
+        {verify.data&&<p>email sent seccesfuly please check you inbox</p>}
+        </div>}
       {signUpIsLoading&&<Loader/>}
 </div>
   );
