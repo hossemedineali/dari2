@@ -6,9 +6,8 @@ export const add=router({
     add:publicProcedure
     
     .query ( async({ ctx }) => {
-           console.log(ctx.session?.user?.emailisverfied)
        
-         if(ctx.session?.user?.emailisverfied){
+         if(ctx.session?.user){
            
                 
               
