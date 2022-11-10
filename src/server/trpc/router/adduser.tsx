@@ -28,6 +28,19 @@ export const  adduser=router({
                     password:hash
                 }
             })
+
+            await bcrypt.hash(user.id,10).then(async function (hash) {
+                
+                await ctx.prisma.user.update({
+
+                    where:{
+                        email:input.email
+                    },
+                    data:{
+                        hashedId:hash
+                    }
+                })
+            })
             
             await bcrypt.hash(user.id,10).then(async function (hash) {
                 mailer(input.email,hash)

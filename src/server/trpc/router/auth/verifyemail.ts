@@ -10,6 +10,8 @@ export const verifyEmail=router({
         })
     )
     .mutation(async({input,ctx})=>{
+
+      
         
         const registred =await ctx.prisma.user.findFirst({
             where:{

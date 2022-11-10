@@ -30,7 +30,8 @@ export const mailer=async(email:string,hash:string)=>{
         text: "Hello world?", // plain text body
         html: `<div>
         <b>Hello  </b>, 
-        <p>this is your verification hash ${hash}</p>
+        <p>this is your verification hash </p>
+        <a target='blanck' href='http://localhost:3000/api/verify/${hash}'>verify my account</a>
         </div>`
         
     }); 

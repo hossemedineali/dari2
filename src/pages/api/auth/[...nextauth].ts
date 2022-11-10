@@ -66,6 +66,11 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks:{
     async signIn(user:any){      
+      console.log('################################################################################')
+      console.log('################################################################################')
+      console.log('################################################################################')
+      console.log('################################################################################')
+
       try
       {
           //the user object is wrapped in another user object so extract it
@@ -80,7 +85,7 @@ export const authOptions: NextAuthOptions = {
               }
               else
               {
-                 console.log("User is not active")
+                // console.log("User is not active")
                   return false;
               }
           }
@@ -92,7 +97,7 @@ export const authOptions: NextAuthOptions = {
       }
       catch (err)
       {
-          console.error("Signin callback error:", err);
+         // console.error("Signin callback error:", err);
       }
     },
  
@@ -100,29 +105,34 @@ export const authOptions: NextAuthOptions = {
     
     console.log('-----------Session---------------')
       console.log('session------:',session )
-      console.log('user------:',user )
+     console.log('user------:',user )
       console.log('token------:',token )
+      console.log(session.user?.emailisverfied)
       if(session.user){
 
+        
+        session.user.emailisverfied=token.emailisverfied
+
         session.user={
+          
           ...user,
           ...token,
         }  
       }
       
 
-   
+  // console.log(session.user)
       return session
   },
   async jwt({ user,token}) {
 
-    console.log('---------------JWt----------')
-    console.log("JWT callback. Got User: ", user);
-    console.log("JWT callback. Got Token: ", token);
-    //if(user){
+  //  console.log('---------------JWt----------')
+    //console.log("JWT callback. Got Token: ", token);
+    if(user){
+      //console.log("JWT callback. Got User: ", user);
       //console.log('email is verified :',user.emailisverfied)
-     // token.emailisverfied = user.emailisverfied ;
-    //}
+      token.emailisverfied = user.emailisverfied;
+    }
    
         
      
