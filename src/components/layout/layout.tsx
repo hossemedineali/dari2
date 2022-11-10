@@ -41,7 +41,7 @@ const Layout :React.FC<porps>= (props)=> {
 
                 {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
                 </div>}
-            {session&& !session.user?.emailisverfied&&<Alert />}
+            {session&&<Alert />}
 
             
             {props.children}
