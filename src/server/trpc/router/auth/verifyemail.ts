@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../../trpc";
 import { mailer } from "./mailer";
+import bcrypt from "bcrypt";
 
 export const verifyEmail=router({
     SendEmail:publicProcedure
@@ -27,8 +28,24 @@ export const verifyEmail=router({
       if(registred.emailisverfied==true){
         throw new Error('Email already verified')
       }
-         const info=mailer(input.email,'hash')
-          return info
+      console.log(registred)
+let info
+     await bcrypt.hash(registred.id,10).then(async function(hash){
+      console.log('hashing ; the id is',registred.id)
+        console.log('the hash is :',hash)
+        console.log('the saved hash is ',registred.hashedId)
+        await ctx.prisma.user.update({
+          where:{
+            email:input.email
+          },
+          data:{
+            hashedId:hash
+          }
+        })
+         info=mailer(input.email,hash)
+        
+      })
+    return info
     }),
 
     verify:publicProcedure
@@ -39,26 +56,31 @@ export const verifyEmail=router({
     )
     .mutation(async({input,ctx})=>{
 
-        const token=await ctx.prisma.user.findFirst({
+      console.log('hash reseived from verificarion ',input.hashedId)
+   
+        const user=await  ctx.prisma.user.findFirst({
           where:{
             hashedId:input.hashedId
           }
         })
+        console.log(user)
+        if(!user){
+          throw new Error('invalid token')
+        }
+        if(user.email){
 
-        if(!token){
-          throw new Error('Invalid token')
+          return await ctx.prisma.user.update({
+            where:{
+              email:user.email
+            },
+            data:{
+              emailisverfied:true
+            }
+          })
         }
        
-        const verify=await ctx.prisma.user.update({
-          where:{
-            id:token.id
-          },
-          data:{
-            emailisverfied:true
-          }
-        })
-
-        return verify
+      
+      return {message:'somthing went wrong'}
         
         
     }),
@@ -70,26 +92,3 @@ export const verifyEmail=router({
 
 
 
-/*
- // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-         // host: "smtp.ethereal.email",
-         service:'Gmail',
-          port: 587,
-          secure: false, // true for 465, false for other ports
-          auth: {
-            user: 'dari.app.test@gmail.com', // generated ethereal user
-            pass: 'cadsnbwazqikpvqo', // generated ethereal password
-          },
-        });
-          
-
-          
-           let info = await transporter.sendMail({
-            from: 'dari.app.test@gmail.com', // sender address
-            to: input.email, // list of receivers
-            subject: "Account verification ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
-          }); 
-*/
