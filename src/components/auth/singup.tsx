@@ -80,9 +80,7 @@ const SignUp= () => {
 
   console.log('email: ',getValues().email, 'password :',getValues().password,'conf password :',getValues().confpassword)
 
-  const onSubmit =async() => {
-
-  };
+  
 
 
 
@@ -94,7 +92,7 @@ const SignUp= () => {
     
     {step==1&&<FirstStep setstep={setstep}  setValue={setValue}/>}
     {step==2&&<MiddleStep email={getValues().email}  setstep={setstep} />}
-    {step==3&&<SecondStep getValues={getValues} onSubmit={onSubmit}  setValue={setValue}/>}
+    {step==3&&<SecondStep getValues={getValues}   setValue={setValue}/>}
   
 
   
@@ -271,7 +269,7 @@ type Step2=z.infer<typeof step2>
 
 type Props2={
   setValue: UseFormSetValue<Schema>
-  onSubmit: (data: Schema) => Promise<void>
+  //onSubmit: (data: Schema) => Promise<void>
   getValues:UseFormGetValues<Schema>
 }
 
