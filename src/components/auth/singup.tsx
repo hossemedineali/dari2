@@ -9,7 +9,7 @@ import loader from '../../../public/rings.svg'
 
 
 export const Loader=()=>{
-  return <img src={loader.src} className='m-auto h-20 w-20 bg-smallText' />
+  return <img src={loader.src} alt='loader' className='m-auto h-20 w-20 bg-smallText' />
 }
 
 
@@ -404,7 +404,7 @@ const MiddleStep:React.FC<middleStepProps>=({email,setstep})=>{
 
   
   return <div>
-    {checkemail.isLoading &&<img src={loader.src} className='bg-devider w-20   h-20 m-auto mt-20 '/>}
+    {checkemail.isLoading &&<img src={loader.src} alt='loader'  className='bg-devider w-20   h-20 m-auto mt-20 '/>}
     {checkemail.data==true&&<div className="flex flex-col justify-center gap-10 p-auto">
       <p className="text-2xl text-red text-center"> {Language.lng=='ENG'?'Email already exist!':'Cette adresse e-mail est déjà utilisée'}</p>
      

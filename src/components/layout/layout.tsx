@@ -17,8 +17,7 @@ type porps={
 const Layout :React.FC<porps>= (props)=> {
     
     const SignInModal=useSignInModal()
-    const {data:session}=useSession()
-
+ 
     return ( 
         <div >
 

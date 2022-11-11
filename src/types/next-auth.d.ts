@@ -1,5 +1,5 @@
 import { type DefaultSession } from "next-auth";
-import { TokenEndpointHandler } from "next-auth/providers";
+//import { TokenEndpointHandler } from "next-auth/providers";
 
 declare module "next-auth" {
   /**

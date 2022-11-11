@@ -1,5 +1,4 @@
 import { trpc } from "../../utils/trpc";
-
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useLanguage } from "../../store/store";
@@ -18,7 +17,7 @@ const Verify  = () => {
        if(typeof window != 'undefined'){if(!id){
         return
        }else{
-        let hashedId=router.asPath.replace('/verify/','')
+        const hashedId=router.asPath.replace('/verify/','')
         verify.mutate({hashedId})
        }}
 
