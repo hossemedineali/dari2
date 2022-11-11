@@ -12,8 +12,7 @@ export const getUser=router({
                     id:true,
                     email:true,
                     name:true,
-                    phone:true,
-                   
+                    phone:true,  
                 }
             })
         }
