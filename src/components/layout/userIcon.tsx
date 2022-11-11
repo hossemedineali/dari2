@@ -3,9 +3,11 @@ import { useState } from "react";
 import {motion,AnimatePresence} from 'framer-motion'
 import {  signOut } from "next-auth/react"
 import Link from "next/link";
+import { useLanguage } from "../../store/store";
 
 const UserIcon = () => {
 
+    const Language=useLanguage()
  
 
     const [showMenu,setshowMenu]=useState(false)
@@ -26,17 +28,21 @@ const UserIcon = () => {
                       
                           
                             
-                            className="w-40 top-14 right-2 px-2 bg-white justify-center align-middle content-center absolute flex flex-col z-50  ">
+                            className="w-50 top-14 right-2 px-2 bg-white justify-center align-middle content-center absolute flex flex-col z-50  ">
                              
-                                <Link href='/Mylisting'>
-                                <span  className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">My posts</span>
+                                <Link href='/Mylisting' className="my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">
+                                <span  className=" ">{Language.lng=='ENG'?'My announcements':'Mes annonces'}</span>
                                 </Link>
-                               {/*  <span className="h-[2px] bg-devider my-1"></span> */}
-                                <Link href='/saved'>
-                                <span  className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">My favorites posts</span>
+                               
+                                <Link href='/saved' className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">
+                                <span  >{Language.lng=='ENG'?'saved announcements':'Annonces enregistrées'}</span>
                                 </Link>
-                               {/*  <span className="h-[2px] bg-devider my-1"></span> */}
-                                <span onClick={()=>signOut()} className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">Logout</span>
+
+                                <Link href='/setting' className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">
+                                <span  >{Language.lng=='ENG'?'Setting':'Parameters'}</span>
+                                </Link>
+                              
+                                <span onClick={()=>signOut()} className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">{Language.lng=='ENG'?'Logout':'Se déconnecter'}</span>
 
                             </motion.div>}</AnimatePresence>
 

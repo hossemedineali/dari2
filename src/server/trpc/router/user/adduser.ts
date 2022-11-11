@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure } from "../../trpc";
 import bcrypt from "bcrypt";
-import { mailer } from "./auth/mailer";
+import { mailer } from "../auth/mailer";
 
 
 

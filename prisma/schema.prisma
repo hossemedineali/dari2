@@ -56,51 +56,55 @@ model User {
   accounts      Account[]
   sessions      Session[]
   
-  posts         Post[] @relation("owner")
-  liked       Post[] @relation(name: "likedby") 
+ posts Post[] @relation("owner")
+
+  likedposts Post[] 
 }
 
 
 
 model Post {
-  id       String   @id @default(cuid())
+  id String @id @default(cuid())
 
-  date     DateTime @default(now())
+  date DateTime @default(now())
 
-  auther   String     
+  auther String
+  authername  String @default("hossem edine ")
+  propertyType     String
+  announcementtype String
+  landtype         String?
 
-  
-  type     String
- 
   price    Float
-  pricePer String ?
+  pricePer String?
   size     Float
   rooms    Int
- 
- governorate String
- municipality String
+
+  governorate  String
+  municipality String
 
   isposition Boolean
-  lng      Float?
-  lat      Float?
-  
-   Garage Boolean @default(false)
-   Balcony Boolean @default(false)
-   OutdoorArea Boolean @default(false)
-   SwimmingPool Boolean @default(false)
-   UndercoverParking Boolean @default(false)
-   airConditioning Boolean @default(false)
-   solarPanels Boolean @default(false)
-   SolarHotwater Boolean @default(false)
-  images String ?
-  description String @default("")
-   
+  lng        Float?
+  lat        Float?
 
-  user         User     @relation(name:"owner",fields: [auther], references: [id], onDelete: Cascade)
+  Garage            Boolean @default(false)
+  Balcony           Boolean @default(false)
+  OutdoorArea       Boolean @default(false)
+  SwimmingPool      Boolean @default(false)
+  UndercoverParking Boolean @default(false)
+  airConditioning   Boolean @default(false)
+  solarPanels       Boolean @default(false)
+  SolarHotwater     Boolean @default(false)
+  images            String?
+  description       String  @default("")
 
-  liked       User?     @relation(name:"likedby",fields: [id], references: [id], onDelete: Cascade)
+  contact String
 
+  user    User  @relation(name: "owner", fields: [auther], references: [id], onDelete: Cascade)
+
+  likedBy User[] 
+  userId String?
 }
+
 
 model VerificationToken {
   identifier String

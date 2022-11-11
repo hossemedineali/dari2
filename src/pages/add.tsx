@@ -7,8 +7,8 @@ import { trpc } from "../utils/trpc";
 const Add = () => {
   //  const session=useSession()
     //const router=useRouter()
-    const test=trpc.addpost.add.useQuery()
-    console.log(test.data)
+    
+    
     return ( <div>
         <h1>add post</h1>
     </div> );

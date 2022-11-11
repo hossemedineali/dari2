@@ -5,19 +5,12 @@ import Footer from "./footer";
 import { useSignInModal } from "../../store/store";
 import SignIn from "../auth/signIn";
 import SignUp from "../auth/singup";
-import { useSession } from "next-auth/react";
-
-
-
 
 type porps={
     children:JSX.Element
 }
-
-const Layout :React.FC<porps>= (props)=> {
-    
+const Layout :React.FC<porps>= (props)=> {    
     const SignInModal=useSignInModal()
- 
     return ( 
         <div >
 
@@ -39,16 +32,10 @@ const Layout :React.FC<porps>= (props)=> {
 
                 {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
                 </div>}
-           
-
-            
             {props.children}
                         </main>
         <Footer/>
-            
         </div>
-        
      );
 }
- 
 export default Layout;

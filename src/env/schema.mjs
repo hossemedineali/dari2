@@ -1,5 +1,5 @@
 // @ts-check
-import { z } from "zod";
+import { string, z } from "zod";
 
 /**
  * Specify your server-side environment variables schema here.
@@ -10,6 +10,11 @@ export const serverSchema = z.object({
   Gmail_Pass:z.string(),
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
+
+  CLOUDINARY_NAME:z.string(),
+CLOUDINARY_API_KEY:z.string(),
+CLOUDINARY_API_SECRET:z.string(),
+
   NEXTAUTH_SECRET: z.string(),
   NEXTAUTH_URL: z.preprocess(
     // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
