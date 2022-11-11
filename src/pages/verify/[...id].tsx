@@ -2,9 +2,8 @@ import { trpc } from "../../utils/trpc";
 
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { isGeneratorFunction } from "util/types";
+import { useLanguage } from "../../store/store";
 
-import router from 'next/router';
 
 
 const Verify  = () => {
@@ -12,27 +11,15 @@ const Verify  = () => {
 
     const router=useRouter()
     const id=router.query.id
-    console.log(router.asPath.replace('/verify/',''))
     const verify=trpc.verfy.verify.useMutation()
+    const Language=useLanguage()
  
     useEffect(()=>{
        if(typeof window != 'undefined'){if(!id){
         return
        }else{
-        let hashedId=''
-        console.log(id)
-        if(id.length==1){
-            hashedId=id.toString()
-
-        }else{
-            for(let i=0;i<id.length;i++){
-                hashedId+=id[i]
-                if(i<id.length-1){
-                    hashedId+='/'
-                }
-            }
-        }
-        verify.mutate({hashedId:router.asPath.replace('/verify/','')})
+        let hashedId=router.asPath.replace('/verify/','')
+        verify.mutate({hashedId})
        }}
 
     },[id])
@@ -40,11 +27,12 @@ const Verify  = () => {
 console.log(verify.data)
 
     return ( <div className="py-10">
-        <h1 className="text-center text-2xl md:text-3xl">Email verification</h1>
-        {verify.isLoading&&<p className="text-center">Please wait while we verify your email</p>}
+        <h1 className="text-center text-2xl md:text-3xl">{Language.lng=='ENG'?'Email verification':"Verification de l'email "}</h1>
+        {verify.isLoading&&<p className="text-center">{Language.lng=='ENG'?'Please wait while we verify your email':'Patienter pendant que nous verifions votre email '}</p>}
         {verify.isError&&<p className="text-center mt-10">{verify.error.message}</p>}
-        {verify.data&&<div><p>Your email is now verified </p>
-            <button>Login to your account</button>
+        {verify.data&&<div className="text-center">
+            <p className="mt-5">{Language.lng=='ENG'?'Your email is now verified ':'Votre email est verifié'} </p> 
+            <button className=" mx-10 p-1 rounded-md bg-primary1 mt-5" >{Language.lng=='ENG'?'Login':"S'identifier"}</button>
         </div>}
     </div> );
 }

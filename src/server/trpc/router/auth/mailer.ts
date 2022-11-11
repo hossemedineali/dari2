@@ -27,11 +27,12 @@ export const mailer=async(email:string,hash:string)=>{
         from: 'dari.app.test@gmail.com', // sender address
         to: email, // list of receivers
         subject: "Account verification ✔", // Subject line
-        text: "Hello world?", // plain text body
+        text: "Hello ?", // plain text body
         html: `<div>
         <b>Hello  </b>, 
         <p>this is your verification hash </p>
         <a target='blanck' href='https://dari2.vercel.app/verify/${hash}'>verify my account</a>
+        <p>Dari developper : hossem edine ali</p>
         </div>`
         
     }); 
