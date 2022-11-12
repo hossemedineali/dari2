@@ -11,10 +11,11 @@ export const  adduser=router({
     adduser: publicProcedure
     .input(
         z.object({
-            name:z.string(),
-            email:z.string(),
+            name:z.string({required_error:'nice try please enter a valid name'}),
+            email:z.string().email(),
             phone:z.string().optional(),
-            password:z.string(),
+            password:z.string().min(1,{message:'field required'})
+            .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,{message:'Minimum eight characters, at least one letter and one number:'}),
         
         })
     )

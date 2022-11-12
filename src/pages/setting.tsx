@@ -60,7 +60,7 @@ const Setting = () => {
         </div>
 
         <div className="flex-grow ">
-                        {activeSection=='Account'&&user.data&&<Account FirstName={user.data?.name as string } Lastname={user.data?.name as string} email={user.data.email as string} phone={user.data.phone as string}/>}
+                        {activeSection=='Account'&&user.data&&<Account name={user.data.name as string} email={user.data.email as string} phone={user.data.phone as string}/>}
                         {activeSection=='Password'&&<Password/>}
                         {activeSection=='Delete account'&&<DelteAccount/>}
 

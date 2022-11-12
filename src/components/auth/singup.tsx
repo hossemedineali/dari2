@@ -293,7 +293,7 @@ const SecondStep:React.FC<Props2>=({setValue,getValues})=>{
     setValue('lastName',data.lastName)
     setValue('phone',data.phone)
 
-    adduser.mutate({email:getValues().email,password:getValues().password,name:data.firstName+' , '+data.lastName,phone:data.phone})
+    adduser.mutate({email:getValues().email,password:getValues().password,name:data.firstName+','+data.lastName,phone:data.phone})
     console.log(adduser)
     if(adduser.data){
       console.log('success')
