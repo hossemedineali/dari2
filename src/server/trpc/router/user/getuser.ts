@@ -3,10 +3,10 @@ import { router,publicProcedure } from "../../trpc";
 export const getUser=router({
     getuserForSettingPage:publicProcedure
     .mutation(async({ctx})=>{
-        if(ctx.session){
+        if(ctx.session?.user?.email){
             return await ctx.prisma.user.findFirst({
                 where:{
-                    email:ctx.session.user?.email
+                    email:ctx.session.user?.email as string
                 },
                 select:{
                     id:true,
