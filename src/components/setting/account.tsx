@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
-import { Loader } from "../auth/singup";
+import { Loader } from "../ui/loader";
+import { useNotifiaction } from "../../store/notification";
 
 
 
@@ -35,7 +36,9 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
 
     const updateAccount=trpc.updateUser.updateAccount.useMutation()
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Schema>({ 
+    const notification=useNotifiaction()
+
+    const { register, handleSubmit,reset, formState: { errors } } = useForm<Schema>({ 
         resolver:zodResolver(schema) ,
         defaultValues:{
            FirstName:name.split(',')[0] ,
@@ -47,6 +50,11 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
     });
   const submit  = handleSubmit((data) => {
     updateAccount.mutate({name:data.FirstName+','+data.Lastname,phone:data.phone})
+    if(updateAccount.isSuccess){
+        notification.setMeassage('your information has been successfully updated','vos informations ont bien été modifié',true)
+        notification.toggleShow()
+        reset()
+    }
   });
 
     
@@ -56,7 +64,7 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
     
 
     return ( <div className="">
-        <h1 className="sm:pl-10  text-xl">{Language.lng=='ENG'?'Account':'Compte'}</h1>
+        <h1 className="text-2xl font-medium pl-4">{Language.lng=='ENG'?'Account':'Compte'}</h1>
         <form className="p-2 flex flex-col gap-5" onSubmit={submit}>
             {/* Name */}
             <div className="flex flex-col md:flex-row gap-1 md:gap-10 ">
@@ -85,7 +93,7 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
                      </label>
             </div>
 
-                <button className="mx-10 sm:m-auto md:mt-20 sm:w-max p-1 rounded-md bg-primary1">{!updateAccount.isLoading?Language.lng=='ENG'?"Update":"Mise a jour":<Loader/>}</button>
+                <button className="mx-10 sm:m-auto md:mt-20 sm:w-max p-1 rounded-md bg-primary1 active:scale-95" >{!updateAccount.isLoading?Language.lng=='ENG'?"Update":"Mise a jour":<Loader/>}</button>
 
 
         </form>

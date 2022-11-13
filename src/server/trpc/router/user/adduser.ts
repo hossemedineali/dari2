@@ -6,8 +6,6 @@ import { mailer } from "../auth/mailer";
 
 
 export const  adduser=router({
-   
-
     adduser: publicProcedure
     .input(
         z.object({
@@ -16,12 +14,10 @@ export const  adduser=router({
             phone:z.string().optional(),
             password:z.string().min(1,{message:'field required'})
             .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,{message:'Minimum eight characters, at least one letter and one number:'}),
-        
         })
     )
     .mutation ( async({ input,ctx }) => {
              let user
-        
        await bcrypt.hash(input.password, 10).then(async function(hash) {
            user= await ctx.prisma.user.create({
                 data:{
@@ -40,21 +36,12 @@ export const  adduser=router({
                     data:{
                         hashedId:hash
                     }
-                })
-            })
-            
-            await bcrypt.hash(user.id,10).then(async function (hash) {
-                mailer(input.email,hash)
-                
-            })
-            
-        });
-        
-        
-        console.log('user',user)
-      
-        return user
 
+                })
+                mailer(input.email,hash)
+            })
+        });
+        return user
       }),
 
       checkemail:publicProcedure

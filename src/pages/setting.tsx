@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Account from "../components/setting/account";
 import DelteAccount from "../components/setting/deleteAccount";
@@ -10,7 +12,18 @@ import { trpc } from "../utils/trpc";
 
 const Setting = () => {
 
+   
+    const sesssion=useSession()
+    const router=useRouter()
     const Language=useLanguage()
+
+    if (!sesssion.data?.user){
+        if(typeof window != "undefined"){
+            router.push('/') 
+        }
+            
+    }
+    
 
     const user=trpc.getuser.getuserForSettingPage.useMutation()
     useEffect(()=>{
@@ -67,6 +80,7 @@ const Setting = () => {
 
         </div>
     </div> );
-}
+    }
+
  
 export default Setting;

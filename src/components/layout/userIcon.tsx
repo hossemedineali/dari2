@@ -4,11 +4,14 @@ import {motion,AnimatePresence} from 'framer-motion'
 import {  signOut } from "next-auth/react"
 import Link from "next/link";
 import { useLanguage } from "../../store/store";
+import { useRouter } from "next/router";
+
 
 const UserIcon = () => {
 
     const Language=useLanguage()
- 
+    
+    const router=useRouter()
 
     const [showMenu,setshowMenu]=useState(false)
 
@@ -42,7 +45,7 @@ const UserIcon = () => {
                                 <span  >{Language.lng=='ENG'?'Setting':'Parameters'}</span>
                                 </Link>
                               
-                                <span onClick={()=>signOut()} className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">{Language.lng=='ENG'?'Logout':'Se déconnecter'}</span>
+                                <span onClick={()=>{signOut(); router.push('/')} } className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">{Language.lng=='ENG'?'Logout':'Se déconnecter'}</span>
 
                             </motion.div>}</AnimatePresence>
 

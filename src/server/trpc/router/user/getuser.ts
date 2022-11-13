@@ -6,7 +6,7 @@ export const getUser=router({
         if(ctx.session?.user?.email){
             return await ctx.prisma.user.findFirst({
                 where:{
-                    email:ctx.session.user?.email as string
+                    email:ctx.session.user?.email 
                 },
                 select:{
                     id:true,

@@ -5,12 +5,16 @@ import Footer from "./footer";
 import { useSignInModal } from "../../store/store";
 import SignIn from "../auth/signIn";
 import SignUp from "../auth/singup";
+import Notification from "../ui/notification";
+import { useNotifiaction } from "../../store/notification";
 
 type porps={
     children:JSX.Element
 }
 const Layout :React.FC<porps>= (props)=> {    
     const SignInModal=useSignInModal()
+    const notification=useNotifiaction()
+
     return ( 
         <div >
 
@@ -33,7 +37,11 @@ const Layout :React.FC<porps>= (props)=> {
                 {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
                 </div>}
             {props.children}
+                    {notification.show&&<Notification/>}
+
+                    <button onClick={notification.toggleShow} className="mx-auto">toggle</button>
                         </main>
+
         <Footer/>
         </div>
      );
