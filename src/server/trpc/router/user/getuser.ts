@@ -1,12 +1,12 @@
-import { router,protectedProcedure } from "../../trpc";
+import { router,publicProcedure } from "../../trpc";
 
 export const getUser=router({
-    getuserForSettingPage:protectedProcedure
+    getuserForSettingPage:publicProcedure
     .mutation(async({ctx})=>{
         if(ctx.session){
             return await ctx.prisma.user.findFirst({
                 where:{
-                    email:ctx.session.user.email
+                    email:ctx.session.user?.email
                 },
                 select:{
                     id:true,

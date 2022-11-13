@@ -2,12 +2,13 @@ import { motion } from "framer-motion"
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 //import { useFormInput } from "../../store/store";
 
 const links=[
 
 
-    {value:'Buy',label:'Sell'},{value:'Rent',label:'Rent'},{value:'Find coRental',label:'CoRental'}
+  {value:'Home',label:'/'},{value:'Buy',label:'/search'},{value:'Rent',label:'/search'},{value:'Find coRental',label:'/search'}
   ]
  interface Props{
     togglemenu:boolean,
@@ -18,12 +19,12 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
 
     const { data:sesssion } = useSession()
     const router=useRouter()
+const [selectedLink,setSelactedLink]=useState()
 
-
-   // const formInput=useFormInput()
+   
    const handeladdpostclick=()=>{
     if(!sesssion){
- //     auth.setToogleShow(true)
+//auth.setToogleShow(true)
     }else{
       router.push('/add')
     }
@@ -42,10 +43,10 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
              transition={{easeInOut: [0.17]}}
             >
 
-            <ul className="p-12 flex flex-col gap-5">
+            <ul className=" py-10   flex flex-col ">
                 {links.map((link,index)=>(
-                <Link href='/search' key={index}>
-                     <li   className='cursor-pointer hover:text-secondary2'> {link.value}</li>
+                <Link href={link.label} key={index}>
+                     <li   className={`pl-8 py-4 cursor-pointer hover:text-secondary2 text-white text-2xl ${''}`}> {link.value}</li>
                      </Link>
                     
                 
