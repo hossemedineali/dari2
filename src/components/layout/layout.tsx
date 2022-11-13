@@ -39,7 +39,7 @@ const Layout :React.FC<porps>= (props)=> {
             {props.children}
                     {notification.show&&<Notification/>}
 
-                    <button onClick={notification.toggleShow} className="mx-auto">toggle</button>
+                   
                         </main>
 
         <Footer/>
