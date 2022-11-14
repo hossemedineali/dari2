@@ -3,9 +3,10 @@ import {useForm} from 'react-hook-form'
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader } from "../ui/loader";
 import { useNotifiaction } from "../../store/notification";
+import PreviousMap from "postcss/lib/previous-map";
 
 
 const schema=z.object({
@@ -26,7 +27,7 @@ const schema=z.object({
   const Password = () => {
     const notification=useNotifiaction()
     const Language=useLanguage()
-    const [customeMessage,setCostumeMessage]=useState(false)
+    const [customeMessage,setCostumeMessage]=useState({iserror:false,eng:'',fr:''})
     const updatePassword=trpc.updateUser.updatePassword.useMutation()
     const { register, handleSubmit,setError,reset, formState: { errors } } =useForm<Schema>({
         resolver:zodResolver(schema)
@@ -34,19 +35,34 @@ const schema=z.object({
 
     const submit=async(data:Schema)=>{
 
-            setCostumeMessage(false)
-        updatePassword.mutate({...data})
+        
+           
+       updatePassword.mutate({...data})
 
-        if(updatePassword.isError){
-            setCostumeMessage(true)
-        }
-        if(updatePassword.isSuccess){
-          notification.setMeassage('password changed successfully','votre mot de passe a bien été modifié ',true)
-          notification.toggleShow(true)
-            reset()
-        }
+        
     }
 
+    useEffect(()=>{
+
+        if(updatePassword.error?.message=='wrong password'){
+            
+            setCostumeMessage({iserror:true,eng:'Wrong password',fr:'Mot de pass incorrect'})
+            return
+        }else if(updatePassword.error){
+            notification.toggleShow(true)
+            notification.setMeassage('Sorry somthing went wrong',"désolé quelque chose s'est mal passé",false)
+            return
+        }
+        
+        if(updatePassword.isSuccess &&!updatePassword.isLoading){
+            setCostumeMessage({iserror:false,eng:'',fr:''})
+            
+            notification.toggleShow(true)
+            notification.setMeassage('password changed successfully','votre mot de passe a bien été modifié ',true)
+            reset()
+        }
+        
+    },[updatePassword.error,updatePassword.isLoading,updatePassword.isSuccess])
 
     return ( <div>
         
@@ -73,11 +89,10 @@ const schema=z.object({
                         {errors.confpassword&&<p className="text-red">{errors.confpassword?.message}</p>}
                      </label>
 
-                    {customeMessage&&<p className="text-center font-bold text-red">{Language.lng=='ENG'?'sorry an unexpected error occurred':"désolé une erreur s'est produit"}</p>}
-                    <button className="mx-10 sm:m-auto md:mt-20 md:px-20  sm:w-max p-1 rounded-md bg-primary1 active:scale-95 ">{updatePassword.isLoading?<Loader/>:'submit'}</button>
+                    {customeMessage.iserror&&<p className="text-center font-bold text-red">{Language.lng=='ENG'?customeMessage.eng:customeMessage.fr}</p>}
+                    <button className="mx-10 sm:m-auto md:mt-20 md:px-20  sm:w-max p-1 rounded-md bg-primary1 active:scale-95 " type="submit">{updatePassword.isLoading?<Loader/>:'submit'}</button>
                
                     
-
                 </form>
     </div> );
 }

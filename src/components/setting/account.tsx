@@ -9,6 +9,7 @@ import { trpc } from "../../utils/trpc";
 import { Loader } from "../ui/loader";
 import { useNotifiaction } from "../../store/notification";
 import { copyFileSync } from "fs";
+import { useEffect } from "react";
 
 
 
@@ -38,7 +39,6 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
     const Language=useLanguage()
     const notification=useNotifiaction()
     const updateAccount=trpc.updateUser.updateAccount.useMutation()
-    console.log("notification is :",notification.show)
 
     const { register, handleSubmit,reset, formState: { errors } } = useForm<Schema>({ 
         resolver:zodResolver(schema) ,
@@ -52,24 +52,23 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
     });
   const submit  = handleSubmit(async(data) => {
     
-      await   updateAccount.mutate({name:data.FirstName+','+data.Lastname,phone:data.phone})
+      updateAccount.mutate({name:data.FirstName+','+data.Lastname,phone:data.phone})
 
     
+    });
+    
+    useEffect(()=>{
+        
         if(updateAccount.isSuccess){
             notification.toggleShow(true)
             notification.setMeassage('your information has been successfully updated','vos informations ont bien été modifié',true)
+            reset()
         }
-        else{
+        if(updateAccount.isError){
             notification.toggleShow(true)
             notification.setMeassage('Oops..Something went wrong...',"oups quelque chose s'est mal passé ",true)
         }
-
-        
-     
-   
-   
-  });
-
+  },[updateAccount.isSuccess,updateAccount.isError])
     
     
   
