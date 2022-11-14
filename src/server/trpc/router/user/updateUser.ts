@@ -79,5 +79,41 @@ export const updateUser=router({
             
         }
 
+    }),
+    deleteAccount:publicProcedure
+    .input(z.object({
+        password:z.string()
+        .min(1,{message:'filed required'})
+        .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,{message:'Minimum eight characters, at least one letter and one number:'}),
+    }))
+    .mutation(async({ctx,input})=>{
+
+        if(!ctx.session?.user?.email){
+            throw new Error('Unothorized')
+        }else{
+
+            
+            const currentUser=await ctx.prisma.user.findUnique({
+                where: {
+                    email:ctx.session.user.email
+                },
+                select:{
+                    password:true
+                }
+            })
+
+            const isMatch=bcrypt.compare(input.password,currentUser?.password as string)
+
+            if(!isMatch){
+                throw new Error("wrong password")
+            }
+
+            return await prisma?.user.delete({
+                where:{
+                    email:ctx.session.user.email
+                }
+            })
+        }
+
     })
 })
