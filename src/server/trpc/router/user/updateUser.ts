@@ -84,7 +84,6 @@ export const updateUser=router({
     .input(z.object({
         password:z.string()
         .min(1,{message:'filed required'})
-        .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,{message:'Minimum eight characters, at least one letter and one number:'}),
     }))
     .mutation(async({ctx,input})=>{
 
