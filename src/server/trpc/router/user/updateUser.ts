@@ -7,7 +7,6 @@ export const updateUser=router({
     updateAccount:publicProcedure
     .input(z.object({
         name:z.string({required_error:'nice try please enter a valid name'}),
-       // email:z.string({required_error:'nice , please provide the email'}),
         phone:z.string(),
     }))
     .mutation(async({input,ctx})=>{
@@ -63,7 +62,7 @@ export const updateUser=router({
                         password:hash
                     }
                 })
-                console.log("update :: ",update)
+             
 
                 if(update.id){
                     return update
@@ -107,7 +106,7 @@ export const updateUser=router({
                 throw new Error("wrong password")
             }
 
-            return await prisma?.user.delete({
+            return await ctx.prisma.user.delete({
                 where:{
                     email:ctx.session.user.email
                 }
