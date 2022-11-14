@@ -8,12 +8,14 @@ const Notification = () => {
     const notification=useNotifiaction()
     const Language=useLanguage()
 
+    console.log('message from notification comp:', 'notification is :',notification.show)
+
     return (
         <AnimatePresence>
 
         <motion.div initial={{scale:0 }} animate={{scale:1}} exit={{x:0}} transition={{duration:0.2}} className="bg-white flex justify-center items-center text-sm md:text-lg  lg:text-2xl font-bold rounded-xl border border-devider shadow-md shadow-black absolute  top-[20vh] left-[5vw] right-[5vw] bottom-[50vh]">
 
-            <svg onClick={()=>{notification.toggleShow(),notification.setMeassage("","",true)}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider position absolute top-4 right-4">
+            <svg onClick={()=>{notification.toggleShow(false),notification.setMeassage("","",true)}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider position absolute top-4 right-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
              </svg>
 
