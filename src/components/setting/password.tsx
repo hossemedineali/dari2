@@ -33,7 +33,6 @@ const schema=z.object({
     })
 
     const submit=async(data:Schema)=>{
-        console.log(data)
 
             setCostumeMessage(false)
         updatePassword.mutate({...data})
@@ -43,12 +42,11 @@ const schema=z.object({
         }
         if(updatePassword.isSuccess){
           notification.setMeassage('password changed successfully','votre mot de passe a bien été modifié ',true)
-          notification.toggleShow()
+          notification.toggleShow(true)
             reset()
         }
     }
 
-console.log('|||',updatePassword.error)
 
     return ( <div>
         
