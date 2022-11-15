@@ -36,7 +36,7 @@ export const reset=router({
             }
           })
           
-         const info= await mailer(input.email,randomtoken,'restpass/','rest password')
+         const info= await mailer(input.email,randomtoken,'rest/','rest password')
          
          if(info&&Update){
              return 'ok'
