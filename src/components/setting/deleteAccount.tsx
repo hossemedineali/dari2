@@ -3,9 +3,9 @@ import {useForm} from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useEffect, useState } from "react";
-import { Loader } from "../auth/singup";
 import { trpc } from "../../utils/trpc";
 import { signOut } from "next-auth/react";
+import { Loader } from "../ui/loader";
 
 const schema=z.object({
     password:z.string().min(1,{message:'required'})

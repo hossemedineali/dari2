@@ -6,7 +6,7 @@ const Gmail=process.env.Gmail
 const Gmail_Pass=process.env.Gmail_Pass
 
 
-export const mailer=async(email:string,hash:string)=>{
+export const mailer=async(email:string,hash:string,path:string,textLink:string)=>{
 
     
     // create reusable transporter object using the default SMTP transport
@@ -31,7 +31,7 @@ export const mailer=async(email:string,hash:string)=>{
         html: `<div>
         <b>Hello  </b>, 
         <p>this is your verification hash </p>
-        <a target='blanck' href='https://dari2.vercel.app/verify/${hash}'>verify my account</a>
+        <a target='blanck' href='https://dari2.vercel.app/${path}${hash}'>${textLink}</a>
         <p>Dari developper : hossem edine ali</p>
         </div>`
         

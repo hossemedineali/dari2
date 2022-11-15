@@ -42,7 +42,7 @@ let info
             hashedId:hash
           }
         })
-         info=mailer(input.email,hash)
+         info=mailer(input.email,hash,'verify/','Verify my email')
         
       })
     return info

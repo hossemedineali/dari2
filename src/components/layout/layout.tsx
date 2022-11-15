@@ -7,6 +7,7 @@ import SignIn from "../auth/signIn";
 import SignUp from "../auth/singup";
 import Notification from "../ui/notification";
 import { useNotifiaction } from "../../store/notification";
+import ResetPassWord from "../auth/resetPassWord";
 
 type porps={
     children:JSX.Element
@@ -21,21 +22,18 @@ const Layout :React.FC<porps>= (props)=> {
         <Navbar/>
             <main className="mt-16">
                 
-            {SignInModal.show&&<div className="hidden md:block md:rounded-2xl p-2   bg-white mx-auto w-[450px] fixed left-0 right-0 top-16   z-30 shadow-2xl overflow-auto backdrop-blur-3xl">
-            <svg onClick={()=>SignInModal.toggleShow()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider">
+            {SignInModal.show&&<div className=" md:rounded-2xl p-2   bg-white mx-auto md:w-[450px] fixed left-0 right-0 md:top-16 top-0 bottom-0 md:bottom-auto  z-30 shadow-xl shadow-primary1 overflow-auto backdrop-blur-3xl">
+            <svg onClick={()=>{SignInModal.toggleShow() ;SignInModal.togglemode('SignIn')}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
 
-                {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
+                {SignInModal.mode=='SignUp'&& <SignUp/>}
+                {SignInModal.mode=='SignIn'&&<SignIn/>}
+                {SignInModal.mode=='Reset'&&<ResetPassWord/>}
+
                 </div>}
 
-                {SignInModal.show&&<div className="block md:hidden md:rounded-2xl p-2   bg-white mx-auto md:w-[350px] fixed left-0 right-0 md:top-16 bottom-0 md- top-0 z-30 shadow-2xl overflow-auto backdrop-blur-lg">
-            <svg onClick={()=>SignInModal.toggleShow()} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 cursor-pointer hover:bg-devider">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-
-                {SignInModal.mode=='SignUp'? <SignUp/>:<SignIn/>}
-                </div>}
+               
             {props.children}
                     {notification.show&&<Notification/>}
 

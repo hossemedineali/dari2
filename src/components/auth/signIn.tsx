@@ -5,8 +5,9 @@ import { useLanguage, useSignInModal } from "../../store/store";
 import {  signIn } from "next-auth/react"
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { Loader } from "./singup";
+
 import { trpc } from "../../utils/trpc";
+import { Loader } from "../ui/loader";
 
 
 
@@ -104,7 +105,7 @@ const SignIn= () => {
   return (
     <div className="w-full flex flex-col gap-3 relative justify-center">
       
-    <h1 className="text-center">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA} </h1>
+    <h1 className="text-center text-2xl font-semibold">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA} </h1>
  
     {customError!='Email not verified'&&!signUpIsLoading&&<><form
     className="flex flex-col justify-center gap-3"
@@ -153,14 +154,14 @@ const SignIn= () => {
       {customError&&<p className="text-red text-center">{customError}</p>}
         <button  className=" mx-10 p-1 rounded-md bg-primary1  ">{Language.lng=='ENG'?dic.title.ENG:dic.title.FRA}</button>
 
-        <button> {Language.lng=='ENG'?'Forget password?':'Mot de passe oubliée ?'}</button>
     </form>
+        <button onClick={()=>SignInModal.togglemode('Reset')}> {Language.lng=='ENG'?'Forget password?':'Mot de passe oubliée ?'}</button>
     
 
     
     <div className="flex gap-4">
     
-    <button  onClick={()=>SignInModal.togglemode()}  className="text-smallText mx-auto underline underline-offset-2">{Language.lng=='ENG'?'Create new account':'Créer nouveau compte'}</button>
+    <button  onClick={()=>SignInModal.togglemode('SignUp')}  className="text-smallText mx-auto underline underline-offset-2">{Language.lng=='ENG'?'Create new account':'Créer nouveau compte'}</button>
 
     </div></>}
 

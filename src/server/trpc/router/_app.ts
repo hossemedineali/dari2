@@ -5,6 +5,7 @@ import { verifyEmail } from "./auth/verifyemail";
 import {favorites} from "./posts.ts/favposts"
 import { getUser } from "./user/getuser";
 import { updateUser } from "./user/updateUser";
+import { reset } from "./user/resetPassWord";
 
 export const appRouter = router({
   auth: authRouter,
@@ -12,7 +13,8 @@ export const appRouter = router({
   verfy:verifyEmail,
   favorites:favorites,
   getuser:getUser,
-  updateUser:updateUser
+  updateUser:updateUser,
+  reset:reset
 });
 
 // export type definition of API

@@ -38,7 +38,7 @@ export const  adduser=router({
                     }
 
                 })
-                mailer(input.email,hash)
+                mailer(input.email,hash,'verify/','verify my email')
             })
         });
         return user

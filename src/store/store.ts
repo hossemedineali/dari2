@@ -6,7 +6,7 @@ interface Signin {
     show:boolean,
     mode:string,
     toggleShow:()=>void,
-    togglemode:()=>void
+    togglemode:(x:string)=>void
 }
 
 const useSignInModal=create<Signin>()(
@@ -14,7 +14,7 @@ const useSignInModal=create<Signin>()(
         show:false,
         mode:'SignIn',
         toggleShow:()=>set({show:!get().show}),
-        togglemode:()=>set({mode:get().mode=='SignIn'?'SignUp':'SignIn'})
+        togglemode:(x)=>set({mode:x})
     })
 )
 

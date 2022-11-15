@@ -6,11 +6,10 @@
   import { trpc } from "../../utils/trpc";
 
   import loader from '../../../public/rings.svg'
+import { Loader } from "../ui/loader";
 
 
-  export const Loader=()=>{
-    return <img src={loader.src} alt='loader' className='m-auto h-20 w-20 bg-smallText' />
-  }
+ 
 
 
 
@@ -96,7 +95,7 @@
       
   {step==1&&   <div className="flex gap-4">
       <h5>{Language.lng=='ENG'?'Already have an account ?':'Deja inscrit ?'} </h5>
-      <button  onClick={()=>SignInModal.togglemode()}  className="text-smallText underline underline-offset-2" >{Language.lng=='ENG'?'Log in':'Identifier vous'}</button>
+      <button  onClick={()=>SignInModal.togglemode('SignIn')}  className="text-smallText underline underline-offset-2" >{Language.lng=='ENG'?'Log in':'Identifier vous'}</button>
       </div>}
 
       
@@ -369,7 +368,7 @@
       <p className="text-center mb-2"> {Language.lng=='ENG'?'Your account has been created successfully':' Votre compte a été créé avec succès'}</p> 
       <p className="text-center mb-2"> {Language.lng=='ENG'?'Please check your email for verification link':' S.V.P vonsulter votre courrier pour lien de verification'}</p> 
 
-      <button onClick={()=>SignInModal.togglemode()}  className="bg-primary1 rounded-xl mx-5">{Language.lng=='ENG'?'Login':"S'Identifier"}</button>
+      <button onClick={()=>SignInModal.togglemode('SignIn')}  className="bg-primary1 rounded-xl mx-5">{Language.lng=='ENG'?'Login':"S'Identifier"}</button>
       </div>}
 
                   </>
@@ -405,7 +404,7 @@
       {checkemail.data==true&&<div className="flex flex-col justify-center gap-10 p-auto">
         <p className="text-2xl text-red text-center"> {Language.lng=='ENG'?'Email already exist!':'Cette adresse e-mail est déjà utilisée'}</p>
       
-          <button onClick={()=>SignInModal.togglemode()} className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60">{Language.lng=='ENG'?'Login':'Identifier vous'}</button>
+          <button onClick={()=>SignInModal.togglemode('SignIn')} className="mx-10 p-1  rounded-md bg-primary1 disabled:opacity-60">{Language.lng=='ENG'?'Login':'Identifier vous'}</button>
         <p className="text-xl  mx-auto ">OR</p>
           <p onClick={()=>{setstep(1)}} className="text-xl text-smallText mx-auto cursor-pointer">{Language.lng=='ENG'?'Sign up with different email':'Enregistrer avec un autre adresse email'}</p>
         
