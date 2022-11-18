@@ -29,87 +29,69 @@ type p={
 
 
 
-function SampleNextArrow(props:any) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "red" }}
-      onClick={onClick}
-    />
-  );
-}
 
-function SamplePrevArrow(props:any) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "green" }}
-      onClick={onClick}
-    />
-  );
-}
 
 
 
 const CardCarrousel:React.FC<p> = ({setIsLoading}) => {
 
-  const settings = {
-    
+  const slider = useRef<Slider>(null);
+
+  console.log(slider)
+
+  let settingssm = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 2,
-    initialSlide: 0,
-    nextArrow: <SampleNextArrow />,
-      prevArrow: <SamplePrevArrow />
-    ,
-    
-    responsive: [
+    slidesToShow: 4,
+  
+    responsive:[
       {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 800,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1
-        }
-      },
-      {
-        breakpoint: 800,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1
         }
+      },
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
       }
     ]
   };
-
   
 
   const data= trpc.querryPosts.forIndexPage.useQuery()
   return (
-    <div className=''>
-       
-      <div className='flex justify-center '>
+    <div className='relative md:px-5'>
 
-       {data.data&&<OneCard {...data.data[4] as data}/>}
+        <button className='absolute  z-10 top-[50%] left-0 hidden md:block' onClick={() => slider?.current?.slickPrev()}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+    <div className='overflow-hidden lg:px-5 md:px-4 relative'>
+        <Slider ref={slider} {...settingssm}>
+          {data.data?.map(item=>{
+            return <OneCard key={item.id} {...item as data}/> 
+          })}
+        </Slider>
       </div>
-
-     {/*  {data.data?.map(item=>{
-        return <OneCard key={item.id} {...item as data}/>
-      })} */}
-      
+        <button className='absolute  z-10 top-[50%] right-0 hidden md:block' onClick={() => slider?.current?.slickNext()}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 ">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+        </button> 
     </div>
   )
 

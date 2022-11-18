@@ -56,7 +56,6 @@ const OneCard:React.FC<data> = (item) => {
 
    
     
-    console.log(item.images)
     
 let url=''
     if(item.images.length>1){
@@ -104,15 +103,16 @@ let url=''
    
     return (
        
-            <div className='w-full h-[400px]  sm:w-[350px] bg-primary2 hover:-translate-y-2 hover:shadow-md hover:shadow-black  overflow-hidden transition-all duration-1150 rounded-xl'>
+            <div className='w-full   sm:w-[300px] border hover:-translate-y-2 hover:shadow-md hover:shadow-black  overflow-hidden transition-all duration-1150 rounded-xl'>
                
                 {/* Image and... */}
+
                 <div className='w-full h-[300px] relative '>
-                    <Image src={url} fill  alt='image' className='hover:scale-110 transition-all duration-1000'/>
+                    <Image src={url} fill sizes='100' alt='image' className='hover:scale-110 transition-all duration-1000'/>
 
                     <span onClick={()=>{hundelFavorites(item.id)}} className=' absolute  top-0 right-0 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg   text-sm font-medium text-white  select-none'>
                     <Tooltip text='add to favorites' >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill={favorites.liked.includes(item.id)?'red':'transparent'} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`cursor-pointer  w-6 h-6  ${favorites.liked.includes(item.id)?'text-red':'text-primary1'}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill={favorites.liked.includes(item.id)?'red':'transparent'} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`cursor-pointer  w-6 h-6  ${favorites.liked.includes(item.id)?'text-red':'text-black'}`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                         </svg>
                     </Tooltip>
@@ -124,7 +124,7 @@ let url=''
                     <div className="relative flex justify-center bottom- top-64  mb-3">
                         <div className="flex bg-white px-4 py-1 space-x-5 rounded-lg overflow-hidden shadow">
                         
-                       {item.propertyType=='House'&& <p className="flex items-center font-medium text-gray-800">
+                       {item.propertyType=='house'&& <p className="flex items-center font-medium text-gray-800">
                             <svg className="w-5 h-5  fill-current mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480,226.15V80a48,48,0,0,0-48-48H80A48,48,0,0,0,32,80V226.15C13.74,231,0,246.89,0,266.67V472a8,8,0,0,0,8,8H24a8,8,0,0,0,8-8V416H480v56a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V266.67C512,246.89,498.26,231,480,226.15ZM64,192a32,32,0,0,1,32-32H208a32,32,0,0,1,32,32v32H64Zm384,32H272V192a32,32,0,0,1,32-32H416a32,32,0,0,1,32,32ZM80,64H432a16,16,0,0,1,16,16v56.9a63.27,63.27,0,0,0-32-8.9H304a63.9,63.9,0,0,0-48,21.71A63.9,63.9,0,0,0,208,128H96a63.27,63.27,0,0,0-32,8.9V80A16,16,0,0,1,80,64ZM32,384V266.67A10.69,10.69,0,0,1,42.67,256H469.33A10.69,10.69,0,0,1,480,266.67V384Z"></path></svg>
                             {item.rooms}
                         </p>}
@@ -146,19 +146,58 @@ let url=''
                     </div>
                     {/* ------------------------ */}
                 </div>
+               
                 {/* ---------------------------- */}
                 
 
-                {/* infos */}
+                        {/* infos */}
                 
-                <div className='w-full h-[150px]'>
+                <div className='w-full  px-2 py-4'>
+                         {/* Tittle */}
+                    <div>
+                        {item.propertyType=='Land'&&<div>
+                            <p className='text-lg font-medium'>{Language.lng=='ENG'?'Land for ':'Terrai '}{item.announcementtype=='Sell'?(Language.lng=='ENG'?'sell':'à vendre'):(Language.lng=='ENG'?"rent":"pour location")}</p> 
+                            </div>}
+                        {item.propertyType=='house'&&<div className=''>
+                            {item.announcementtype=='Sell'&&<p className='text-lg font-medium '>
+                                    {Language.lng=='ENG'?'House for sell':' Maison à vendre'}
+                                </p>}
+                            {item.announcementtype=='Rent'&&<p className='text-lg font-medium '>
+                                    {Language.lng=='ENG'?'House for rent':' Maison pour location'}
+                                </p>}
+                            {item.announcementtype=='CoRental'&&<p className='text-lg font-medium '>
+                                    {Language.lng=='ENG'?'Looking for Flatmates':' Cherche un colocataires'}
+                                </p>}
+                            </div>}
+                    </div>    
+                        {/* ---------------- */}
+                    
+                        <div className='flex justify-between flex-wrap mt-1'>
 
-                    {item.propertyType=='House'&&<div>
-                        <p>{Language.lng=='ENG'?'House for ':'Maison à '}{}</p> 
-                        </div>}
-                
+                            {/* Emplacment */}
 
+                            <div className='flex'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                </svg>
+                                <p>{item.municipality} {item.governorate!=item.municipality?`-${item.governorate}`:''}</p>
 
+                            </div>
+                            {/* -------------- */}
+
+                            {/* Price */}
+                            <div className='flex gap-1'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+                                </svg>
+                                <p className='text-red font-medium'>{item.price} dt{item.pricePer=='Daily'&&(Language.lng=='ENG'?'/day':'/jour')}{item.pricePer=='Mounthly'&&(Language.lng=='ENG'?'/mounth':'/mois')}</p>
+
+                            </div>
+
+                        </div>
+
+                        <Link  href={'/post/'+item.id}><p className='p-2 text-lg font-medium text-primary1'>{Language.lng=='ENG'?'See datails':'Voir plus de details'}</p></Link>
                 </div>
                 {/* --------------------------- */}
 
