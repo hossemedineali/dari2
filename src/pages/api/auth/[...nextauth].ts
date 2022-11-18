@@ -92,6 +92,7 @@ export const authOptions: NextAuthOptions = {
           ...user,
           ...token,
         }  
+        session.user.id=token.sub as string
       }
       
 
@@ -105,12 +106,10 @@ export const authOptions: NextAuthOptions = {
     console.log('---------------JWt----------')
     console.log("JWT callback. Got User: ", user);
     console.log("JWT callback. Got Token: ", token);
-    //if(user){
-      //console.log('email is verified :',user.emailisverfied)
-     // token.emailisverfied = user.emailisverfied ;
-    //}
-   
-        
+ 
+    if(user){
+      token.sub=user.id
+    }
      
     return token;
 }  

@@ -2,10 +2,13 @@ import { router } from "../trpc";
 import { adduser } from "./user/adduser";
 import { authRouter } from "./auth";
 import { verifyEmail } from "./auth/verifyemail";
-import {favorites} from "./posts.ts/favposts"
+import {favorites} from "./posts/favposts"
 import { getUser } from "./user/getuser";
 import { updateUser } from "./user/updateUser";
 import { reset } from "./user/resetPassWord";
+import { addPost } from "./posts/addpost";
+import { deletePost } from "./posts/deletePosts";
+import { querryPosts } from "./posts/querryPosts";
 
 export const appRouter = router({
   auth: authRouter,
@@ -14,7 +17,10 @@ export const appRouter = router({
   favorites:favorites,
   getuser:getUser,
   updateUser:updateUser,
-  reset:reset
+  reset:reset,
+  addPost:addPost,
+  deletePost:deletePost,
+  querryPosts:querryPosts,
 });
 
 // export type definition of API

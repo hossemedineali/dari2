@@ -16,6 +16,6 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/pages/api/auth/[...nextauth].ts", "src/pages/api/verify"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "src/pages/api/auth/[...nextauth].ts", "src/pages/api/verify", "src/server/trpc/router/posts"],
   "exclude": ["node_modules"]
 }

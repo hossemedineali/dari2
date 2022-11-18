@@ -106,6 +106,7 @@ model Post {
 }
 
 
+
 model VerificationToken {
   identifier String
   token      String   @unique

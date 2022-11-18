@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { router, publicProcedure,protectedProcedure } from "../../trpc";
+import { router, publicProcedure } from "../../trpc";
 import {cloudinary} from '../../../../../cloudinary-config'
 
 
 export const addPost=router({
-    add:protectedProcedure
+    add:publicProcedure
     .input(z.object({
         auther:z.string(),
         propertyType:z.string(), //house or Land
@@ -39,7 +39,51 @@ export const addPost=router({
 
     }))
     .mutation(async({ctx,input})=>{
-                if(ctx.session.user){
+
+        console.log('user from add post router :',ctx.session?.user?.id)
+        if(!ctx.session?.user?.id){
+            throw new Error('Unothorized')
+        }else{
+
+            const addimage=async()=>{
+                let newimagesformat=''
+              
+                for (let i=0 ;i<input.images.length &&i<9;i++){
+                    await   cloudinary.uploader.upload(input.images[i] as string).then((result)=>{
+                        console.log(result.public_id)
+                        if(i==8){
+                            newimagesformat=newimagesformat + result.public_id
+                        }
+                        else{
+                            newimagesformat=newimagesformat + result.public_id+',' 
+                        }
+                       console.log('newimagesformat !::',newimagesformat)
+                    })
+                   }
+                  return newimagesformat
+            }
+              
+            const newimagesdata= await addimage()
+            
+            const post= await ctx.prisma.post.create({
+            data:{
+                ...input,
+                auther :ctx.session.user.id,
+                images:newimagesdata,
+                description:'This is a Fake post for testing',
+                authername:ctx.session.user.name as string 
+            }
+        })
+        
+        return post
+    }
+               
+    })
+})
+
+
+/*
+ if(ctx.session?.user){
                     const addimage=async()=>{
                         let newimagesformat=''
                       
@@ -64,7 +108,7 @@ export const addPost=router({
                         data:{
                             ...input,
                             images:newimagesdata ,
-                            auther:ctx.session?.user?.id as string,
+                            auther:ctx.session.user.name as string,
                             description:'This is a Fake post for testing',
                             authername:ctx.session?.user?.name as string ||ctx.session?.user?.email as string ||"Unknown User"
                         }
@@ -72,7 +116,5 @@ export const addPost=router({
                 }else{
                     throw new Error('unothorized')
                 }
-    })
-})
-
+*/
 
