@@ -37,9 +37,9 @@ const CardCarrousel:React.FC<p> = ({setIsLoading}) => {
 
   const slider = useRef<Slider>(null);
 
-  console.log(slider)
+ 
 
-  let settingssm = {
+  const settingssm = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -75,7 +75,7 @@ const CardCarrousel:React.FC<p> = ({setIsLoading}) => {
   return (
     <div className='relative md:px-5'>
 
-        <button className='absolute  z-10 top-[50%] left-0 hidden md:block' onClick={() => slider?.current?.slickPrev()}>
+        <button className='absolute  z-10 md:top-[50%] md:left-0  right-14 bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
@@ -87,7 +87,7 @@ const CardCarrousel:React.FC<p> = ({setIsLoading}) => {
           })}
         </Slider>
       </div>
-        <button className='absolute  z-10 top-[50%] right-0 hidden md:block' onClick={() => slider?.current?.slickNext()}>
+        <button className='absolute  z-10 md:top-[50%] md:right-0 bottom-[-50px] right-2' onClick={() => slider?.current?.slickNext()}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
