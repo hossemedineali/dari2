@@ -23,7 +23,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 type p={
- 
+  type:string,
   setIsLoading: (value: boolean) => void;
 }
 
@@ -33,7 +33,7 @@ type p={
 
 
 
-const CardCarrousel:React.FC<p> = ({setIsLoading}) => {
+const CardCarrousel:React.FC<p> = ({setIsLoading,type}) => {
 
   const slider = useRef<Slider>(null);
 
@@ -71,23 +71,24 @@ const CardCarrousel:React.FC<p> = ({setIsLoading}) => {
   };
   
 
-  const data= trpc.querryPosts.forIndexPage.useQuery()
+  const data= trpc.querryPosts.forIndexPage.useQuery({propertyType:type})
   return (
     <div className='relative md:px-5'>
-
-        <button className='absolute  z-10 md:top-[50%] md:left-0  right-14 bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
+        <h2>{type}</h2>
+        <button className='absolute  z-10 md:top-0 md:left-0  right-14 bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </button>
-    <div className='overflow-hidden lg:px-5 md:px-4 relative'>
+        <div className='overflow-hidden lg:px-5 md:px-4 relative'>
         <Slider ref={slider} {...settingssm}>
           {data.data?.map(item=>{
             return <OneCard key={item.id} {...item as data}/> 
           })}
         </Slider>
       </div>
-        <button className='absolute  z-10 md:top-[50%] md:right-0 bottom-[-50px] right-2' onClick={() => slider?.current?.slickNext()}>
+       
+        <button className='absolute  z-10 md:top-0 md:right-0 bottom-[-50px] right-2' onClick={() => slider?.current?.slickNext()}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>

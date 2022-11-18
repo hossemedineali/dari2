@@ -3,11 +3,14 @@ import { router, publicProcedure } from "../../trpc";
 
 export const querryPosts=router({
         forIndexPage:publicProcedure
-        .query(async({ctx})=>{
+        .input(z.object({
+            propertyType:z.string()
+        }))
+        .query(async({ctx,input})=>{
             return await ctx.prisma.post.findMany({
                where:{
-                propertyType:'House',
-                announcementtype:'Rent'
+                propertyType:input.propertyType,
+                
                },
                 take:20,
                 orderBy:{
@@ -15,7 +18,19 @@ export const querryPosts=router({
                 }
             })
         })
-        
+        ,
+
+        onePost:publicProcedure
+        .input(z.object({
+            id:z.string()
+        }))
+        .query(async({ctx,input})=>{
+            return await ctx.prisma.post.findFirst({
+                where:{
+                    id:input.id
+                }
+            })
+        })
        
 
 })

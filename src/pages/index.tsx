@@ -44,10 +44,12 @@ const Home: NextPage = () => {
         </div>
 
         <h1 className="text-primary1 font-bold pl-5 text-2xl my-5">Latest announcement</h1>
-
-           <CardCarrousel setIsLoading={setIsLoading} /> 
+            
+           <CardCarrousel setIsLoading={setIsLoading} type={'house'} /> 
         
+           
 
+            <CardCarrousel setIsLoading={setIsLoading} type={'land'} />
 
 
      
