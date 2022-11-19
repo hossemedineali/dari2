@@ -14,7 +14,6 @@ export const updateUser=router({
             return await ctx.prisma.user.update({
                 where:{
                     id:ctx.session.user.id,
-                   // email:ctx.session.user.email as string
                 },
                 data:{
                     name:input.name,

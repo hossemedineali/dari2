@@ -1,13 +1,12 @@
 
-import {motion,useDragControls} from 'framer-motion'
-import { useEffect, useRef, useState } from 'react';
+import { useRef} from 'react';
 import OneCard, { data } from './onecard';
 import { trpc } from "../../utils/trpc";
-import {data as Data} from '../../components/ui/onecard'
 import {Loader} from '../ui/loader';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useLanguage } from '../../store/store';
 
  interface D{
   id: string,
@@ -27,16 +26,10 @@ type p={
   setIsLoading: (value: boolean) => void;
 }
 
-
-
-
-
-
-
 const CardCarrousel:React.FC<p> = ({setIsLoading,type}) => {
 
   const slider = useRef<Slider>(null);
-
+  const Language=useLanguage()
  
 
   const settingssm = {
@@ -44,6 +37,8 @@ const CardCarrousel:React.FC<p> = ({setIsLoading,type}) => {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
+    arrows:false,
+    
   
     responsive:[
       {
@@ -73,9 +68,18 @@ const CardCarrousel:React.FC<p> = ({setIsLoading,type}) => {
 
   const data= trpc.querryPosts.forIndexPage.useQuery({propertyType:type})
   return (
-    <div className='relative md:px-5'>
-        <h2>{type}</h2>
-        <button className='absolute  z-10 md:top-0 md:left-0  right-14 bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
+    <>
+    {data.data&&<div className='relative md:px-5 px-2 mb-28'>
+        <div className=' flex item-center pl-2'>
+          {type=='house'&&<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 self-center">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>}
+          {type=='land'&&<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 self-center">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+          </svg>}
+            <p className='pl-6 py-2 text-2xl font-medium'>{type=='house'?(Language.lng=='ENG'?'Houses':'Maisons'):(Language.lng=='ENG'?'Lands':'Terrains')}</p>
+        </div>
+        <button className='absolute   md:top-0 md:left-0  right-14 bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
@@ -93,7 +97,9 @@ const CardCarrousel:React.FC<p> = ({setIsLoading,type}) => {
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
         </button> 
-    </div>
+    </div>}
+    {data.isLoading&&<Loader/>}
+            </>
   )
 
    }
