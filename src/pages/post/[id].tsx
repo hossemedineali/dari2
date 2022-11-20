@@ -10,13 +10,13 @@ import ReactTimeAgo from 'react-time-ago'
 import TimeAgo  from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en.json'
-import ru from 'javascript-time-ago/locale/ru.json'
+import fr from 'javascript-time-ago/locale/fr.json'
 import Slider from 'react-slick'
 import { Loader } from '../../components/ui/loader'
 import ImagesSlider from '../../components/ui/imagesslider'
 
-TimeAgo.addDefaultLocale(en)
-TimeAgo.addLocale(ru)
+TimeAgo.addLocale(en)
+TimeAgo.addLocale(fr)
 
 
 
@@ -39,7 +39,7 @@ const PostContent:React.FC<{id:string}>=({id})=>{
     const post =trpc.querryPosts.onePost.useQuery({id})
 
 
-    return <div className='mx-0 px-0 '>
+    return <div className=' overflow-clip pb-10'>
                     {post.data?.images&&<ImagesSlider images={post.data.images}/>}
 
     </div>

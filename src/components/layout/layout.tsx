@@ -20,7 +20,7 @@ const Layout :React.FC<porps>= (props)=> {
 
 
     return ( 
-        <div  className="relative  ">
+        <div  className="relative mx-auto ">
 
         <Navbar/>
             <main   className="pt-16 mb-24 min-h-[calc(100vh_-_96px)] ">
