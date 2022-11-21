@@ -11,7 +11,18 @@ import { useState } from "react";
 
   
 const SearchInput:React.FC = () => {
-    
+    const style = {
+        control: () => ({
+          display:'flex',
+          border: '0',
+          // This line disable the blue border
+          boxShadow:  '0',
+          "&:hover": {
+            border:  '0'
+          }
+        }),
+        background: "#023950",
+      }; 
 
     const [selectedMunError,setselectedMunError]=useState('')
     const filter=useFormInput()    
@@ -31,14 +42,15 @@ const SearchInput:React.FC = () => {
       
     }
     return (   
-        <div className={`mt-4 flex  relative gap-4 bg-white border   rounded-2xl px-4 ${selectedMunError?'border-red':''}`}>           
+        <div className={`mt-4 flex  relative gap-4 bg-selectGrey border   rounded-2xl px-4 ${selectedMunError?'border-red':''}`}>           
         <div className="flex-grow">      
         <Select 
+            styles={style}
             instanceId=" municipalities"
             id=" municipalities"
             options={groupedcities}
             filterOption={filterOption}
-            className=" border-0 w-full mr-auto bg-devider" 
+            className=" border-none border-red  w-full mr-auto bg-devider" 
             placeholder={filter.form.governorate||filter.form.municipality?  filter.form.governorate +'-' +filter.form.municipality :'Enter a City '}
             />
         </div>

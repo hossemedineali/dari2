@@ -152,7 +152,7 @@ let url=''
 
                         {/* infos */}
                 
-                <div className='w-full  px-2 py-4'>
+                <div className='w-full  px-2 py-4 h-[156px]  flex flex-col justify-between'>
                          {/* Tittle */}
                     <div>
                         {item.propertyType=='Land'&&<div>
@@ -172,7 +172,7 @@ let url=''
                     </div>    
                         {/* ---------------- */}
                     
-                        <div className='flex justify-between flex-wrap mt-1'>
+                        <div className='flex  justify-between flex-wrap mt-1'>
 
                             {/* Emplacment */}
 
@@ -197,7 +197,7 @@ let url=''
 
                         </div>
 
-                        <Link  href={'/post/'+item.id}><p className='p-2 text-lg font-medium text-primary1'>{Language.lng=='ENG'?'See datails':'Voir plus de details'}</p></Link>
+                        <Link  href={'/post/'+item.id}><p className='mt-1/1 p-2 text-lg font-medium underline-offset-4 underline text-primary1'>{Language.lng=='ENG'?'See datails':'Voir plus de details'}</p></Link>
                 </div>
                 {/* --------------------------- */}
 

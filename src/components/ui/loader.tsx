@@ -10,5 +10,5 @@
 
 
 export const Loader=()=>{
-        return <img src={loader.src} alt='loader' className=' mx-auto w-8 h-8 ' />
+        return <img src={loader.src} alt='loader' className=' mx-auto w-full h-full text-red ' />
     }

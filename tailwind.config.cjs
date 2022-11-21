@@ -16,6 +16,7 @@ module.exports = {
       'devider':'#F1F2EC',
       'smallText':'#B5985A',
       'green':'#37eb34',
+      'selectGrey':'#f1f2ec'
   
 
     },

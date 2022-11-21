@@ -3,7 +3,7 @@ import Link from "next/link";
 const Footer = () => {
     return ( <div className="py-1  item-center py-auto  justify-center bg-primary1 absolute  bottom-0  w-full ">
                 <div className="flex flex-col text-center w-full md:3/5 mx-auto ">
-                <p className=" text-white  text-lg md:text-xl">Developed  by | hossem edine ali</p>
+                <p className=" text-white  text-lg md:text-xl">Developed  by | Hossem edine ali</p>
                 <Link href="https://www.linkedin.com/in/ali-hossem-edine-1691a124a/" passHref>
         <span >
   <svg className="mx-auto" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
