@@ -34,7 +34,13 @@ const ImagesSlider:React.FC<{images:string}> = ({images}) => {
                 </button> 
                 <div className="relative  max-w-[560px] m-auto">
 
-                <p className="text-2xl font-semibold absolute right-5 top-5 z-10">{currentImageIndex}/{imagesArray.length}</p>
+                    {/* current photo index */}
+                <div>
+                    <p className="text-xl font-bold absolute right-5 top-5 z-10 bg-devider rounded-full p-1">
+                        {currentImageIndex}/{imagesArray.length}
+                    </p>
+                </div>
+
                 <Slider {...settings} ref={slider} className='mx-auto'>
 
                     {imagesArray.map(item=>{

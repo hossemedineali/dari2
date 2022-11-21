@@ -156,7 +156,7 @@ let url=''
                          {/* Tittle */}
                     <div>
                         {item.propertyType=='Land'&&<div>
-                            <p className='text-lg font-medium'>{Language.lng=='ENG'?'Land for ':'Terrai '}{item.announcementtype=='Sell'?(Language.lng=='ENG'?'sell':'à vendre'):(Language.lng=='ENG'?"rent":"pour location")}</p> 
+                            <p className='text-lg font-medium'>{Language.lng=='ENG'?'Land for ':'Terrain '}{item.announcementtype=='Sell'?(Language.lng=='ENG'?'sell':'à vendre'):(Language.lng=='ENG'?"rent":"pour location")}</p> 
                             </div>}
                         {item.propertyType=='house'&&<div className=''>
                             {item.announcementtype=='Sell'&&<p className='text-lg font-medium '>
