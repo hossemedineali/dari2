@@ -1,14 +1,17 @@
 
-import Image from "next/image";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRef, useState } from "react";
+import Tooltip from "./tooltip";
+import { useLikedPosts } from "../../store/favorits";
 
 
-const ImagesSlider:React.FC<{images:string}> = ({images}) => {
+const ImagesSlider:React.FC<{images:string,id:string}> = ({images,id}) => {
 
         const imagesArray=images.split(',')
+        const favorites=useLikedPosts()
         const slider = useRef<Slider>(null);
         const [currentImageIndex,setCurrentImageIndex]=useState(1)
     const baseUrl="https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643348/"
@@ -36,9 +39,19 @@ const ImagesSlider:React.FC<{images:string}> = ({images}) => {
 
                     {/* current photo index */}
                 <div>
-                    <p className="text-xl font-bold absolute right-5 top-5 z-10 bg-devider rounded-full p-1">
+                    <p className="text-xl font-bold absolute left-5 top-5 z-10 bg-devider rounded-full p-1">
                         {currentImageIndex}/{imagesArray.length}
                     </p>
+                </div>
+
+                <div>
+                    <span className="text-xl font-bold absolute right-5 top-5 z-10  rounded-full ">
+                    <Tooltip text='add to favorites' >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill={favorites.liked.includes(id)?'red':'transparent'} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`cursor-pointer  w-10 h-10  ${favorites.liked.includes(id)?'text-red':'text-black'}`}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    </Tooltip>
+                    </span>
                 </div>
 
                 <Slider {...settings} ref={slider} className='mx-auto'>

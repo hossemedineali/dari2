@@ -104,10 +104,10 @@ const Navbar = () => {
                             className="w-16 text-center top-14 right-20 px-2 bg-white justify-center align-middle content-center absolute flex flex-col z-50  ">
                              
                                 
-                                <span onClick={()=>{Language.togglelang('ENG');settogglelng(false)}} className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">ENG</span>
+                                <span onClick={()=>{Language.togglelang('ENG');settogglelng(false)}} className={`cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100  ${Language.lng=='ENG'?'bg-devider':''}`}>ENG</span>
                                 
                                 
-                                <span onClick={()=>{Language.togglelang('FRA');settogglelng(false)}} className="cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">FRA</span>
+                                <span onClick={()=>{Language.togglelang('FRA');settogglelng(false)}} className={`cursor-pointer my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100 ${Language.lng=='FRA'?'bg-devider':''}`}>FRA</span>
                                 
 
                             </motion.div>}</AnimatePresence>
