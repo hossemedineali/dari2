@@ -6,15 +6,58 @@ import "slick-carousel/slick/slick-theme.css";
 import { useRef, useState } from "react";
 import Tooltip from "./tooltip";
 import { useLikedPosts } from "../../store/favorits";
+import { trpc } from "../../utils/trpc";
+import { useSession } from "next-auth/react";
+import { useSignInModal } from "../../store/store";
 
 
 const ImagesSlider:React.FC<{images:string,id:string}> = ({images,id}) => {
 
-        const imagesArray=images.split(',')
+        const addToFav=trpc.favorites.add.useMutation()
+        const DeleteFromFav=trpc.favorites.delete.useMutation()
         const favorites=useLikedPosts()
+        const session=useSession()
+        const SignInModal=useSignInModal()
+
+        const imagesArray=images.split(',')
+       
         const slider = useRef<Slider>(null);
         const [currentImageIndex,setCurrentImageIndex]=useState(1)
-    const baseUrl="https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643348/"
+        const baseUrl="https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643348/"
+       
+    // Add to faorites functions
+    const addPostToFavorites=(id:string)=>{
+            
+        addToFav.mutate({postid:id})
+        favorites.addPost(id)
+     }
+
+     const removePostFromFavorites=(id:string)=>{
+         DeleteFromFav.mutate({postid:id})
+         favorites.deletePost(id)
+     }
+
+     const hundelFavorites=(id:string)=>{
+
+         if(session.status=='authenticated'){
+
+             
+             if(favorites.liked.includes(id)){
+                 removePostFromFavorites(id)
+
+             }else{
+                 addPostToFavorites(id)
+                 
+             }
+         }else{
+          SignInModal.toggleShow()
+         }
+
+         console.log(favorites.liked)
+     }
+  
+    
+    //setting for slick slider 
     const settings = {
         
         dots: true,
@@ -47,7 +90,7 @@ const ImagesSlider:React.FC<{images:string,id:string}> = ({images,id}) => {
                 <div>
                     <span className="text-xl font-bold absolute right-5 top-5 z-10  rounded-full ">
                     <Tooltip text='add to favorites' >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill={favorites.liked.includes(id)?'red':'transparent'} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`cursor-pointer  w-10 h-10  ${favorites.liked.includes(id)?'text-red':'text-black'}`}>
+                    <svg onClick={()=>hundelFavorites(id)} xmlns="http://www.w3.org/2000/svg" fill={favorites.liked.includes(id)?'red':'transparent'} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`cursor-pointer  w-10 h-10  ${favorites.liked.includes(id)?'text-red':'text-black'}`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                         </svg>
                     </Tooltip>

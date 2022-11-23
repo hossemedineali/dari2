@@ -1,22 +1,14 @@
 import Link from 'next/link'
-import {motion} from 'framer-motion'
-
 import Tooltip from './tooltip'
-
 import { trpc } from '../../utils/trpc'
 import { useLikedPosts } from '../../store/favorits'
 import Image from 'next/image'
-
-//import { Useauth } from '../../store/store'
-
 import { useSession } from 'next-auth/react'
-
 import ReactTimeAgo from 'react-time-ago'
 import TimeAgo  from 'javascript-time-ago'
-
 import en from 'javascript-time-ago/locale/en.json'
 import fr from 'javascript-time-ago/locale/fr.json'
-import { useLanguage } from '../../store/store'
+import { useLanguage, useSignInModal } from '../../store/store'
 
 TimeAgo.addLocale(en)
 TimeAgo.addLocale(fr)
@@ -38,64 +30,66 @@ export interface data{
 
 const OneCard:React.FC<data> = (item) => {
 
-   // const addToFav=trpc.useMutation(['ManageFavPosts.add'])
-   // const DeleteFromFav=trpc.useMutation(['ManageFavPosts.delete'])
-    //const auth=Useauth()
-    const session=useSession()
+    const addToFav=trpc.favorites.add.useMutation()
+    const DeleteFromFav=trpc.favorites.delete.useMutation()
 
     const favorites=useLikedPosts()
-    const Language=useLanguage()
+    const session=useSession()
 
+
+    const Language=useLanguage()
+    const SignInModal=useSignInModal()
     
   const date=new Date(item.date as Date)
 
 
-    function capitalizeFirstLetter(string :string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
+ 
+    
+    
+            let url=''
+            if(item.images.length>1){
+                const image=item.images.split(',')
+            // url='https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643350/Dari/tsly46l9ahwtvavjydfk.jpg'
+            for(let i=0;i<image.length;i++){
+                    if(image[i]!='undefined') {
+                    
+                        url="https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643348/"+image[0]+".jpg"
+                        break; 
+                    }
 
-   
-    
-    
-let url=''
-    if(item.images.length>1){
-        const image=item.images.split(',')
-       // url='https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643350/Dari/tsly46l9ahwtvavjydfk.jpg'
-       for(let i=0;i<image.length;i++){
-            if(image[i]!='undefined') {
-               
-                url="https://res.cloudinary.com/dtdexrrpj/image/upload/v1668643348/"+image[0]+".jpg"
-                break; 
             }
-
-       }
-    }
+            }
 
         const addPostToFavorites=(id:string)=>{
             
-        //   addToFav.mutate({postid:id})
-         //  favorites.addPost(id)
+           addToFav.mutate({postid:id})
+           favorites.addPost(id)
         }
 
         const removePostFromFavorites=(id:string)=>{
-          //  DeleteFromFav.mutate({postid:id})
+            DeleteFromFav.mutate({postid:id})
             favorites.deletePost(id)
         }
 
         const hundelFavorites=(id:string)=>{
+
             if(session.status=='authenticated'){
 
                 
                 if(favorites.liked.includes(id)){
                     removePostFromFavorites(id)
+
                 }else{
                     addPostToFavorites(id)
+                    
                 }
             }else{
-              //  auth.setToogleShow(true)
+             SignInModal.toggleShow()
             }
-          
+
+            console.log(favorites.liked)
         }
+        
 
        
         
@@ -130,7 +124,9 @@ let url=''
                         </p>}
 
                         <p className="flex items-center font-medium text-gray-800">
-                        <svg className="inline-block w-5 h-5 xl:w-4 xl:h-4 mr-3 fill-current text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M399.959 170.585c-4.686 4.686-4.686 12.284 0 16.971L451.887 239H60.113l51.928-51.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-84.485 84c-4.686 4.686-4.686 12.284 0 16.971l84.485 84c4.686 4.686 12.284 4.686 16.97 0l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L60.113 273h391.773l-51.928 51.444c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l84.485-84c4.687-4.686 4.687-12.284 0-16.971l-84.485-84c-4.686-4.686-12.284-4.686-16.97 0l-7.07 7.071z"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                            </svg>
                         {item.size} m2
                         </p>
 

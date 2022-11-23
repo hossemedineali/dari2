@@ -35,12 +35,14 @@ const Navbar = () => {
 
   const {data:sesssion}  = useSession()
  
+  
 
   const handeladdpostclick=()=>{
     if(!sesssion){
       SignInModal.toggleShow()
     }else{
       router.push('/add')
+      
     }
   }
 

@@ -31,7 +31,7 @@ const Home: NextPage = () => {
       </Head>
         {IsLoading&&<div className=" absolute top-0 bottom-0 left-0 right-0 z-10 flex justify-center "><div className="w-40 h-40  m-auto"><Loader /></div></div>}
       {!IsLoading&&<main >
-        <div className="  pt-10 md:px-3  lg:px:6">
+        <div className="  pt-10 md:px-3  lg:px:6  pb-0 md:h-auto h-[420px]">
           <h1 className=" text-center font-mono md:text-xl">Finding your next home , never been easier!</h1>
           <div style={{
             backgroundImage: `url(${hero2.src})`,

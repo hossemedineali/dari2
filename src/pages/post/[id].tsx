@@ -1,9 +1,6 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { trpc } from '../../utils/trpc'
-import {motion } from 'framer-motion'
 
-import Image from 'next/image'
 import MapWithNoSSR from '../../components/maps/mapWithNoSSR'
 
 import ReactTimeAgo from 'react-time-ago'
@@ -11,10 +8,11 @@ import TimeAgo  from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en.json'
 import fr from 'javascript-time-ago/locale/fr.json'
-import Slider from 'react-slick'
 import { Loader } from '../../components/ui/loader'
 import ImagesSlider from '../../components/ui/imagesslider'
-import { useLanguage } from '../../store/store'
+import { useLanguage, useSignInModal } from '../../store/store'
+import { useLikedPosts } from '../../store/favorits'
+import { useSession } from 'next-auth/react'
 
 TimeAgo.addLocale(en)
 TimeAgo.addLocale(fr)
@@ -26,6 +24,10 @@ TimeAgo.addLocale(fr)
 const Post = () => {
 
     const router=useRouter()
+    const addToFav=trpc.favorites.add.useMutation()
+    const DeleteFromFav=trpc.favorites.delete.useMutation()
+    const favorites=useLikedPosts()
+    const session=useSession()
     
    
    const id=Object.values(router.query)[0]
@@ -37,10 +39,14 @@ const Post = () => {
 }
  
 const PostContent:React.FC<{id:string}>=({id})=>{
+    const router=useRouter()
+    
+
 
     const post =trpc.querryPosts.onePost.useQuery({id})
     const Language=useLanguage()
-  
+
+
 
     const featuresToshow={'Balcony':{isTrue:post.data?.Balcony as boolean,eng:'Balcony',fr:'Balcon'},'Garage':{isTrue:post.data?.Garage,eng:'Garage',fr:'Garage'},'OutdoorArea':{isTrue:post.data?.OutdoorArea,eng:'Outdoor area',fr:'Jaridn'},'SolarHotwater':{isTrue:post.data?.SolarHotwater,eng:'Solar hot water',fr:'Chauffeau solaire'},'SwimmingPool':{isTrue:post.data?.SwimmingPool,eng:'Swiming pool',fr:'Piscine'},'UndercoverParking':{isTrue:post.data?.UndercoverParking,eng:'Undercover parking',fr:'parking couvert'},'solarPanels':{isTrue:post.data?.solarPanels,eng:'SolarPanels',fr:'Panneau solaire'},'airConditioning':{isTrue:post.data?.airConditioning,eng:'AirConditioning',fr:'Climatisé'}}
     console.log(featuresToshow)
