@@ -14,16 +14,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const likedPosts=trpc.favorites.getLiked.useQuery()
-  const favorites=useLikedPosts()
 
-  useEffect(()=>{
-    if(likedPosts.data){
-      favorites.setliked(likedPosts.data.likedPosts)
-    }
-
-
-  },[likedPosts.data?.likedPosts])
+ 
 
   return (
     <SessionProvider session={session}>

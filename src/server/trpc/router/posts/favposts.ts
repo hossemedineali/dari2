@@ -57,7 +57,7 @@ export const favorites=router({
     }),
   
     getLiked:protectedProcedure
-    .query(async({ctx})=>{
+    .mutation(async({ctx})=>{
       if(!ctx.session.user){
         return {likedPosts:['']}
       }

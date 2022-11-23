@@ -1,5 +1,5 @@
 
-import {   useState } from "react";
+import {   useEffect, useState } from "react";
 import MobileMenu from "./mobilemenu";
 
 
@@ -13,6 +13,8 @@ import {motion,AnimatePresence} from 'framer-motion'
 import Link from 'next/link'
 import UserIcon from "./userIcon";
 import { useLanguage, useSignInModal } from "../../store/store";
+import { trpc } from "../../utils/trpc";
+import { useLikedPosts } from "../../store/favorits";
 const links=[
 
 
@@ -23,6 +25,8 @@ const Navbar = () => {
   const [togglemenu, settogglemenu] = useState(false)
   const [togglelng, settogglelng] = useState(false)
 
+  const likedPosts=trpc.favorites.getLiked.useMutation()
+  const favorites=useLikedPosts()
 
 
   const router=useRouter()
@@ -34,8 +38,19 @@ const Navbar = () => {
   
 
   const {data:sesssion}  = useSession()
+
+ useEffect(()=>{
+  if(sesssion){
+    likedPosts.mutate()
+    if(likedPosts.data?.likedPosts){
+      favorites.setliked(likedPosts.data?.likedPosts )
+
+    }
+    console.log(favorites.liked ,likedPosts.data?.likedPosts)
+  }
+ },[likedPosts.data?.likedPosts])
  
-  
+ 
 
   const handeladdpostclick=()=>{
     if(!sesssion){
