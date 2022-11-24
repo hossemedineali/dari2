@@ -109,7 +109,7 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
     addPost.mutate({
              ...postData,
             auther:sesssion?.user?.id as string,
-            propertyType:'Land',
+            propertyType:'land',
             rooms:0 ,     
         }) }
 

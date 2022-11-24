@@ -40,17 +40,26 @@ const Navbar = () => {
   const {data:sesssion}  = useSession()
 
  useEffect(()=>{
-  if(sesssion){
-    likedPosts.mutate()
-    if(likedPosts.data?.likedPosts){
-      favorites.setliked(likedPosts.data?.likedPosts )
-
+ 
+    const  getliked=async()=>{
+     
+     await likedPosts.mutate()
     }
-    console.log(favorites.liked ,likedPosts.data?.likedPosts)
-  }
- },[likedPosts.data?.likedPosts])
+     getliked()
+    
+    
+    
+   
+  
+ },[sesssion?.user?.id])
  
- 
+ useEffect(()=>{
+  if(likedPosts.isSuccess){
+      
+    favorites.setliked(likedPosts.data?.likedPosts )
+   }
+ },[likedPosts.isSuccess])
+
 
   const handeladdpostclick=()=>{
     if(!sesssion){

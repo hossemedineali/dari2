@@ -55,11 +55,13 @@ const PostContent:React.FC<{id:string}>=({id})=>{
                 {post.data&&<div>
                      {post.data?.images&&<ImagesSlider images={post.data.images} id={post.data.id}/>} 
                     
+                    {/* Info and map */}
+
                     <div className=' flex md:flex-row flex-col m gap-2    mt-12 lg:px-10 md:px-4 '>
-                        <div className=' lg:w-5/12 w-full min-h-[412px] order-1 rounded-xl border-devider border-4 p-4 flex flex-col gap-4'>
+                        <div className=' lg:w-5/12 w-full min-h-[412px] order-1 rounded-xl border-devider border-4 p-4 flex flex-col gap-4 justify-evenly '>
                                 
                             {/* title : property type && announcment type */}
-                            <div className='flex justify-center'>
+                            <div className='flex justify-center '>
                                 {post.data.propertyType=='Land'&&<div>
                                     <p className='text-2xl font-bold'>{Language.lng=='ENG'?'Land for ':'Terrain '}{post.data.announcementtype=='Sell'?(Language.lng=='ENG'?'sell':'à vendre'):(Language.lng=='ENG'?"rent":"pour location")}</p> 
                                     </div>}
@@ -121,8 +123,8 @@ const PostContent:React.FC<{id:string}>=({id})=>{
                                             </p>
                                     </div>
 
-                                <div className='h-[2px] bg-devider justify-between'></div>
-                                    <div className='flex flex-wrap sm:flex-row flex-col justify-between sm:px-2'>
+                                {post.data.propertyType=='house'&&<div className='h-[2px] bg-devider justify-between'></div>}
+                                    {post.data.propertyType=='house'&&<div className='flex flex-wrap sm:flex-row flex-col justify-between sm:px-2 '>
                                         {Object.values(featuresToshow).map((value)=>{
                                             if(value.isTrue){
                                                 return <span key={value.eng} className='border-devider border-2 min-w-[150px] place-self-center	 sm:w-2/5 text-center mb-2 font-medium py-2 '>
@@ -131,13 +133,13 @@ const PostContent:React.FC<{id:string}>=({id})=>{
                                                             }
                                             return null
                                         })}
-                                    </div>
+                                    </div>}
 
 
 
                         </div>
                         
-                        <div className='lg:w-7/12  w-full h-[412px] order-2'><MapWithNoSSR setposition={()=>{return null}} position={[post.data?.lng as number,post.data?.lat as number]}/></div>
+                        <div className='lg:w-7/12 rounded-lg   w-full h-[412px] order-2'><MapWithNoSSR setposition={()=>{return null}} position={[post.data?.lng as number,post.data?.lat as number]}/></div>
                     </div>
 
 

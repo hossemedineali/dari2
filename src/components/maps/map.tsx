@@ -49,7 +49,7 @@ const Updateposition =()=>{
       center={position }
       zoom={14}
       scrollWheelZoom={true}
-      style={{ height: "100%", width: "100%",zIndex:0 ,position:'relative' }}
+      style={{ height: "100%", width: "100%",zIndex:0 ,position:'relative' ,borderRadius:'10px'}}
       
       >
       <TileLayer
