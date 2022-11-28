@@ -13,6 +13,7 @@
             const [page,setPage]=useState(1)
             const [post,setPost]=useState<Post[]>([])
             const data=trpc.Listing.Listing.useQuery({page,itemPerpage:itemPerpage})
+            
             const Delete=trpc.Listing.delete.useMutation()
 
             const session=useSession()

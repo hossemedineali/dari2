@@ -1,4 +1,5 @@
 
+import { createWSClient } from "@trpc/client";
 import { z } from "zod";
 import { router,protectedProcedure } from "../../trpc";
 
@@ -82,5 +83,21 @@ export const favorites=router({
       
 
       return {likedPosts:likedposts}
+    }),
+    favoritesposts:protectedProcedure
+    
+    .query(async({input,ctx})=>{
+      if(!ctx.session.user){
+        throw new Error('unothorized')
+    }else{
+        return await ctx.prisma.user.findFirst({
+          where:{
+            id:ctx.session.user.id
+          },
+          select:{
+            likedposts:true
+          }
+        })
+    }
     })
 })
