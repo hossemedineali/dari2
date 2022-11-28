@@ -6,10 +6,10 @@ import {   useState } from "react"
 import Select from "react-select";
 import { z } from "zod";
 import { useMode } from "../store/searchFormInput";
-import {governorates,cities,MygovernorateType} from '../utils/cities'
+import {governorates,cities,type MygovernorateType} from '../utils/cities'
 import HouseFilters from "../components/addpost/addhousefilter";
 import LandFilters from "../components/addpost/addlandfilter";
-import {State} from '../types/typeshelper'
+import type {State} from '../types/typeshelper'
 
 
 // ###########Types###################

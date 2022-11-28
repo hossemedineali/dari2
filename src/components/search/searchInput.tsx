@@ -2,10 +2,10 @@
 import Select from "react-select";
 import {  useFormInput} from "../../store/searchFormInput";
 import { useRouter } from 'next/router'
-import {groupedcities,filterOption,cities,governorates, MygovernorateType} from '../../utils/cities'
+import {cities,governorates, type MygovernorateType} from '../../utils/cities'
 import { useState } from "react";
 import { useLanguage } from "../../store/store";
-import { State } from "../../types/typeshelper";
+import type { State } from "../../types/typeshelper";
 
 
 
@@ -57,9 +57,7 @@ import { State } from "../../types/typeshelper";
       
     }
 
-    const handelMobileSearchClick=()=>{
-      setShowMobileFilter(!showMobileFilter)
-    }
+
     return (   
     
     <div>

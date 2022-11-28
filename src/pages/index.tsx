@@ -1,7 +1,5 @@
 import { type NextPage } from "next";
-import { isLocalURL } from "next/dist/shared/lib/router/router";
 import Head from "next/head";
-import { useState } from "react";
 
 import hero2 from '../../public/hero2.png'
 import Searchwrapper from "../components/search/searchwrapper";

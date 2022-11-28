@@ -1,9 +1,7 @@
-import { off } from "process";
 import { string, z } from "zod";
 import { router,publicProcedure } from "../../trpc";
 import { mailer } from "../auth/mailer";
 import bcrypt from 'bcrypt'
-import { randomBytes } from "crypto";
 
 export const reset=router({
     sendResetEmail:publicProcedure

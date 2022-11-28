@@ -1,4 +1,3 @@
-import { BlobOptions } from 'buffer'
 import create from 'zustand'
 
 
@@ -16,7 +15,7 @@ interface Notif{
 }
 
 export const useNotifiaction=create<Notif>()(
-        (set,get)=>({
+        (set)=>({
             show:false,
             success:true,
             message:{

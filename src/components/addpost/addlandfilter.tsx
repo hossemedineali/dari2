@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { MygovernorateType } from "../../utils/cities";
+import type { MygovernorateType } from "../../utils/cities";
 import MapWithNoSSR from "../maps/mapWithNoSSR";
 import Switch from "../ui/switch";
 import Image from 'next/image'

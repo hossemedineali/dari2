@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Filter, FilterInput } from "../../../../types/typeshelper";
 import { router, publicProcedure } from "../../trpc";
 
 export const querryPosts=router({

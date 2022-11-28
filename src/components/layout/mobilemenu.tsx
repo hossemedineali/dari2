@@ -19,7 +19,6 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
 
     const { data:sesssion } = useSession()
     const router=useRouter()
-const [selectedLink,setSelactedLink]=useState()
 
    
    const handeladdpostclick=()=>{

@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { FilterInputType } from '../types/typeshelper';
+import type { FilterInputType } from '../types/typeshelper';
 
 interface Form {
     form:FilterInputType,

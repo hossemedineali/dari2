@@ -1,11 +1,11 @@
 
-import {governorates,cities,MygovernorateType} from '../../utils/cities'
+import {governorates,cities, type MygovernorateType} from '../../utils/cities'
 
 import Select from 'react-select'
-import { ChangeEvent, useEffect, useState } from 'react'
+import {type ChangeEvent, useEffect, useState } from 'react'
 
 
-import {FilterInputType, FilterInput,State} from '../../types/typeshelper'
+import {FilterInputType, FilterInput,  State} from '../../types/typeshelper'
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -120,10 +120,8 @@ const hundelresetfilters=()=>{
 
     const hundelminpricechange=(e:ChangeEvent<HTMLInputElement>)=>{
         if(e.currentTarget.value==''){
-            console.log('null')
-            setValue('minprice',0)
-          //  reset({'minprice':5})
            
+            setValue('minprice',0)
         }
         else{
             setValue('minprice',parseInt(e.currentTarget.value, 10))
@@ -145,9 +143,9 @@ const hundelresetfilters=()=>{
 
     const hundelminsizechange=(e:ChangeEvent<HTMLInputElement>)=>{
         if(e.currentTarget.value==''){
-            console.log('null')
+            
             setValue('minsize',0)
-          //  reset({'minprice':5})
+         
            
         }
         else{
@@ -158,7 +156,7 @@ const hundelresetfilters=()=>{
     const hundelmaxsizechange=(e:ChangeEvent<HTMLInputElement>)=>{
         if(e.currentTarget.value==''){
           
-            setValue('maxsize',999999999)
+            setValue('maxsize',null)
           
            
         }
@@ -171,7 +169,7 @@ const hundelresetfilters=()=>{
         if(e.currentTarget.value==''){
             console.log('null')
             setValue('minrooms',0)
-          //  reset({'minprice':5})
+          
            
         }
         else{
@@ -182,7 +180,7 @@ const hundelresetfilters=()=>{
     const hundelmaxroomschange=(e:ChangeEvent<HTMLInputElement>)=>{
         if(e.currentTarget.value==''){
           
-            setValue('maxrooms',999999999)
+            setValue('maxrooms',null)
           
            
         }
@@ -365,7 +363,7 @@ const hundelresetfilters=()=>{
                     <div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
                             <div className='w-1/2'>
                                 <label htmlFor='minrooms'>min</label><br/>
-                                <input {...register('minrooms',{valueAsNumber:true})} onChange={(e)=>{hundelmaxroomschange(e)}} id='minrooms' type='number' className='w-full'/>
+                                <input {...register('minrooms',{valueAsNumber:true})} onChange={(e)=>{hundelminroomschange(e)}} id='minrooms' type='number' className='w-full'/>
                             </div>
 
                             <div className='w-1/2'>

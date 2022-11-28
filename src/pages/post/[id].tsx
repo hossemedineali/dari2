@@ -3,14 +3,13 @@ import { trpc } from '../../utils/trpc'
 
 import MapWithNoSSR from '../../components/maps/mapWithNoSSR'
 
-import ReactTimeAgo from 'react-time-ago'
 import TimeAgo  from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en.json'
 import fr from 'javascript-time-ago/locale/fr.json'
 import { Loader } from '../../components/ui/loader'
 import ImagesSlider from '../../components/ui/imagesslider'
-import { useLanguage, useSignInModal } from '../../store/store'
+import { useLanguage } from '../../store/store'
 import { useLikedPosts } from '../../store/favorits'
 import { useSession } from 'next-auth/react'
 
@@ -24,10 +23,7 @@ TimeAgo.addLocale(fr)
 const Post = () => {
 
     const router=useRouter()
-    const addToFav=trpc.favorites.add.useMutation()
-    const DeleteFromFav=trpc.favorites.delete.useMutation()
-    const favorites=useLikedPosts()
-    const session=useSession()
+   
     
    
    const id=Object.values(router.query)[0]
@@ -39,7 +35,7 @@ const Post = () => {
 }
  
 const PostContent:React.FC<{id:string}>=({id})=>{
-    const router=useRouter()
+ 
     
 
 

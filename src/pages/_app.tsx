@@ -7,8 +7,6 @@ import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
 import Layout from "../components/layout/layout";
-import { useLikedPosts } from "../store/favorits";
-import { useEffect } from "react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

@@ -1,7 +1,7 @@
 import {  useState } from "react";
 
 import { trpc } from "../utils/trpc";
-import {FilterInputType } from '../types/typeshelper'
+import type{FilterInputType } from '../types/typeshelper'
 import OneCard from "../components/ui/onecard";
 import no from '../../public/no.png'
 import { useFormInput, useShowFilter } from "../store/searchFormInput";

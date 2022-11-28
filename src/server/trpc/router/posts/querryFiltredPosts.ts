@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../../trpc";
-import { Filter, FilterInput } from "../../../../types/typeshelper";
+import { type Filter, FilterInput } from "../../../../types/typeshelper";
 
 
 

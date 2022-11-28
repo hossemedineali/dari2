@@ -9,9 +9,7 @@ import { reset } from "./user/resetPassWord";
 import { addPost } from "./posts/addpost";
 import { deletePost } from "./posts/deletePosts";
 import { querryPosts } from "./posts/querryPosts";
-import { modify } from "./posts/modify";
 import { querryFiltred } from "./posts/querryFiltredPosts";
-import { seed } from "./posts/seed";
 
 export const appRouter = router({
   auth: authRouter,
@@ -25,8 +23,6 @@ export const appRouter = router({
   deletePost:deletePost,
   querryPosts:querryPosts,
   filteredPosts:querryFiltred,
-  modify:modify,
-  seed:seed
 });
 
 // export type definition of API

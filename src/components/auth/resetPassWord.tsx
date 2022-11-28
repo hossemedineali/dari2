@@ -1,11 +1,10 @@
 import { useLanguage } from "../../store/store";
 import {useForm} from 'react-hook-form'
-import { set, z } from "zod";
+import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "../../utils/trpc";
 import { useEffect, useState } from "react";
 import { Loader } from "../ui/loader";
-import { isError } from "@tanstack/react-query";
 
 
 const schema=z.object({

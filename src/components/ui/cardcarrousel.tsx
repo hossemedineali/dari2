@@ -1,8 +1,7 @@
 
 import { useRef} from 'react';
-import OneCard, { data } from './onecard';
-import { trpc } from "../../utils/trpc";
-import {Loader} from '../ui/loader';
+import OneCard, { type data } from './onecard';
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

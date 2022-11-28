@@ -46,11 +46,6 @@ const Navbar = () => {
      await likedPosts.mutate()
     }
      getliked()
-    
-    
-    
-   
-  
  },[sesssion?.user?.id])
  
  useEffect(()=>{

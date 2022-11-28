@@ -6,7 +6,6 @@ import { trpc } from "../../utils/trpc";
 import { useEffect, useState } from "react";
 import { Loader } from "../ui/loader";
 import { useNotifiaction } from "../../store/notification";
-import PreviousMap from "postcss/lib/previous-map";
 
 
 const schema=z.object({
@@ -29,7 +28,7 @@ const schema=z.object({
     const Language=useLanguage()
     const [customeMessage,setCostumeMessage]=useState({iserror:false,eng:'',fr:''})
     const updatePassword=trpc.updateUser.updatePassword.useMutation()
-    const { register, handleSubmit,setError,reset, formState: { errors } } =useForm<Schema>({
+    const { register, handleSubmit,reset, formState: { errors } } =useForm<Schema>({
         resolver:zodResolver(schema)
     })
 

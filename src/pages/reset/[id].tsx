@@ -34,7 +34,6 @@ const Reset  = () => {
 
     const [showPassword,setShowPassword]=useState(false)
     const [showConfPassword,setShowConfPassword]=useState(false)
-    const [customeMessage,setCostumeMessage]=useState({iserror:false,eng:'',fr:''})
 
     const {register,handleSubmit ,formState:{errors}}=useForm<Schema>({
         resolver:zodResolver(schema)
@@ -60,10 +59,7 @@ const Reset  = () => {
 
     },[rest.error,rest.isSuccess])
 
-  const hundelSignIn=()=>{
-        signInmodal.toggleShow()
-        router.push('/')
-  }
+
     return ( <form className="py-10 sm:px-10 px-3 text-center " onSubmit={handleSubmit(submit)}>
         <h1 className="text-center text-2xl md:text-3xl mb-10">{Language.lng=='ENG'?'Reset password':"Reinitialiser mot de passe "}</h1>
        

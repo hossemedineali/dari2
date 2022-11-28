@@ -16,7 +16,7 @@ const Layout :React.FC<porps>= (props)=> {
     const SignInModal=useSignInModal()
     const notification=useNotifiaction()
 
-    const styles = {targetDiv: { height: 'calc(100vh - 240px)'}}
+   
 
 
     return ( 

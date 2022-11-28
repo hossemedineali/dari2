@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 import MapWithNoSSR from "../maps/mapWithNoSSR";
 
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import  ImageUploading, { ImageListType } from "react-images-uploading";
 
 
 import { useMode } from "../../store/searchFormInput";
@@ -20,10 +20,9 @@ import { motion } from "framer-motion";
 
 
 import {form} from '../../pages/add'
-import { MygovernorateType } from "../../utils/cities";
+import type { MygovernorateType } from "../../utils/cities";
 import {Loader} from "../ui/loader";
 import { useNotifiaction } from "../../store/notification";
-import { reset } from "../../server/trpc/router/user/resetPassWord";
 
         type FProps={
             selectedMunicipality:MygovernorateType,
@@ -67,8 +66,8 @@ import { reset } from "../../server/trpc/router/user/resetPassWord";
 
         const HouseFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}) => {
 
-            const {data:sesssion}=useSession()      
-            const router=useRouter()
+           
+            
 
             const notification=useNotifiaction()
         

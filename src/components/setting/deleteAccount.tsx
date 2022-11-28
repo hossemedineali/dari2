@@ -20,7 +20,7 @@ const DelteAccount = () => {
     const [showPassword,setShowPassword]=useState(false)
     const [customeMessage,setCostumeMessage]=useState({iserror:false,eng:'',fr:''})
 
-    const { register, handleSubmit,reset, formState: { errors } }=useForm<Schema>({
+    const { register, handleSubmit, formState: { errors } }=useForm<Schema>({
         resolver:zodResolver(schema)
     })
     const submit  = handleSubmit(async(data) => {
@@ -41,7 +41,7 @@ const DelteAccount = () => {
             signOut()
         }
         
-      },[Delete.isSuccess,Delete.error])
+      },[Delete.isSuccess,Delete.error,Delete.isError])
 
 
     const Language=useLanguage()
