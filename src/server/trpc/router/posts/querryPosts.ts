@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Filter, FilterInput } from "../../../../types/typeshelper";
 import { router, publicProcedure } from "../../trpc";
 
 export const querryPosts=router({
@@ -30,7 +31,9 @@ export const querryPosts=router({
                     id:input.id
                 }
             })
-        })
+        }),
+
+       
        
 
 })
