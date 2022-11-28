@@ -1,7 +1,7 @@
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 
 import { trpc } from "../utils/trpc";
-import type{FilterInputType } from '../types/typeshelper'
+import type{FilterInputType, Post } from '../types/typeshelper'
 import OneCard from "../components/ui/onecard";
 import no from '../../public/no.png'
 import { useFormInput, useShowFilter } from "../store/searchFormInput";
@@ -15,17 +15,39 @@ const Search = () => {
 
     const formInput=useFormInput()
    
-
+    const itemPerpage=20
+    const [page,setPage]=useState(1)
+    const [post,setPost]=useState<Post[]>([])
     const [filterInput, setfilterInput] = useState<FilterInputType >(formInput.form)
 
- 
-    console.log('filter input has changed , this is the new :',filterInput)
+        const data=trpc.filteredPosts.q.useQuery({FilterInput:{...filterInput},page,itemPerpage:itemPerpage})
 
-//    const data=trpc.querryPosts.filtered.useQuery({FilterInput:{...filterInput}})
+       
 
-        const data=trpc.filteredPosts.q.useQuery({FilterInput:{...filterInput}})
+        useEffect(()=>{
+    
+            console.log(post)
+            if(data.data){
+        
+                const newdata=[...post,...data.data]
+              
+                setPost(newdata as Post[])
+            }
+            
+        },[data.data&&page])
 
-    console.log(data.data)
+        useEffect(()=>{
+            
+            setPost([])
+        },[filterInput])
+
+
+        const hundelLoadMore=()=>{
+            setPage(page+1)
+          
+        }
+        
+        const disabled=(post.length<page*itemPerpage)
     return (
         <div  className=" relative  pt-1  ">
 
@@ -66,13 +88,13 @@ const Search = () => {
 
 
           
-             {!show.show&&<div className="mt-32 flex flex-wrap w-full   justify-center  md:gap-10 ">
-                {data?.data?.r?.map((itm,idx)=>{
+             {!show.show&&<div className="mt-32 flex flex-wrap w-full   justify-center gap-5 md:gap-10 ">
+                {post.map((itm,idx)=>{
                     return <OneCard id={itm.id} images={itm.images as string} announcementtype={itm.announcementtype} price={itm.price} pricePer={itm.pricePer as string} governorate={itm.governorate} municipality={itm.municipality} rooms={itm.rooms} size={itm.size} propertyType={itm.propertyType} key={idx} date={itm.date}/>
                 })}
             </div>}  
 
-            {data.data?.r.length==0&&
+            {post.length==0&&data.data?.length==0&&
                     <div  >
                         <div style={{
                             backgroundImage: `url(${no.src})`,
@@ -98,7 +120,8 @@ const Search = () => {
                 <Loader/>
                 </div>}
 
-
+                {!disabled&&!data.isLoading&&<p  className='  text-xl text-center text-smallText mt-10 cursor-pointer' onClick={hundelLoadMore}>Load more</p>}
+        {data.isLoading&&<div className="h-20 w-20 mx-auto"><Loader/></div>}
 
             </div>
     </div> );

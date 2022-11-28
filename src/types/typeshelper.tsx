@@ -104,3 +104,36 @@ export type State={
     position?:[number,number],
     
 }
+
+export type Post={
+    Balcony:boolean, 
+
+Garage: boolean,
+OutdoorArea:boolean,
+
+SolarHotwater:boolean, 
+SwimmingPool:boolean,
+UndercoverParking:boolean,
+airConditioning:boolean,
+announcementtype:string,
+auther:string,
+authername:string,
+contact: string,
+date:Date, 
+description:string,
+governorate:string,
+id:string,
+images:string,
+isposition: boolean,
+landtype:string,
+lat:number,
+lng:number,
+municipality:string,
+price:number,
+pricePer:string,
+propertyType:string,
+rooms:number,
+size:number,
+solarPanels:boolean,
+userId:string
+}

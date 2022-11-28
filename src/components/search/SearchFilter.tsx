@@ -239,13 +239,13 @@ const hundelresetfilters=()=>{
                     <div className=' flex w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
 
                         <div className='w-full sm:w-1/3 self-center  text-left'>
-                            <input  onChange={(e)=>{reset();setValue('propertyType',e.currentTarget.id)}} id='House' type='radio' name='property type' checked={data?.propertyType=='House'?true:false}/>
+                            <input  onChange={(e)=>{setValue('propertyType',e.currentTarget.id)}} id='House' type='radio' name='property type' checked={data?.propertyType=='House'?true:false}/>
                             <label  htmlFor='House' >House</label>
                         </div>
                         
                         <div className='w-full sm:w-1/3 self-center text-center'>
 
-                            <input  onChange={(e)=>{reset();setValue('propertyType',e.currentTarget.id); setValue('announcementtype','Sell');}} id='Land' type='radio' name='property type' checked={data?.propertyType=='Land'?true:false}/>
+                            <input  onChange={(e)=>{setValue('propertyType',e.currentTarget.id); setValue('announcementtype','Sell');}} id='Land' type='radio' name='property type' checked={data?.propertyType=='Land'?true:false}/>
                             <label htmlFor='Land'>Land</label>
                         </div>
 

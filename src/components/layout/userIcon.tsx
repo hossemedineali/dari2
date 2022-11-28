@@ -33,7 +33,7 @@ const UserIcon = () => {
                             
                             className="w-50 top-14 right-2 px-2 bg-white justify-center align-middle content-center absolute flex flex-col z-50  ">
                              
-                                <Link href='/Mylisting' className="my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">
+                                <Link href='/listing' className="my-1 border-b-devider border-b-2 py-1 hover:border-b-red transition-all duration-100">
                                 <span  className=" ">{Language.lng=='ENG'?'My announcements':'Mes annonces'}</span>
                                 </Link>
                                

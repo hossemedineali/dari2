@@ -7,7 +7,10 @@ import { type Filter, FilterInput } from "../../../../types/typeshelper";
 export const querryFiltred =router({
     q:publicProcedure
     .input(z.object({
-        FilterInput
+        FilterInput,
+        page:z.number(),
+        itemPerpage:z.number(),
+
     }))
     .query(async({input,ctx})=>{
         
@@ -132,10 +135,15 @@ export const querryFiltred =router({
 
 
         
-       const r= await ctx.prisma.post.findMany({
-            where:{...filter}
+       return await ctx.prisma.post.findMany({
+            where:{...filter},
+            take:input.itemPerpage,
+        skip:input.itemPerpage*(input.page-1),
+        orderBy:{
+          date:'desc'
+        }
         })
 
-        return {filter:filter,r:r}
+        
     })
 })
