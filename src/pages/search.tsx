@@ -116,12 +116,12 @@ const Search = () => {
                     </div>}
 
 
-            {data.isLoading&&<div className="w-40  flex justify-center items-center m-auto ">
+            {data.isLoading&&page==1&&<div className="w-40  flex justify-center items-center m-auto ">
                 <Loader/>
                 </div>}
 
                 {!disabled&&!data.isLoading&&<p  className='  text-xl text-center text-smallText mt-10 cursor-pointer' onClick={hundelLoadMore}>Load more</p>}
-        {data.isLoading&&<div className="h-20 w-20 mx-auto"><Loader/></div>}
+        {data.isLoading&&page!=1&&<div className="h-20 w-20 mx-auto"><Loader/></div>}
 
             </div>
     </div> );
