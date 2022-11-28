@@ -37,7 +37,7 @@ const Search = () => {
 
             useEffect(()=>{
                 if(data.data){
-                    setPost(data.data)
+                    setPost(data.data as Post[])
                 }
             },[filterInput.announcementtype])
         useEffect(()=>{
