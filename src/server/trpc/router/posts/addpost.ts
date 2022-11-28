@@ -49,7 +49,7 @@ export const addPost=router({
                 let newimagesformat=''
               
                 for (let i=0 ;i<input.images.length &&i<9;i++){
-                    await   cloudinary.uploader.upload(input.images[i] as string).then((result)=>{
+                    await   cloudinary.uploader.upload(input.images[i] as string,{width:400,height:300}).then((result)=>{
                         console.log(result.public_id)
                         if(i==8){
                             newimagesformat=newimagesformat + result.public_id

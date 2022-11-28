@@ -362,7 +362,8 @@ import { useNotifiaction } from "../../store/notification";
                 onImageRemove,
                 isDragging,
                 dragProps,
-                errors
+                errors,
+               
                 }) => (
                 // write your building UI
                 
