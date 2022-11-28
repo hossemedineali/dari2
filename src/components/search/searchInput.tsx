@@ -30,7 +30,7 @@ import type { State } from "../../types/typeshelper";
           const munoptions=cities[selectedGovernorate.label]
 
     const [selectedMunError,setselectedMunError]=useState('')
-    const [showMobileFilter,setShowMobileFilter]=useState(false)
+   
     const filter=useFormInput()    
     
     const Language=useLanguage()

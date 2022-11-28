@@ -53,7 +53,6 @@ const ImagesSlider:React.FC<{images:string,id:string}> = ({images,id}) => {
           SignInModal.toggleShow()
          }
 
-         console.log(favorites.liked)
      }
   
     

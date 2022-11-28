@@ -139,7 +139,6 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
     const getDevicePosition=()=>{
         const onSuccess = (location :LocationType) => {
 
-            console.log('debig location ' , location)
 
             setposition([location.coords.latitude,location.coords.longitude])
             
@@ -150,7 +149,6 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
 
     const onError = (err: any) => {
 
-        console.log (err)
 
         setLocation({
             loaded: true,

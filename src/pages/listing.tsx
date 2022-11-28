@@ -21,7 +21,6 @@
             const Language=useLanguage()
             useEffect(()=>{
             
-                console.log(post)
                 if(data.data){
             
                     const newdata=[...post,...data.data]

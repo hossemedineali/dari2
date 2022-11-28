@@ -11,7 +11,7 @@ import { deletePost } from "./posts/deletePosts";
 import { querryPosts } from "./posts/querryPosts";
 import { querryFiltred } from "./posts/querryFiltredPosts";
 import { Listing } from "./posts/listing";
-import { infinteQuerry } from "./posts/infinitequerry";
+
 
 
 export const appRouter = router({
@@ -27,7 +27,7 @@ export const appRouter = router({
   querryPosts:querryPosts,
   filteredPosts:querryFiltred,
   Listing:Listing,
-  infinte:infinteQuerry,
+ 
 });
 
 // export type definition of API

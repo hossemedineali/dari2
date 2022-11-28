@@ -23,7 +23,6 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
    
    const handeladdpostclick=()=>{
     if(!sesssion){
-//auth.setToogleShow(true)
     }else{
       router.push('/add')
     }

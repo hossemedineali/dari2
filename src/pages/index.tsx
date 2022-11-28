@@ -15,7 +15,6 @@ const Home: NextPage = () => {
   const Language=useLanguage()
   const houses=trpc.querryPosts.forIndexPage.useQuery({propertyType:'house'})
   const lands=trpc.querryPosts.forIndexPage.useQuery({propertyType:'land'})
- // const [IsLoading, setIsLoading] = useState(false)
   const IsLoading=houses.isLoading&&lands.isLoading
   
 

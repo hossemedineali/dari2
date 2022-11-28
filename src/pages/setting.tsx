@@ -28,7 +28,6 @@ const Setting = () => {
     const user=trpc.getuser.getuserForSettingPage.useMutation()
     useEffect(()=>{
         user.mutate()
-        console.log(user.data)
     },[])
 
 

@@ -45,7 +45,6 @@ const PostContent:React.FC<{id:string}>=({id})=>{
 
 
     const featuresToshow={'Balcony':{isTrue:post.data?.Balcony as boolean,eng:'Balcony',fr:'Balcon'},'Garage':{isTrue:post.data?.Garage,eng:'Garage',fr:'Garage'},'OutdoorArea':{isTrue:post.data?.OutdoorArea,eng:'Outdoor area',fr:'Jaridn'},'SolarHotwater':{isTrue:post.data?.SolarHotwater,eng:'Solar hot water',fr:'Chauffeau solaire'},'SwimmingPool':{isTrue:post.data?.SwimmingPool,eng:'Swiming pool',fr:'Piscine'},'UndercoverParking':{isTrue:post.data?.UndercoverParking,eng:'Undercover parking',fr:'parking couvert'},'solarPanels':{isTrue:post.data?.solarPanels,eng:'SolarPanels',fr:'Panneau solaire'},'airConditioning':{isTrue:post.data?.airConditioning,eng:'AirConditioning',fr:'Climatisé'}}
-    console.log(featuresToshow)
     return <div className=' overflow-clip pb-10'>
                 {post.isLoading&&<div className=" absolute top-0 bottom-0 left-0 right-0 z-10 flex justify-center "><div className="w-40 h-40  m-auto"><Loader /></div></div>}
                 {post.data&&<div>

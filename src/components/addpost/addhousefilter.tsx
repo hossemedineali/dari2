@@ -160,7 +160,6 @@ import { useNotifiaction } from "../../store/notification";
             const getDevicePosition=()=>{
                 const onSuccess = (location :LocationType) => {
 
-                    console.log('debig location ' , location)
 
                     setposition([location.coords.latitude,location.coords.longitude])
                     
@@ -170,7 +169,6 @@ import { useNotifiaction } from "../../store/notification";
 
             const onError = (err: any) => {
 
-                console.log (err)
 
                 setLocation({
                     loaded: true,

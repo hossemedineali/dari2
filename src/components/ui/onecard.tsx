@@ -87,7 +87,6 @@ const OneCard:React.FC<data> = (item) => {
              SignInModal.toggleShow()
             }
 
-            console.log(favorites.liked)
         }
         
 
