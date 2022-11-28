@@ -47,7 +47,7 @@
                 }
                 
                 const disabled=(post.length<page*itemPerpage)
-                return (<div>
+                return (<div className="lg:px-10">
                             <h1 className="pl-3 mt-2 text-2xl text-medium">{Language.lng=='ENG'?'My announcments':'Mes annonces'}</h1>
 
                                 

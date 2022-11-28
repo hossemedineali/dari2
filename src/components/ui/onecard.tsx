@@ -161,7 +161,7 @@ const OneCard:React.FC<data> = (item) => {
                                     {Language.lng=='ENG'?'House for rent':' Maison pour location'}
                                 </p>}
                             {item.announcementtype=='CoRental'&&<p className='text-lg font-medium '>
-                                    {Language.lng=='ENG'?'Looking for Flatmates':' Cherche un colocataires'}
+                                    {Language.lng=='ENG'?'Looking for Flatmates':' Cherche  colocataires'}
                                 </p>}
                             </div>}
                     </div>    

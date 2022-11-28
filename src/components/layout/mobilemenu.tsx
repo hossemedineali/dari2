@@ -44,17 +44,17 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
             <ul className=" py-10   flex flex-col ">
                 {links.map((link,index)=>(
                 <Link href={link.label} key={index}>
-                     <li   className={`pl-8 py-4 cursor-pointer hover:text-secondary2 text-white text-2xl ${''}`}> {link.value}</li>
+                     <li onClick={()=>{settogglemenu(false)}}  className={`pl-8 py-4 cursor-pointer hover:text-secondary2 text-white text-2xl ${''}`}> {link.value}</li>
                      </Link>
                     
                 
                     ))}
 
-                <div onClick={handeladdpostclick} className="hover:scale-105 active:scale-95 flex  mr-6  md:px-4 md:py-1 rounded-2xl cursor-pointer  ">
+                <div onClick={handeladdpostclick} className="pl-8 py-4 cursor-pointer hover:text-secondary2 text-white text-2xl flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <h1 >Add announcment</h1>
+                      <h1 onClick={()=>{settogglemenu(false)}}>Add announcment</h1>
                   </div>
             </ul>
                     </motion.aside>

@@ -15,6 +15,7 @@ import UserIcon from "./userIcon";
 import { useLanguage, useSignInModal } from "../../store/store";
 import { trpc } from "../../utils/trpc";
 import { useLikedPosts } from "../../store/favorits";
+import { useFormInput } from "../../store/searchFormInput";
 const links=[
 
 
@@ -27,7 +28,8 @@ const Navbar = () => {
 
   const likedPosts=trpc.favorites.getLiked.useMutation()
   const favorites=useLikedPosts()
-
+  const filterInput=useFormInput()
+  
 
   const router=useRouter()
   const SignInModal=useSignInModal()
@@ -71,7 +73,7 @@ const Navbar = () => {
   return ( 
 
 <>
-  <nav className="mb-[250px] border-b-2 border-devider bg-white px-0 py-4 flex justify-between   w-full  fixed top-0 z-30 backdrop">
+  <nav className="mb-[250px] border-b-2 border-devider bg-white px-0 py-4 flex justify-between items-center  w-full  fixed top-0 z-30 backdrop">
     
     
 
@@ -88,7 +90,7 @@ const Navbar = () => {
       
           {links.map((link,index)=>(
             <Link href='/search' key={index} >
-             <li  className='cursor-pointer hover:text-primary1 hover:border-b transition-all duration-500'>{link.value}</li>
+             <li onClick={()=>{filterInput.setannouncementtype(link.label)}} className='cursor-pointer text-xl font-medium hover:text-primary1 hover:border-b transition-all duration-500'>{link.value}</li>
             </Link>
             ))}
       

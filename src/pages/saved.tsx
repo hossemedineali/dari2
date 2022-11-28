@@ -10,8 +10,7 @@ import { trpc } from "../utils/trpc";
 
 const Saved = () => {
 
-    const itemPerpage=20
-    const [page,setPage]=useState(1)
+    
     const [post,setPost]=useState<Post[]>([])
     const data=trpc.favorites.favoritesposts.useQuery()
     const favorites=useLikedPosts()
@@ -29,7 +28,7 @@ const Saved = () => {
             setPost(newdata as Post[])
         }
         
-    },[data.data&&page])
+    },[data.data])
 
     useEffect(()=>{
     
@@ -42,10 +41,7 @@ const Saved = () => {
     if(session.status!='loading'&&session.status!='authenticated'){
         router.push('/')
     }else{
-        const hundelLoadMore=()=>{
-            setPage(page+1)
-        
-        }
+      
       
         
         

@@ -35,6 +35,11 @@ const Search = () => {
             
         },[data.data&&page])
 
+            useEffect(()=>{
+                if(data.data){
+                    setPost(data.data)
+                }
+            },[filterInput.announcementtype])
         useEffect(()=>{
             
             setPost([])
