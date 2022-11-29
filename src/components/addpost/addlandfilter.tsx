@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react"
+import { useLanguage } from "../../store/store";
 
 
 
@@ -64,6 +65,7 @@ type Form =z.infer<typeof form>
 const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}) => {
 
     const router=useRouter()
+    const Language=useLanguage()
 
     const addPost=trpc.addPost.add.useMutation()
     const {data:sesssion}=useSession()
@@ -184,7 +186,7 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                         <div className=" md:mr-8">
                             <input className="mr-2" onChange={(e)=>{if(e.currentTarget.checked){setValue('landtype','Buildable land')}}} type='radio' name="pricePer" id="mounth" value='mounth'/> 
 
-                            <label>Buildable land</label>
+                            <label>{Language.lng=='ENG'?'Buildable land':'Terrain constructible'}</label>
                         </div>
 
                         <div>
@@ -192,7 +194,7 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
 
                             <input className="mr-2" onChange={(e)=>{if(e.currentTarget.checked){setValue('landtype','farmland')}}} type='radio' name="pricePer" id="day" value='day'/>
 
-                            <label>Farmland </label>
+                            <label>{Language.lng=='ENG'?'Farmland':'terrain agricole'} </label>
                         </div>
                     </div>
                     <div className="border border-devider my-3  "></div>
@@ -202,7 +204,7 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                     <div className="flex flex-col md:flex-row">
 
                         <div className="w-full md:w-1/2">
-                            <h5 className={`font-medium mb-1 ${errors.price?.message? 'text-red':'' }`} >Price : {errors.price?.message? errors.price.message : ''}</h5>
+                            <h5 className={`font-medium mb-1 ${errors.price?.message? 'text-red':'' }`} >{Language.lng=='ENG'?'Price':'Prix'} : {errors.price?.message? errors.price.message : ''}</h5>
 
                             <label htmlFor="price" className={`relative text-gray-400 focus-within:text-gray-600 block   border-2 rounded ${errors.price?.message? 'border-red':'border-devider'} `}>
 
@@ -215,7 +217,7 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                         </div>
 
                         <div className="w-full md:w-1/2">
-                            <h5 className={`font-medium mb-1 ${errors.size?.message? 'text-red':'' }`}>Land size : {errors.size?.message? errors.size?.message:''}</h5>
+                            <h5 className={`font-medium mb-1 ${errors.size?.message? 'text-red':'' }`}>{Language.lng=='ENG'?'Size':'Surface'}  m2 : {errors.size?.message? errors.size?.message:''}</h5>
                             <label htmlFor="landsize" className={`relative text-gray-400 focus-within:text-gray-600 block   border-2 rounded ${errors.size?.message? 'border-red':'border-devider'} `}>
 
 
@@ -264,17 +266,17 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                                     {...dragProps}
                                     className="cursor-pointer border w-max p-1 rounded-lg hover:scale-95 active:scale-105"
                                     >
-                                    Add images(Max 9)
+                                    {Language.lng=='ENG'?'Add images':'Ajoutre des images'}(Max 9)
                                     </span>
                                     &nbsp;
                                 
                                     <span onClick={onImageRemoveAll} className="cursor-pointer border w-max p-1 rounded-lg hover:scale-95 active:scale-105">Remove all images</span>
                                         </div>
                                     <br/>
-                                    <span className="mt-4"> {images.length } images selected </span>
+                                    <span className="mt-4"> {images.length } {Language.lng=='ENG'?'images selected':'Images'} </span>
                                         {errors&&<div className="text-red font-bold">
-                                        {errors.maxNumber && <span>Maximum images number allowed is 9</span>}
-                                        {errors.maxFileSize && <span>Maximum image size must be less then 9mb</span>}
+                                        {errors.maxNumber && <span>{Language.lng=='ENG'?'Maximum images number allowed is 9':'Nombre maximal autorisée est 9'}</span>}
+                                        {errors.maxFileSize && <span>{Language.lng=='ENG'?'Maximum image size must be less then 9mb':"Taille maximum d'un image ne peut pas passer 9mb"}</span>}
                                         </div>}
                                     <div className="flex flex-wrap gap-2 mx-auto">
 
@@ -284,8 +286,8 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                                         
                                         <div>
 
-                                        <span  onClick={() => onImageUpdate(index)} className="absloute mr-2 cursor-pointer border w-max p-1 rounded-lg hover:bg-red">Update</span>
-                                        <span onClick={() => onImageRemove(index)} className="cursor-pointer border w-max p-1 rounded-lg hover:border-red ">Remove</span>
+                                        <span  onClick={() => onImageUpdate(index)} className="absloute mr-2 cursor-pointer border w-max p-1 rounded-lg hover:bg-red">{Language.lng=='ENG'?'Update':'Modifier'}</span>
+                                        <span onClick={() => onImageRemove(index)} className="cursor-pointer border w-max p-1 rounded-lg hover:border-red ">{Language.lng=='ENG'?'Remove':'Retirer'}</span>
                                         </div>
                                     </div>
                                     ))}
@@ -303,14 +305,14 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                     <div className="flex ">
 
                             <Switch showMap={showMap } setshowMap={setshowMap}/>
-                            <p className="ml-4">Set location</p>
+                            <p className="ml-4">{Language.lng=='ENG'?'Set location':"Definir l'emplacement"}</p>
                             </div>
 
                             {showMap&&<div>
 
-                            <h3>Plase set the property location on the map <br/> <span className="font-bold" >or <span onClick={getDevicePosition} className="  text-red px-1  rounded-2xl cursor-pointer">use</span> the device location</span>(device location work better on devices with GPS) </h3>
+                            <h3>{Language.lng=='ENG'?'Plase set the property location on the map':"SVP choisire l'emplacement sur la carte"} <br/> <span className="font-bold" >or <span onClick={getDevicePosition} className="  text-red px-1  rounded-2xl cursor-pointer">use</span> the device location</span>(device location work better on devices with GPS) </h3>
                             <div className="w-full h-[60vh] z-0">
-                                {location.error?.message&&<p className="text-secondary2 ">Enabel GPS on your device </p>}
+                                {location.error?.message&&<p className="text-secondary2 ">{Language.lng=='ENG'?'Enabel GPS on your device':'Activer le GPS'} </p>}
 
                             <MapWithNoSSR position={position[0]!=0?position :selectedMunicipality.position} setposition={setposition}  />
 
@@ -353,8 +355,8 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                             animate={{x:'0'}}
                             transition={{duration:1}}
                             className=" flex  border border-red text-red-700 px-4 py-3 rounded absolute z-2000 bottom-40  left-0 bg-devider" role="alert">
-                        <strong className="font-bold mr-1">Post added  </strong>
-                        <span className="block sm:inline"> Rederecting to Home page.</span>
+                        <strong className="font-bold mr-1">{Language.lng=='ENG'?'Announcment added':'Annonce ajouter'}  </strong>
+                        <span className="block sm:inline"> {Language.lng=='ENG'?'Rederecting to Home page':"Redireger to page d'acceuil"}.</span>
                         </motion.div>}
 
                         { addPost.isError&&   <motion.div
@@ -362,8 +364,8 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
                             animate={{x:'0'}}
                             transition={{duration:1}}
                             className=" flex flex-col md:flex-row border border-red text-red-700 px-4 py-3 rounded absolute z-2000 bottom-20  left-0 bg-devider" role="alert">
-                        <strong className="font-bold mr-1">Oops , somthing went wrong  </strong>
-                        <span className="block sm:inline"> Please retry again later</span>
+                        <strong className="font-bold mr-1">Oops , {Language.lng=='ENG'?'somthing went wrong':"Quelque chose s'est mal passé"}  </strong>
+                        <span className="block sm:inline"> {Language.lng=='ENG'?'Please retry again later':'Veuillez réessayer plus tard'}</span>
                         </motion.div>}
                                             
                 </form>

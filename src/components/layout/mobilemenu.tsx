@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSignInModal } from "../../store/store";
 //import { useFormInput } from "../../store/store";
 
 const links=[
@@ -19,10 +20,11 @@ const MobileMenu:React.FC<Props> = ({togglemenu,settogglemenu}) => {
 
     const { data:sesssion } = useSession()
     const router=useRouter()
-
+    const SignInModal=useSignInModal()
    
    const handeladdpostclick=()=>{
     if(!sesssion){
+      SignInModal.toggleShow()
     }else{
       router.push('/add')
     }

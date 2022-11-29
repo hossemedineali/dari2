@@ -10,6 +10,7 @@ import {governorates,cities,type MygovernorateType} from '../utils/cities'
 import HouseFilters from "../components/addpost/addhousefilter";
 import LandFilters from "../components/addpost/addlandfilter";
 import type {State} from '../types/typeshelper'
+import { useLanguage } from "../store/store";
 
 
 // ###########Types###################
@@ -55,12 +56,10 @@ export const form=z.object({
 
 const AddPost = () => {
     const router=useRouter()
-    const {data:sesssion}=useSession()
+    const session=useSession()
 
-    if(!sesssion){
-        if (typeof window!=='undefined'){
-            router.replace('/')
-        }
+        if(session.status!='loading'&&session.status!='authenticated'){
+            router.push('/')
     }else{ 
 
         
@@ -82,6 +81,7 @@ const AddPost = () => {
             const [selectedGovernorate, setselectedGovernorate] = useState<State>({label:'',value:'',position:[0,0]})
             const munoptions=cities[selectedGovernorate.label]
             const mode=useMode()
+            const Language=useLanguage()
         
             
 
@@ -105,13 +105,13 @@ const AddPost = () => {
             return(
                 
                 <div className=" xl:w-2/3 mx-auto  relative top-20 px-2" >
-                    <h1 className="text-xl	">Add announcement :</h1>
+                    <h1 className="text-xl	">{Language.lng=='ENG'?'Add announcement':'Ajouter une annonce'} :</h1>
 
                     <div className="flex flex-col md:gap-2 
                       justify-between md:flex-row md:w-2/3 mx-auto  mt-10 ">
 
                     <div className="  md:w-1/2">
-                    <label htmlFor="governorate" className="font-medium">Governorate</label>
+                    <label htmlFor="governorate" className="font-medium">{Language.lng=='ENG'?'Governorate':'Governorat'}</label>
                         <Select
                         instanceId="governorate"
                         id="governorate" options={governorates} 
@@ -122,7 +122,7 @@ const AddPost = () => {
                     </div>
 
                     <div className="mt-2 md:mt-0 md:w-1/2">
-                        <label htmlFor=" municipalities" className="font-medium">Municipality
+                        <label htmlFor=" municipalities" className="font-medium">{Language.lng=='ENG'?'Municipality':'Municipalité'}
                         </label>
                         <Select 
                             isDisabled={!selectedGovernorate}
@@ -141,7 +141,7 @@ const AddPost = () => {
 
                      {selectedMunicipality.label&& (
                     <div className="flex flex-col mt-2 md:mt-0 justify-between  md:w-2/3 mx-auto     ">
-                          <label className="font-medium">Property Type </label>  
+                          <label className="font-medium">{Language.lng=='ENG'?'Property Type':'Type de propriété'} </label>  
                          <Select
                             options={propertytype}
                             placeholder={'Select property type'}
@@ -156,9 +156,9 @@ const AddPost = () => {
 
                     <div className="flex py-1 w-full md:w-2/3 mt-2 mx-auto  " >
                         
-                    <span onClick={()=>mode.setmode('Sell')} id='Sell' className={`${mode.mode=='Sell'?'border-red':'border-devider'}  w-1/3 text-center  border-b-2 transition ease-in-out duration-1150 cursor-pointer` } >Sell</span>
-                    <span onClick={()=>mode.setmode('Rent')} id='Rent' className={`${mode.mode=='Rent'?'border-red':'border-devider'}  w-1/3 text-center  border-b-2 transition ease-in-out duration-1150 cursor-pointer`  }>Rent</span>
-                    <span onClick={()=>mode.setmode('CoRental')}  className={`${mode.mode=='CoRental'?'border-red':'border-devider'}  w-1/3 text-center  border-b-2 transition ease-in-out duration-1150 cursor-pointer` }>CoRental</span>
+                    <span onClick={()=>mode.setmode('Sell')} id='Sell' className={`${mode.mode=='Sell'?'border-red':'border-devider'}  w-1/3 text-center  border-b-2 transition ease-in-out duration-1150 cursor-pointer` } >{Language.lng=='ENG'?'Sell':'A vendre'}</span>
+                    <span onClick={()=>mode.setmode('Rent')} id='Rent' className={`${mode.mode=='Rent'?'border-red':'border-devider'}  w-1/3 text-center  border-b-2 transition ease-in-out duration-1150 cursor-pointer`  }>{Language.lng=='ENG'?'Rent':'Location'}</span>
+                    <span onClick={()=>mode.setmode('CoRental')}  className={`${mode.mode=='CoRental'?'border-red':'border-devider'}  w-1/3 text-center  border-b-2 transition ease-in-out duration-1150 cursor-pointer` }>{Language.lng=='ENG'?'CoRental':'Colocation'}</span>
                 </div>
                         <div className="md:w-2/3 mx-auto ">
 

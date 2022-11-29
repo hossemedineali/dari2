@@ -10,6 +10,7 @@ import {FilterInputType, FilterInput,  State} from '../../types/typeshelper'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFormInput, useShowFilter } from '../../store/searchFormInput';
+import { useLanguage } from '../../store/store';
 
 
 
@@ -52,6 +53,7 @@ const SearchFilter:React.FC<Props> = ({setfilterInput}) => {
 
     const forminput=useFormInput()
     const show=useShowFilter()
+    const Language=useLanguage()
 
 
     const { register,watch,handleSubmit,setValue,reset, getValues,formState } = useForm< FilterInputType>({ 
@@ -206,7 +208,7 @@ const hundelresetfilters=()=>{
 
                         <div className='w-full sm:w-1/2 self-center'>
 
-                    <label htmlFor="governorate" className="font-medium">Governorate</label>
+                    <label htmlFor="governorate" className="font-medium">{Language.lng=='ENG'?'Governorate':'Gouvernorat'}</label>
                     
                         <Select
                         value={selectedGovernorate}
@@ -221,7 +223,7 @@ const hundelresetfilters=()=>{
                         
                         <div className='w-full sm:w-1/2 self-center'>
 
-                        <label htmlFor=" municipalities" className="font-medium">Municipality</label>
+                        <label htmlFor=" municipalities" className="font-medium">{Language.lng=='ENG'?'Municipality':'Municipalité'}</label>
                         <Select
                         id='Municipality'
                         instanceId='Municipality'
@@ -240,19 +242,19 @@ const hundelresetfilters=()=>{
 
                         <div className='w-full sm:w-1/3 self-center  text-left'>
                             <input  onChange={(e)=>{setValue('propertyType',e.currentTarget.id)}} id='House' type='radio' name='property type' checked={data?.propertyType=='House'?true:false}/>
-                            <label  htmlFor='House' >House</label>
+                            <label  htmlFor='House' >{Language.lng=='ENG'?'House':'Maison'}</label>
                         </div>
                         
                         <div className='w-full sm:w-1/3 self-center text-center'>
 
                             <input  onChange={(e)=>{setValue('propertyType',e.currentTarget.id); setValue('announcementtype','Sell');}} id='Land' type='radio' name='property type' checked={data?.propertyType=='Land'?true:false}/>
-                            <label htmlFor='Land'>Land</label>
+                            <label htmlFor='Land'>{Language.lng=='ENG'?'Land':'Terrain'}</label>
                         </div>
 
                         <div className='w-full sm:w-1/3 self-center text-right'>
 
                             <input  onChange={(e)=>{setValue('propertyType',e.currentTarget.id)}} id='' type='radio' name='property type' checked={data?.propertyType==''?true:false}/>
-                            <label htmlFor='Any'>Any</label>
+                            <label htmlFor='Any'>{Language.lng=='ENG'?'Any':'Tous'}</label>
                         </div>
 
                     </div>
@@ -262,17 +264,17 @@ const hundelresetfilters=()=>{
                     {data?.propertyType=='Land'?<>
                     <div className="border border-white my-2 "></div>
 
-                        <p className='font-medium text-lg'> Land type :</p>
+                        <p className='font-medium text-lg'> {Language.lng=='ENG'?'Land type :':'Type du terrain'}</p>
                     <div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
 
                         <div> 
                             <input onChange={(e)=>{if(e.currentTarget.checked){setValue('landtype','Buildable land')}} } id='Buildable land' type='radio' name='landtype' value='Buildable land' checked={data?.landtype=='Buildable land'?true:false}/>
-                            <label htmlFor='Sell' >Buildable land</label>
+                            <label htmlFor='Sell' >{Language.lng=='ENG'?'Buildable land':'Terrain constructible'}</label>
                         </div>
 
                         <div> 
                             <input onChange={(e)=>{if(e.currentTarget.checked){setValue('landtype','farmland')}}} id='farmland' type='radio' name='landtype' value='farmland' checked={data?.landtype=='farmland'?true:false} />
-                            <label htmlFor='farmland' >Farm land</label>
+                            <label htmlFor='farmland' >{Language.lng=='ENG'?'Farmland':'terrain agricole'}</label>
                         </div>   
                     </div>
                     </>:null}
@@ -283,29 +285,29 @@ const hundelresetfilters=()=>{
 
                     <div className="border border-white my-2 "></div>
 
-                        <p className='font-medium text-lg'> Property for :</p>
+                        <p className='font-medium text-lg'> {Language.lng=='ENG'?'Property for :':'Propriété :'}</p>
                     <div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
 
                         <div> 
                             <input onChange={(e)=>{if(e.currentTarget.checked){setValue('announcementtype','Sell')} setValue('pricePer','')} } id='Sell' type='radio' name='announcment type' value='Sell' checked={data?.announcementtype=='Sell'?true:false}/>
-                            <label htmlFor='Sell' >Sell</label>
+                            <label htmlFor='Sell' >{Language.lng=='ENG'?'Sell':'A vendre'}</label>
                         </div>
 
                         <div> 
                             <input onChange={(e)=>{if(e.currentTarget.checked){setValue('announcementtype','Rent')}}} id='Rent' type='radio' name='announcment type' value='Rent' checked={data?.announcementtype=='Rent'?true:false} disabled={data?.propertyType=='Land'}/>
-                            <label htmlFor='Rent' >Rent</label>
+                            <label htmlFor='Rent' >{Language.lng=='ENG'?'Rent':'A louer'}</label>
                         </div>
 
                         <div> 
                             <input onChange={(e)=>{if(e.currentTarget.checked){setValue('announcementtype','CoRental')} setValue('pricePer','')}} id='CoRental' type='radio' name='announcment type' value='CoRental' checked={data?.announcementtype=='CoRental'?true:false} disabled={data?.propertyType=='Land'}/>
-                            <label htmlFor='CoRental' >CoRental</label>
+                            <label htmlFor='CoRental' >{Language.lng=='ENG'?'CoRental':'Pour corental'}</label>
                         </div>
                     </div>
 
                     <div className="border border-white my-2 "></div>
 
 
-                    <p className='font-medium text-lg'> Price :</p>
+                    <p className='font-medium text-lg'> {Language.lng=='ENG'?'Price':'Prix'} :</p>
 
                         <div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
                           
@@ -325,12 +327,12 @@ const hundelresetfilters=()=>{
                         {data?.announcementtype=='Rent'&&<div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around' >
                                 <div> 
                                     <input  onChange={(e)=>{setValue("pricePer",e.currentTarget.id)}} id='Mounth' type='radio' name='pricePer' checked={data?.pricePer=='Mounth'?true:false}/>
-                                    <label  htmlFor='Mounth' >Mounth</label>
+                                    <label  htmlFor='Mounth' >{Language.lng=='ENG'?'Mounth':'Mois'}</label>
                                 </div>
 
                                 <div> 
                                     <input id='Day' type='radio' name='pricePer' onChange={(e)=>{setValue("pricePer",e.currentTarget.id)}} checked={data?.pricePer=='Day'?true:false}/>
-                                    <label htmlFor='Day' >Day</label>
+                                    <label htmlFor='Day' >{Language.lng=='ENG'?'Day':'Jour'}</label>
                                 </div>
                             </div>}
 
@@ -339,7 +341,7 @@ const hundelresetfilters=()=>{
 
                             <div className="border border-white my-2 "></div>
 
-                        <p className='font-medium text-lg'> Size  m2 :</p>
+                        <p className='font-medium text-lg'> {Language.lng=='ENG'?'Size':'Surface'}  m2 :</p>
 
                         <div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
                             <div className='w-1/2'>
@@ -358,7 +360,7 @@ const hundelresetfilters=()=>{
 
                    {data?.propertyType!=='Land'? (
                    <>
-                   <p className='font-medium text-lg'> Rooms </p>
+                   <p className='font-medium text-lg'> {Language.lng=='ENG'?'Rooms':'Chambres'} </p>
 
                     <div className='flex  w-full sm:w-1/2 md:w-full gap-2  mx-auto px-[10%] justify-around'>
                             <div className='w-1/2'>
@@ -387,17 +389,17 @@ const hundelresetfilters=()=>{
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('Balcony',e.currentTarget.checked)}} id='Balcony' type='checkbox' checked={data?.Balcony}/>
-                                    <label htmlFor='Balcony' >Balcony</label>
+                                    <label htmlFor='Balcony' >{Language.lng=='ENG'?'Balcony':'Balcon'}</label>
                                 </div>
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('OutdoorArea',e.currentTarget.checked)}} id='OutdoorArea' type='checkbox' checked={data?.OutdoorArea}/>
-                                    <label htmlFor='OutdoorArea' >OutdoorArea</label>
+                                    <label htmlFor='OutdoorArea' >{Language.lng=='ENG'?'OutdoorArea':'Jardin'}</label>
                                 </div>
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('SwimmingPool',e.currentTarget.checked)}} id='SwimmingPool' type='checkbox' checked={data?.SwimmingPool}/>
-                                    <label htmlFor='SwimmingPool' >SwimmingPool</label>
+                                    <label htmlFor='SwimmingPool' >{Language.lng=='ENG'?'SwimmingPool':'Piscine'}</label>
                                 </div>
                             
                         </div>
@@ -405,22 +407,22 @@ const hundelresetfilters=()=>{
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('UndercoverParking',e.currentTarget.checked)}} id='UndercoverParking' type='checkbox' checked={data?.UndercoverParking}/>
-                                    <label htmlFor='UndercoverParking' >Parking</label>
+                                    <label htmlFor='UndercoverParking' >{Language.lng=='ENG'?'Parking':'Parking couvet'}</label>
                                 </div>
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('airConditioning',e.currentTarget.checked)}} id='airConditioning' type='checkbox' checked={data?.airConditioning}/>
-                                    <label htmlFor='airConditioning' >air Conditioning</label>
+                                    <label htmlFor='airConditioning' >{Language.lng=='ENG'?'Air Conditioning':'Climatiseur'}</label>
                                 </div>
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('solarPanels',e.currentTarget.checked)}} id='solarPanels' type='checkbox' checked={data?.solarPanels}/>
-                                    <label htmlFor='solarPanels' >solar Panels</label>
+                                    <label htmlFor='solarPanels' >{Language.lng=='ENG'?'Solar Panels':'Panneaux solaires'}</label>
                                 </div>
 
                                 <div> 
                                     <input onChange={(e)=>{setValue('SolarHotwater',e.currentTarget.checked)}} id='SolarHotwater' type='checkbox' checked={data?.SolarHotwater}/>
-                                    <label htmlFor='SolarHotwater' >Solar Hotwater</label>
+                                    <label htmlFor='SolarHotwater' >{Language.lng=='ENG'?'Solar Hotwater':'Chauffeau solaire'}</label>
                                 </div>
 
                         </div>
@@ -432,10 +434,10 @@ const hundelresetfilters=()=>{
                     
                     <div style={{boxShadow: '1px -4px 6px -5px rgb(0 0 0 / 0.1), 0 -2px -4px -2px rgb(0 0 0 / 0.1)'}} className="flex fixed z-50 h-[45px] bg-white bottom-0 w-full rounded-b-xl pt-2	 ">
                         <div className="flex-grow  text-center ">
-                    <button  type="submit" value="Submit" className="px-4 bg-primary1 py-1 rounded hover:scale-105 active:scale-95">Search</button>
+                    <button  type="submit" value="Submit" className="px-4 bg-primary1 py-1 rounded hover:scale-105 active:scale-95">{Language.lng=='ENG'?'Search':'Recherche'}</button>
                     </div>
 
-                    <p onClick={hundelresetfilters} className="cursor-pointer text-red  mr-4">Reset filters</p>
+                    <p onClick={hundelresetfilters} className="cursor-pointer text-red  mr-4">{Language.lng=='ENG'?'Reset filters':'Réinitialiser le filtre'}</p>
 
                     </div>
                         </form>

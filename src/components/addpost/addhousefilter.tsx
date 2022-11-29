@@ -23,6 +23,7 @@ import {form} from '../../pages/add'
 import type { MygovernorateType } from "../../utils/cities";
 import {Loader} from "../ui/loader";
 import { useNotifiaction } from "../../store/notification";
+import { useLanguage } from "../../store/store";
 
         type FProps={
             selectedMunicipality:MygovernorateType,
@@ -67,19 +68,11 @@ import { useNotifiaction } from "../../store/notification";
         const HouseFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}) => {
 
            
-            
-
-            const notification=useNotifiaction()
-        
-            
-
-            const [imagedata,setimagedata]=useState<Imgtype>([])
-
-
-            
-                    const addPost =trpc.addPost.add.useMutation()
+                const notification=useNotifiaction()
+                const Language=useLanguage()
+                const [imagedata,setimagedata]=useState<Imgtype>([])
+                const addPost =trpc.addPost.add.useMutation()
                 const mode =useMode()
-
                 const [position,setposition]=useState<[number,number]>([0,0])
                 const [images, setImages] = useState([]);
 
@@ -202,7 +195,7 @@ import { useNotifiaction } from "../../store/notification";
                 <div className="flex justify-between flex-col md:flex-row">
                     <div className='w-full mt-2 md:mt-0  md:w-[30%]'>
                     {/* -------------- Price Input---------------------- */}
-                    <h5 className={`font-medium mb-1 ${errors.price?.message? 'text-red':'' }`} >Price : {errors.price?.message? errors.price.message : ''}</h5>
+                    <h5 className={`font-medium mb-1 ${errors.price?.message? 'text-red':'' }`} >{Language.lng=='ENG'?'Price':'Prix'} : {errors.price?.message? errors.price.message : ''}</h5>
 
                         <label htmlFor="price" className={`relative text-gray-400 focus-within:text-gray-600 block   border-2 rounded ${errors.price?.message? 'border-red':'border-devider'} `}>
 
@@ -220,11 +213,11 @@ import { useNotifiaction } from "../../store/notification";
 
                         <input onChange={(e)=>{if(e.currentTarget.checked){setValue('pricePer','mounth')}}} type='radio' name="pricePer" id="mounth" value='mounth'/> 
 
-                        <label>Mounthly</label>
+                        <label>{Language.lng=='ENG'?'Mounthly':'Par mois'}</label>
 
                         <input onChange={(e)=>{if(e.currentTarget.checked){setValue('pricePer','day')}}} type='radio' name="pricePer" id="day" value='day'/>
 
-                        <label>Dayli</label>
+                        <label>{Language.lng=='ENG'?'Dayli':'Par jour'}</label>
 
                         </div>
                             }
@@ -235,11 +228,11 @@ import { useNotifiaction } from "../../store/notification";
                             {/* Land size Input  */}
                     <div className='w-full  md:w-[30%]'>
 
-                        <h5 className={`font-medium mb-1 ${errors.size?.message? 'text-red':'' }`}>Land size : {errors.size?.message? errors.size?.message:''}</h5>
+                        <h5 className={`font-medium mb-1 ${errors.size?.message? 'text-red':'' }`}>{Language.lng=='ENG'?'Size':'Surface'} : {errors.size?.message? errors.size?.message:''}</h5>
                         <label htmlFor="landsize" className={`relative text-gray-400 focus-within:text-gray-600 block   border-2 rounded ${errors.size?.message? 'border-red':'border-devider'} `}>
 
 
-                        <input type='number' id='size'  placeholder=" property size " className="w-full h-[38px] rounded-md px-1"
+                        <input type='number' id='size'  placeholder={Language.lng=='ENG'?" property size ":'Surface'} className="w-full h-[38px] rounded-md px-1"
                         onChange={(e)=>setValue('size',parseFloat(e.currentTarget.value )  )}
                         />
 
@@ -256,9 +249,9 @@ import { useNotifiaction } from "../../store/notification";
                     <div className='w-full  md:w-[30%]'>
                             {/* Rooms Number Input  */}
 
-                        <h5 className={`font-medium mb-1 ${errors.rooms?.message? 'text-red':'' }`}>Bed rooms : {errors.rooms?.message? errors.rooms.message:''}</h5>
+                        <h5 className={`font-medium mb-1 ${errors.rooms?.message? 'text-red':'' }`}>{Language.lng=='ENG'?'Bed rooms':'Chambres'} : {errors.rooms?.message? errors.rooms.message:''}</h5>
                         <label  htmlFor="rooms" className={`relative text-gray-400 focus-within:text-gray-600 block   border-2 rounded ${errors.rooms?.message? 'border-red':'border-devider'} `}>
-                        <input type='number' id='size'  placeholder=" Rooms number " className="w-full h-[38px] rounded-md px-1"
+                        <input type='number' id='size'  placeholder={Language.lng=='ENG'?" Rooms number " :'Nombre de chambres'}className="w-full h-[38px] rounded-md px-1"
                         onChange={(e)=>setValue('rooms',parseFloat(e.currentTarget.value ))}
                         />
 
@@ -285,7 +278,7 @@ import { useNotifiaction } from "../../store/notification";
                             {/* outdoor Features */}
 
                 <div className=" px-8 py-8 md:w-1/2">
-                <h3 className="font-medium mb-1">Outdoor features :</h3> 
+                <h3 className="font-medium mb-1"> features :</h3> 
                 <>
                 <div className=" flex ">
                 <input onChange={(e)=>{setValue('Garage',e.currentTarget.checked)}} type='checkbox' id='Garage' name='Garage' value='Garage' className="mr-4 "/>
@@ -294,23 +287,23 @@ import { useNotifiaction } from "../../store/notification";
 
                 <div className=" flex ">
                 <input onChange={(e)=>{setValue('Balcony',e.currentTarget.checked)}} type='checkbox' id='Balcony' name='Balcony' value='Balcony' className="mr-4 "/>
-                <label htmlFor='Balcony' >Balcony</label> <br/>
+                <label htmlFor='Balcony' >{Language.lng=='ENG'?'Balcony':'Balcon'}</label> <br/>
                 </div>
 
 
                 <div className=" flex ">
                 <input onChange={(e)=>{setValue('OutdoorArea',e.currentTarget.checked)}} type='checkbox' id='Outdoor area' name='Outdoor area' value='Outdoor area' className="mr-4 "/>
-                <label htmlFor='Outdoor area' >Outdoor area</label> <br/>
+                <label htmlFor='Outdoor area' >{Language.lng=='ENG'?'OutdoorArea':'Jardin'}</label> <br/>
                 </div>
 
                 <div className=" flex ">
                 <input onChange={(e)=>{setValue('SwimmingPool',e.currentTarget.checked)}} type='checkbox' id='Swimming pool' name='Swimming pool' value='Swimming pool' className="mr-4 "/>
-                <label htmlFor='Swimming pool' >Swimming pool</label> <br/>
+                <label htmlFor='Swimming pool' >{Language.lng=='ENG'?'SwimmingPool':'Piscine'}</label> <br/>
                 </div>
 
                 <div className=" flex ">
                 <input onChange={(e)=>{setValue('UndercoverParking',e.currentTarget.checked)}} type='checkbox' id='Undercover parking' name='Undercover parking' value='Undercover parking' className="mr-4 "/>
-                <label htmlFor='Undercover parking' >Undercover parking</label> <br/>
+                <label htmlFor='Undercover parking' >{Language.lng=='ENG'?'Parking':'Parking couvet'}</label> <br/>
                 </div>
                 </>
                 </div>
@@ -322,22 +315,22 @@ import { useNotifiaction } from "../../store/notification";
 
 
                 <div className=" px-8 py-8 md:w-1/2">
-                <h3 className="font-medium mb-1">Climate control & energy :</h3> <br/>
+                <h3 className="font-medium mb-1">{Language.lng=='ENG'?'Climate control & energy':'Climat et energie'} :</h3> <br/>
 
                         <div className=" flex">
                         <input onChange={(e)=>{setValue('airConditioning',e.currentTarget.checked)}} type='checkbox' id='Air conditioning' name='Air conditioning' value='Air conditioning' className="mr-4 "/>
-                        <label htmlFor='Air conditioning' >Air conditioning</label> <br/>
+                        <label htmlFor='Air conditioning' >{Language.lng=='ENG'?'Air Conditioning':'Climatiseur'}</label> <br/>
                         </div>
 
                         <div className=" flex">
                         <input onChange={(e)=>{setValue('solarPanels',e.currentTarget.checked)}} type='checkbox' id='Solar panels' name='Solar panels' value='Solar panels' className="mr-4 "/>
-                        <label htmlFor='Solar panels' >Solar panels</label> <br/>
+                        <label htmlFor='Solar panels' >{Language.lng=='ENG'?'Solar Panels':'Panneaux solaires'}</label> <br/>
                         </div>
 
 
                         <div className=" flex">
                         <input onChange={(e)=>{setValue('SolarHotwater',e.currentTarget.checked)}} type='checkbox' id='Solar hot water' name='Solar hot water' value='Solar hot water' className="mr-4 "/>
-                        <label htmlFor='Solar hot water' >Solar hot water</label> <br/>
+                        <label htmlFor='Solar hot water' >{Language.lng=='ENG'?'Solar Hotwater':'Chauffeau solaire'}</label> <br/>
                         </div>
                 </div>
                 </div>
@@ -377,17 +370,17 @@ import { useNotifiaction } from "../../store/notification";
                     {...dragProps}
                     className="cursor-pointer border border-primary1 text-primary1 w-max p-1 rounded-lg hover:scale-95 active:scale-105"
                     >
-                    Add images(Max 9)
+                    {Language.lng=='ENG'?'Add images':'Ajoutre des images'}(Max 9)
                     </span>
                     &nbsp;
                 
                     <span onClick={onImageRemoveAll} className="cursor-pointer border-red text-red border w-max p-1 rounded-lg hover:scale-95 active:scale-105">Remove all images</span>
                         </div>
                     <br/>
-                    <span className="mt-4"> {images.length } images selected </span>
+                    <span className="mt-4"> {images.length } {Language.lng=='ENG'?'images selected':'Images'} </span>
                     {errors&&<div className="text-red font-bold">
-                        {errors.maxNumber && <span>Maximum images number allowed is 9</span>}
-                        {errors.maxFileSize && <span>Maximum image size must be less then 9mb</span>}
+                        {errors.maxNumber && <span>{Language.lng=='ENG'?'Maximum images number allowed is 9':'Nombre maximal autorisée est 9'}</span>}
+                        {errors.maxFileSize && <span>{Language.lng=='ENG'?'Maximum image size must be less then 9mb':"Taille maximum d'un image ne peut pas passer 9mb"}</span>}
                     </div>}
                     <div className="flex flex-wrap gap-2 mx-auto">
 
@@ -397,8 +390,8 @@ import { useNotifiaction } from "../../store/notification";
                         
                         <div>
 
-                        <span  onClick={() => onImageUpdate(index)} className="absloute mr-2 cursor-pointer border w-max p-1 rounded-lg hover:bg-red">Update</span>
-                        <span onClick={() => onImageRemove(index)} className="cursor-pointer border w-max p-1 rounded-lg hover:border-red ">Remove</span>
+                        <span  onClick={() => onImageUpdate(index)} className="absloute mr-2 cursor-pointer border w-max p-1 rounded-lg hover:bg-red">{Language.lng=='ENG'?'Update':'Modifier'}</span>
+                        <span onClick={() => onImageRemove(index)} className="cursor-pointer border w-max p-1 rounded-lg hover:border-red ">{Language.lng=='ENG'?'Remove':'Retirer'}</span>
                         </div>
                     </div>
                     ))}
@@ -415,16 +408,16 @@ import { useNotifiaction } from "../../store/notification";
                         <div className="flex ">
 
                             <Switch showMap={showMap } setshowMap={setshowMap}/>
-                            <p className="ml-4">Set location</p>
+                            <p className="ml-4">{Language.lng=='ENG'?'Set location':"Definir l'emplacement"}</p>
                         </div>
 
 
 
                 {showMap&&<div>
                     
-                    <h3>Plase set the property location on the map <br/> <span className="font-bold" >or <span onClick={getDevicePosition} className="  text-red px-1  rounded-2xl cursor-pointer">use</span> the device location</span>(device location work better on devices with GPS) </h3>
+                    <h3>{Language.lng=='ENG'?'Plase set the property location on the map':"SVP choisire l'emplacement sur la carte"} <br/> <span className="font-bold" >or <span onClick={getDevicePosition} className="  text-red px-1  rounded-2xl cursor-pointer">use</span> the device location</span>(device location work better on devices with GPS) </h3>
                     <div className="w-full h-[60vh] z-0">
-                            {location.error?.message&&<p className="text-red ">Enabel GPS on your device </p>}
+                            {location.error?.message&&<p className="text-red ">{Language.lng=='ENG'?'Enabel GPS on your device':'Activer le GPS'} </p>}
                     
                         <MapWithNoSSR position={position[0]!=0?position :selectedMunicipality.position} setposition={setposition}  />
 
@@ -456,22 +449,22 @@ import { useNotifiaction } from "../../store/notification";
 
                 <div className=" flex justify-center" >
 
-                        {!addPost.isLoading&&<button type="submit"  className="self-center bg-primary1 p-1 hover:scale-105 active:scale-95 mb-1 rounded-3xl m-auto w-44 ">{!addPost.isLoading? 'Add Announcment' : ''} 
+                        {!addPost.isLoading&&<button type="submit"  className="self-center bg-primary1 p-1 hover:scale-105 active:scale-95 mb-1 rounded-3xl m-auto w-44 ">{!addPost.isLoading? (Language.lng=='ENG'?'Add Announcment':'Ajouter une annconce') : ''} 
                         </button>}
                     {addPost.isLoading&& <span className="mx-auto "><Loader /></span>}
                 </div>
 
 
                 
-                {addPost.isSuccess&&null}
+                
 
         { addPost.isSuccess&&   <motion.div
             initial={{x:'-100%'}}
             animate={{x:'0'}}
             transition={{duration:1}}
             className="   fixed border border-red text-red-700 px-4 py-3 rounded  z-2000 top-[50vh] left-0 bg-devider" role="alert">
-        <strong className="font-bold mr-1">Post added  </strong>
-        <span className="block sm:inline"> Rederecting to Home page.</span>
+        <strong className="font-bold mr-1">{Language.lng=='ENG'?'Announcment added':'Annonce ajouter'}  </strong>
+        <span className="block sm:inline"> {Language.lng=='ENG'?'Rederecting to Home page':"Redireger to page d'acceuil"}.</span>
         </motion.div>}
 
         { addPost.isError&&   <motion.div
@@ -479,8 +472,8 @@ import { useNotifiaction } from "../../store/notification";
             animate={{x:'0'}}
             transition={{duration:1}}
             className=" flex flex-col md:flex-row border border-red text-red-700 px-4 py-3 rounded absolute z-2000 bottom-20  left-0 bg-devider" role="alert">
-        <strong className="font-bold mr-1">Oops , somthing went wrong  </strong>
-        <span className="block sm:inline"> Please retry again later</span>
+        <strong className="font-bold mr-1">Oops , {Language.lng=='ENG'?'somthing went wrong':"Quelque chose s'est mal passé"}  </strong>
+        <span className="block sm:inline"> {Language.lng=='ENG'?'Please retry again later':'Veuillez réessayer plus tard'}</span>
         </motion.div>}
 
 
