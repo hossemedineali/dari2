@@ -29,7 +29,7 @@ import type { State } from "../../types/typeshelper";
           const [selectedMunicipality, setselectedMunicipality] = useState<State>({label:'',value:'',position:[0,0]})
           const munoptions=cities[selectedGovernorate.label]
 
-    const [selectedMunError,setselectedMunError]=useState('')
+    const [selectedMunError]=useState('')
    
     const filter=useFormInput()    
     

@@ -61,7 +61,7 @@ const schema=z.object({
             reset()
         }
         
-    },[updatePassword.error,updatePassword.isLoading,updatePassword.isSuccess])
+    },[updatePassword.error,updatePassword.isLoading,updatePassword.isSuccess,notification])
 
     return ( <div>
         

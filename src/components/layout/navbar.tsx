@@ -48,14 +48,14 @@ const Navbar = () => {
      await likedPosts.mutate()
     }
      getliked()
- },[sesssion?.user?.id])
+ },[sesssion?.user?.id,likedPosts])
  
  useEffect(()=>{
   if(likedPosts.isSuccess){
       
     favorites.setliked(likedPosts.data?.likedPosts )
    }
- },[likedPosts.isSuccess])
+ },[likedPosts.isSuccess,favorites])
 
 
   const handeladdpostclick=()=>{

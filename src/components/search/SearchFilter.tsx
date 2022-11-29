@@ -5,7 +5,7 @@ import Select from 'react-select'
 import {type ChangeEvent, useEffect, useState } from 'react'
 
 
-import {FilterInputType, FilterInput,  State} from '../../types/typeshelper'
+import {type FilterInputType, FilterInput, type State} from '../../types/typeshelper'
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -87,7 +87,7 @@ useEffect(() => {
     });
     return () => subscription.unsubscribe();
 
-}, [watch,getValues])
+}, [watch,getValues,forminput])
 
  
 const hundelresetfilters=()=>{

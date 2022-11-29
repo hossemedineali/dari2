@@ -42,7 +42,7 @@ const ResetPassWord = () => {
                     }
                
 
-    },[reset.isSuccess,reset.error])
+    },[reset.isSuccess,reset.error,reset.isError])
 
 
     

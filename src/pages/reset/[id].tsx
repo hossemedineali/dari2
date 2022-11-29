@@ -29,7 +29,6 @@ const Reset  = () => {
     const id=router.query.id
     const rest=trpc.reset.ResetPassWord.useMutation()
     const Language=useLanguage()
-    const signInmodal=useSignInModal()
     const notification=useNotifiaction()
 
     const [showPassword,setShowPassword]=useState(false)
@@ -57,7 +56,7 @@ const Reset  = () => {
         notification.toggleShow(true)
       }
 
-    },[rest.error,rest.isSuccess])
+    },[rest.error,rest.isSuccess,notification])
 
 
     return ( <form className="py-10 sm:px-10 px-3 text-center " onSubmit={handleSubmit(submit)}>

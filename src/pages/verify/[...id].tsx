@@ -22,7 +22,7 @@ const Verify  = () => {
         verify.mutate({hashedId})
        }}
 
-    },[id])
+    },[id,verify,router.asPath])
 
 
  

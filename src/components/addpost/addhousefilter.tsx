@@ -1,7 +1,6 @@
 
 
-import { useSession } from "next-auth/react"
-import { useRouter } from 'next/router'
+
 import {  useEffect, useState } from "react"
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -10,7 +9,7 @@ import Image from 'next/image'
 
 import MapWithNoSSR from "../maps/mapWithNoSSR";
 
-import  ImageUploading, { ImageListType } from "react-images-uploading";
+import  ImageUploading, {type ImageListType } from "react-images-uploading";
 
 
 import { useMode } from "../../store/searchFormInput";
@@ -143,7 +142,7 @@ import { useLanguage } from "../../store/store";
                         setposition(selectedMunicipality.position as [number,number])
                     }
         
-                }, [selectedMunicipality.label])
+                }, [selectedMunicipality.label,selectedMunicipality.position])
                 
                 const [location, setLocation] = useState<Location>({
                     loaded: false,

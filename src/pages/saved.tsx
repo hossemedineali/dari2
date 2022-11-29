@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client";
+import {type Post } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

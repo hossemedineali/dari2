@@ -65,7 +65,7 @@ const Account:React.FC<Props> = ({name,email,phone}) => {
             notification.toggleShow(true)
             notification.setMeassage('Oops..Something went wrong...',"oups quelque chose s'est mal passé ",true)
         }
-  },[updateAccount.isSuccess,updateAccount.isError])
+  },[updateAccount.isSuccess,updateAccount.isError,notification])
     
     
   

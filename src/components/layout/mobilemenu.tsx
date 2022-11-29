@@ -2,7 +2,6 @@ import { motion } from "framer-motion"
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useSignInModal } from "../../store/store";
 //import { useFormInput } from "../../store/store";
 

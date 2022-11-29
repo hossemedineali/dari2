@@ -8,7 +8,7 @@ import Switch from "../ui/switch";
 import Image from 'next/image'
 import { trpc } from "../../utils/trpc";
 import { motion } from "framer-motion";
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import ImageUploading, {type ImageListType } from "react-images-uploading";
 import { useRouter } from 'next/router'
 import { useSession } from "next-auth/react"
 import { useLanguage } from "../../store/store";
@@ -127,7 +127,7 @@ const LandFilters:React.FC<FProps> = ({selectedMunicipality,selectedGovernorate}
             setposition(selectedMunicipality.position as [number,number])
         }
 
-       }, [selectedMunicipality.label])
+       }, [selectedMunicipality.label,selectedMunicipality.position])
    
     const hundelFileInput=(imageList:ImageListType)=>{
         setimagedata([])

@@ -10,8 +10,7 @@ import fr from 'javascript-time-ago/locale/fr.json'
 import { Loader } from '../../components/ui/loader'
 import ImagesSlider from '../../components/ui/imagesslider'
 import { useLanguage } from '../../store/store'
-import { useLikedPosts } from '../../store/favorits'
-import { useSession } from 'next-auth/react'
+
 
 TimeAgo.addLocale(en)
 TimeAgo.addLocale(fr)

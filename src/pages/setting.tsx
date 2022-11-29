@@ -28,7 +28,7 @@ const Setting = () => {
     const user=trpc.getuser.getuserForSettingPage.useMutation()
     useEffect(()=>{
         user.mutate()
-    },[])
+    },[user])
 
 
     const [activeSection,setActiveSection]=useState('Account')
