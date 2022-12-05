@@ -1,7 +1,7 @@
 
 import { createWSClient } from "@trpc/client";
 import { z } from "zod";
-import { router,protectedProcedure } from "../../trpc";
+import { router,protectedProcedure, publicProcedure } from "../../trpc";
 
 
 export const favorites=router({
@@ -57,9 +57,9 @@ export const favorites=router({
         }
     }),
   
-    getLiked:protectedProcedure
-    .mutation(async({ctx})=>{
-      if(!ctx.session.user){
+    getLiked:publicProcedure
+    .query(async({ctx})=>{
+      if(!ctx.session?.user){
         return {likedPosts:['']}
       }
       const likedposts:string[]=[]

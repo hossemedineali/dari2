@@ -26,7 +26,7 @@ const Navbar = () => {
   const [togglemenu, settogglemenu] = useState(false)
   const [togglelng, settogglelng] = useState(false)
 
-  const likedPosts=trpc.favorites.getLiked.useMutation()
+  const likedPosts=trpc.favorites.getLiked.useQuery()
   const favorites=useLikedPosts()
   const filterInput=useFormInput()
   
@@ -45,17 +45,17 @@ const Navbar = () => {
  
     const  getliked=async()=>{
      
-     await likedPosts.mutate()
+     await likedPosts.refetch()
     }
      getliked()
- },[sesssion?.user?.id,likedPosts])
+ },[sesssion?.user?.id])
  
  useEffect(()=>{
   if(likedPosts.isSuccess){
       
     favorites.setliked(likedPosts.data?.likedPosts )
    }
- },[likedPosts.isSuccess,favorites])
+ },[likedPosts.isSuccess])
 
 
   const handeladdpostclick=()=>{

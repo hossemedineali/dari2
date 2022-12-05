@@ -30,12 +30,7 @@ const Saved = () => {
         
     },[data.data])
 
-    useEffect(()=>{
-    
-        const newData=post.filter(obj=>favorites.liked.includes(obj.id))
-        setPost(newData)
-    
-},[favorites.liked])
+
 
 
     if(session.status!='loading'&&session.status!='authenticated'){
