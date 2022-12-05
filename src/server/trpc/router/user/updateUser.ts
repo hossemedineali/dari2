@@ -89,7 +89,6 @@ export const updateUser=router({
             throw new Error('Unothorized')
         }else{
 
-            
             const currentUser=await ctx.prisma.user.findUnique({
                 where: {
                     email:ctx.session.user.email
