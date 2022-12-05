@@ -13,7 +13,7 @@ A user can either search a House or Land in any city in tunisia and can filter r
 
 ### Dependencies
 
-* T3stack (nextjs,typescript,trpc,tailwind)
+* T3stack (nextjs,typescript,trpc,tailwind,nextAuth)
 * React hook form
 * bcrypt
 * cloudinary

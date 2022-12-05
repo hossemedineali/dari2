@@ -62,7 +62,7 @@ import type { State } from "../../types/typeshelper";
     
     <div>
 
-        <div className={`mt-4  min-h-[40px] flex flex-col xs:flex-row  pt-6 xs:pt-0 pb-3 xs:pb-0 md:max-w-full  gap-4  border-4 border-devider mx-auto  rounded-2xl px-4 ${selectedMunError?'border-red':'border-devider'}`}>
+        <div className={`mt-4  min-h-[40px] bg-devider flex flex-col xs:flex-row  pt-6 xs:pt-0 pb-3 xs:pb-0 md:max-w-full  gap-4  border-4 border-devider mx-auto  rounded-2xl px-4 ${selectedMunError?'border-red':'border-devider'}`}>
 
         <div className="flex-grow flex bg-red relative xs:w-1/2">
           <h1 className={`absolute z-10 text-lg font-semibold  left-0 py-0 ${!!selectedGovernorate.label?'top-[-18px] bg-white':'top-0 bg-devider'}	transition-all duration-500 `}	 >{Language.lng=='ENG'?'Governorate':'Gouvernorat'}</h1>
