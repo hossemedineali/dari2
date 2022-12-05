@@ -78,7 +78,7 @@ const CardCarrousel:React.FC<p> = ({type,dataa}) => {
           </svg>}
             <p className='pl-6 py-2 text-2xl font-medium'>{type=='house'?(Language.lng=='ENG'?'Houses':'Maisons'):(Language.lng=='ENG'?'Lands':'Terrains')}</p>
         </div>
-        <button className='absolute   top-0 md:left-0  right-14 md:bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
+        <button id='previous' className='absolute   top-0 md:left-0  right-14 md:bottom-[-50px]' onClick={() => slider?.current?.slickPrev()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="md:w-12 md:h-12 w-8 h6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
@@ -91,7 +91,7 @@ const CardCarrousel:React.FC<p> = ({type,dataa}) => {
         </Slider>
       </div>
        
-        <button className='absolute  z-10 top-0 md:right-0 md:bottom-[-50px] right-2' onClick={() => slider?.current?.slickNext()}>
+        <button id='next' className='absolute  z-10 top-0 md:right-0 md:bottom-[-50px] right-2' onClick={() => slider?.current?.slickNext()}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="md:w-12 md:h-12 w-8 h6 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
